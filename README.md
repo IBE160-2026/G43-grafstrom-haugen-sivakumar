@@ -9,4 +9,4 @@ Repoet inneholder gruppens applikasjon og dokumentasjon av utvikling, testing og
 - Lena S Grafstrom
 - Sabrina Haugen
 - Abhira Sivakumar
-- Navn ikke oppgitt (medlem 1)
+- Stine-Sofie Wisnes Olsen
