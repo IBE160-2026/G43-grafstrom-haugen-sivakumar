@@ -1,8 +1,8 @@
- # Product brief: AI'll Be Back
+ # Product brief: dueNext
 
  ## Executive summary
 
- AI'll Be Back er en norsk, KI-assistert oppgaveapplikasjon for studenter. Brukeren skriver inn oppgaven med egne ord, og applikasjonen foreslår automatisk etikett, prioritet og et kort sammendrag. Forslagene kan godtas eller endres av brukeren.
+ dueNext er en norsk, KI-assistert oppgaveapplikasjon for studenter. Brukeren skriver inn oppgaven med egne ord, og applikasjonen foreslår automatisk etikett, prioritet og et kort sammendrag. Forslagene kan godtas eller endres av brukeren.
 
  Målet er å samle studie- og hverdagsoppgaver på ett sted og redusere tiden studenten bruker på manuell kategorisering og prioritering. Første versjon skal gi en enkel og oversiktlig arbeidsflyt med oppretting, redigering, fullføring, arkivering og sletting av oppgaver, i tillegg til smarte lister basert på oppgavenes metadata.
 
@@ -98,7 +98,7 @@
  - **Manuell tagging:** Fleksibelt, men tidkrevende og ofte inkonsekvent.
  - **Faste regler og nøkkelord:** Raskt og forutsigbart, men mindre egnet for nye eller komplekse formuleringer.
  - **Generell KI-chatbot:** Kan hjelpe med prioritering, men brukeren må kopiere informasjon inn og overføre resultatet til en oppgaveliste.
- - **AI'll Be Back:** KI-forslagene er en integrert del av opprettelsen av oppgaven. Brukeren skriver oppgaven, får forslag til organisering og godkjenner eller korrigerer resultatet i samme arbeidsflyt.
+ - **dueNext:** KI-forslagene er en integrert del av opprettelsen av oppgaven. Brukeren skriver oppgaven, får forslag til organisering og godkjenner eller korrigerer resultatet i samme arbeidsflyt.
 
  Produktet bruker derfor KI der den gir en konkret fordel, og regler der de gir mer presise og forutsigbare resultater.
 
