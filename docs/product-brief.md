@@ -27,7 +27,7 @@
  - prioritet, for eksempel Lav, Middels eller Høy
  - et kort sammendrag
 
- Regler håndterer opplysninger som er enkle og forutsigbare, som forfallsdato og tidsrom (for eksempel «I dag», «Denne uken» eller «Senere»), som beregnes ut fra forfallsdatoen. KI brukes når innholdet må tolkes. Denne kombinasjonen skal gi raske og forståelige resultater, samtidig som brukeren beholder kontrollen over egne oppgaver.
+ Regler håndterer opplysninger som er enkle og forutsigbare, som forfallsdato og tidsrom («Forfalt», «I dag», «Denne uken», «Senere» eller «Uten dato»), som beregnes ut fra forfallsdatoen. KI brukes når innholdet må tolkes. Denne kombinasjonen skal gi raske og forståelige resultater, samtidig som brukeren beholder kontrollen over egne oppgaver.
 
  Eksempel:
 
@@ -42,6 +42,20 @@
  Beregnet av regler:
 
  - Tidsrom: Denne uken
+
+ ## Smarte lister
+
+ Første versjon har fem smarte lister. Hver oppgave havner i nøyaktig én liste ut fra tidsrommet. Bare aktive oppgaver vises, ikke fullførte eller arkiverte.
+
+ | Liste | Frist |
+ |---|---|
+ | Forfalt | før i dag |
+ | I dag | i dag |
+ | Denne uken | i morgen til og med søndag |
+ | Senere | etter denne uken |
+ | Uten dato | ingen frist |
+
+ Listene beregnes av regler, ikke av KI. Uka regnes fra mandag til søndag. Er det søndag i dag, er listen «Denne uken» tom.
 
  ## KI-tjeneste
 
@@ -78,7 +92,7 @@
  2. Applikasjonen analyserer oppgaveteksten.
  3. KI foreslår etikett, prioritet og sammendrag.
  4. Brukeren godtar eller endrer forslagene.
- 5. Oppgaven vises i relevante smarte lister.
+ 5. Oppgaven vises i den smarte listen som passer forfallsdatoen.
 
  ## MVP-scope
 
@@ -92,7 +106,7 @@
  - KI-forslag til etikett, prioritet og sammendrag
  - godta eller endre KI-forslag
  - filtrere og sortere etter etikett, prioritet og forfallsdato
- - smarte lister basert på oppgavenes metadata
+ - fem smarte lister basert på forfallsdato: Forfalt, I dag, Denne uken, Senere og Uten dato
  - lokal lagring uten innlogging, slik at oppgaver er tilgjengelige når brukeren kommer tilbake på samme maskin
  - regelbasert reserveløsning når KI ikke er tilgjengelig
 
