@@ -21,25 +21,38 @@
 
  ## Løsningen
 
- Brukeren registrerer en oppgave med oppgavetekst, eventuell forfallsdato, prosjekttilknytning og notater. KI analyserer teksten og foreslår:
+ Brukeren registrerer en oppgave med oppgavetekst, eventuell forfallsdato, prosjekttilknytning og notater. KI analyserer teksten og foreslår nøyaktig tre felt:
 
  - etikett, for eksempel Skole, Privat eller Gruppearbeid
  - prioritet, for eksempel Lav, Middels eller Høy
  - et kort sammendrag
 
- Regler håndterer opplysninger som er enkle og forutsigbare, som forfallsdato og faste kategorier. KI brukes når innholdet må tolkes. Denne kombinasjonen skal gi raske og forståelige resultater, samtidig som brukeren beholder kontrollen over egne oppgaver.
+ Regler håndterer opplysninger som er enkle og forutsigbare, som forfallsdato og tidsrom (for eksempel «I dag», «Denne uken» eller «Senere»), som beregnes ut fra forfallsdatoen. KI brukes når innholdet må tolkes. Denne kombinasjonen skal gi raske og forståelige resultater, samtidig som brukeren beholder kontrollen over egne oppgaver.
 
  Eksempel:
 
  > Levere programmeringsoppgave fredag
 
- Foreslått organisering:
+ Forslag fra KI:
 
- - Prioritet: Høy
  - Etikett: Skole
- - Type: Gruppearbeid eller individuell oppgave, avhengig av kontekst
- - Tidsrom: Denne uken
+ - Prioritet: Høy
  - Sammendrag: Ferdigstille og levere programmeringsoppgaven innen fredag
+
+ Beregnet av regler:
+
+ - Tidsrom: Denne uken
+
+ ## KI-tjeneste
+
+ dueNext bruker Claude API fra Anthropic til KI-forslagene.
+
+ - **Kall fra serveren:** Kallet til Claude gjøres fra serveren i Next.js-appen, aldri fra nettleseren. API-nøkkelen ligger i `.env.local`, som er utelatt fra Git. Repoet inneholder en `.env.example` som viser hvilke variabler som trengs.
+ - **Strukturert svar:** Claude skal svare i et fast format med etikett, prioritet og sammendrag. Svaret valideres før det vises. Ugyldige verdier forkastes.
+ - **Reserveløsning:** Mangler API-nøkkelen, svarer ikke Claude, eller er svaret ugyldig, bruker appen en enkel regelbasert reserveløsning med nøkkelord og forfallsdato. Brukeren ser at forslaget ikke kommer fra KI. Dermed kan sensor og andre kjøre appen lokalt uten gruppens nøkkel.
+ - **Testmodus:** Automatiske tester bruker faste mock-svar i stedet for ekte kall til Claude, slik at de er gratis, raske og gir samme resultat hver gang.
+ - **Kostnad:** Hvert forslag er ett kort kall. Gruppen bruker en rimelig Claude-modell og egen nøkkel under utvikling. Hvilken modell, avgjøres i arkitekturdokumentet.
+ - **Personvern:** Bare oppgavetekst og notater sendes til Claude. Brukeren får beskjed om dette i appen.
 
  ## Målgruppe
 
@@ -80,18 +93,19 @@
  - godta eller endre KI-forslag
  - filtrere og sortere etter etikett, prioritet og forfallsdato
  - smarte lister basert på oppgavenes metadata
- - lagring slik at oppgaver er tilgjengelige når brukeren kommer tilbake
- - valgfri innlogging for synkronisering
+ - lokal lagring uten innlogging, slik at oppgaver er tilgjengelige når brukeren kommer tilbake på samme maskin
+ - regelbasert reserveløsning når KI ikke er tilgjengelig
 
  ### Utenfor MVP
 
+ - innlogging, brukerkontoer og synkronisering mellom enheter (kan legges til som eget trinn hvis det blir tid)
  - automatisk innhenting fra Canvas, Teams eller andre eksterne systemer
  - deling og samarbeid mellom flere brukere
  - mobilapplikasjon
  - avanserte varsler og automatiserte påminnelser
  - full kalenderintegrasjon
 
- Personvernvalg og regler for hvor lenge fullførte oppgaver skal arkiveres, må avklares som en del av MVP-arbeidet. Første versjon skal være tydelig på hvilke opplysninger som sendes til KI, og gi brukeren kontroll over egne data.
+ Regler for hvor lenge fullførte oppgaver skal arkiveres, må avklares som en del av MVP-arbeidet. Siden det ikke er innlogging, lagres oppgavene bare lokalt, og ingen brukerdata lagres hos gruppen. Første versjon skal være tydelig på hvilke opplysninger som sendes til KI, og gi brukeren kontroll over egne data.
 
  ## Hva gjør løsningen annerledes?
 
@@ -111,14 +125,18 @@
  - brukeren enkelt kan godta eller endre forslagene
  - oppgaver kan filtreres og sorteres etter relevante kriterier
  - oppgaver lagres og er tilgjengelige når brukeren kommer tilbake
+ - appen fungerer med regelbasert reserveløsning når API-nøkkel mangler eller Claude ikke svarer
  - nye brukere forstår grunnfunksjonene uten opplæring
 
- Følgende signaler skal måles i brukertesting:
+ KI-forslagene måles mot et fast testsett:
 
- - minst 30 prosent reduksjon i tiden brukt på å registrere og organisere en oppgave sammenlignet med manuell kategorisering
- - minst 50 prosent av KI-forslagene til etikett og prioritet beholdes uten endringer
- - minst 80 prosent av testbrukerne kan endre KI-forslag uten veiledning
- - antall oppgaver opprettet og smarte lister åpnet per uke
+ - Gruppen lager et testsett med 20 norske oppgavetekster, hver med forventet etikett og prioritet. Testsettet lagres i repoet.
+ - Målet er at KI-en treffer forventet etikett på minst 16 av 20 og forventet prioritet på minst 14 av 20.
+ - Testsettet kjøres på nytt når prompten endres, slik at endringer kan sammenlignes.
+
+ Brukervennlighet måles i en enkel brukertest med minst 5 testbrukere:
+
+ - minst 4 av 5 testbrukere kan opprette en oppgave og endre et KI-forslag uten veiledning
 
  ## Fremtidig visjon
 
