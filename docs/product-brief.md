@@ -23,7 +23,7 @@
 
  Brukeren registrerer en oppgave med oppgavetekst, eventuell forfallsdato, prosjekttilknytning og notater. KI analyserer teksten og foreslår nøyaktig tre felt:
 
- - etikett, for eksempel Skole, Privat eller Gruppearbeid
+ - etikett, valgt blant de faste etikettene Skole, Privat og Gruppearbeid
  - prioritet, for eksempel Lav, Middels eller Høy
  - et kort sammendrag
 
@@ -56,6 +56,14 @@
  | Uten dato | ingen frist |
 
  Listene beregnes av regler, ikke av KI. Uka regnes fra mandag til søndag. Er det søndag i dag, er listen «Denne uken» tom. Endrer brukeren forfallsdatoen, flyttes oppgaven automatisk til riktig liste.
+
+ Standard rekkefølge i alle listene:
+
+ 1. etter forfallsdato, med nærmeste frist først
+ 2. ved lik frist etter prioritet, med Høy først
+ 3. ved lik frist og prioritet etter når oppgaven ble opprettet, med eldste først
+
+ I «Uten dato» sorteres oppgavene etter prioritet og deretter opprettelsestidspunkt. Brukeren kan velge en annen sortering, men standard rekkefølge gjelder når listen åpnes.
 
  ## KI-tjeneste
 
@@ -105,7 +113,8 @@
  - angi oppgavetekst, forfallsdato, prosjekt og notater
  - KI-forslag til etikett, prioritet og sammendrag
  - godta eller endre KI-forslag
- - filtrere og sortere etter etikett, prioritet og forfallsdato
+ - nye KI-forslag når brukeren endrer oppgaveteksten på en lagret oppgave. Forslagene vises på samme måte som ved oppretting, og de gamle verdiene beholdes til brukeren godtar de nye
+ - filtrere og sortere etter etikett, prioritet og forfallsdato, med nærmeste frist først som standard
  - fem smarte lister basert på forfallsdato: Forfalt, I dag, Denne uken, Senere og Uten dato
  - lokal lagring uten innlogging, slik at oppgaver er tilgjengelige når brukeren kommer tilbake på samme maskin
  - regelbasert reserveløsning når KI ikke er tilgjengelig
@@ -113,6 +122,7 @@
  ### Utenfor MVP
 
  - innlogging, brukerkontoer og synkronisering mellom enheter (kan legges til som eget trinn hvis det blir tid)
+ - egne etiketter laget av brukeren. Første versjon har bare de faste etikettene Skole, Privat og Gruppearbeid
  - automatisk innhenting fra Canvas, Teams eller andre eksterne systemer
  - deling og samarbeid mellom flere brukere
  - mobilapplikasjon
@@ -139,6 +149,7 @@
  - KI kan foreslå forståelige etiketter, prioriteringer og sammendrag på norsk
  - brukeren enkelt kan godta eller endre forslagene
  - oppgaver kan filtreres og sorteres etter relevante kriterier
+ - oppgavene i hver smart liste vises i standard rekkefølge (frist, deretter prioritet, deretter opprettelsestidspunkt) når listen åpnes
  - oppgaver lagres og er tilgjengelige når brukeren kommer tilbake
  - appen fungerer med regelbasert reserveløsning når API-nøkkel mangler eller Claude ikke svarer
  - nye brukere forstår grunnfunksjonene uten opplæring
