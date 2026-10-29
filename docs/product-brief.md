@@ -55,7 +55,7 @@
  | Senere | etter denne uken |
  | Uten dato | ingen frist |
 
- Listene beregnes av regler, ikke av KI. Uka regnes fra mandag til søndag. Er det søndag i dag, er listen «Denne uken» tom.
+ Listene beregnes av regler, ikke av KI. Uka regnes fra mandag til søndag. Er det søndag i dag, er listen «Denne uken» tom. Endrer brukeren forfallsdatoen, flyttes oppgaven automatisk til riktig liste.
 
  ## KI-tjeneste
 
@@ -99,7 +99,7 @@
  ### Innenfor MVP
 
  - opprette oppgaver
- - redigere oppgaver
+ - redigere oppgaver, også etter at de er lagret. Brukeren kan når som helst endre oppgavetekst, forfallsdato, etikett, prioritet, prosjekt og notater, og kan fjerne forfallsdatoen helt
  - fullføre og arkivere oppgaver
  - slette oppgaver
  - angi oppgavetekst, forfallsdato, prosjekt og notater
@@ -135,6 +135,7 @@
  Produktet regnes som vellykket når:
 
  - brukeren kan opprette, redigere, fullføre, arkivere og slette oppgaver
+ - brukeren kan endre forfallsdato og etikett på en lagret oppgave, og oppgaven flyttes da til riktig smart liste
  - KI kan foreslå forståelige etiketter, prioriteringer og sammendrag på norsk
  - brukeren enkelt kan godta eller endre forslagene
  - oppgaver kan filtreres og sorteres etter relevante kriterier
