@@ -78,12 +78,12 @@
       "id": 7,
       "type": "studie",
       "tekst": "Se opptaket av forelesningen jeg gikk glipp av",
-      "forfallsdato": "2026-11-13",
+      "forfallsdato": null,
       "forventet": {
         "etikett": "Skole",
         "prioritet": "Lav",
         "sammendrag": "Se opptaket av den tapte forelesningen",
-        "tidsrom": "Senere"
+        "tidsrom": "Uten dato"
       }
     },
     {
@@ -101,13 +101,13 @@
     {
       "id": 9,
       "type": "studie",
-      "tekst": "Booke grupperom til prosjektmøtet neste uke",
-      "forfallsdato": "2026-11-06",
+      "tekst": "Booke grupperom til prosjektmøtet neste uke, skulle egentlig gjort det før helgen",
+      "forfallsdato": "2026-10-30",
       "forventet": {
         "etikett": "Gruppearbeid",
         "prioritet": "Lav",
         "sammendrag": "Reservere grupperom til prosjektmøtet neste uke",
-        "tidsrom": "Denne uken"
+        "tidsrom": "Forfalt"
       }
     },
     {
@@ -149,25 +149,25 @@
     {
       "id": 13,
       "type": "hverdag",
-      "tekst": "Ringe fastlegen og bestille time",
-      "forfallsdato": "2026-11-03",
+      "tekst": "Ringe fastlegen og bestille time, skulle gjort det forrige uke",
+      "forfallsdato": "2026-10-30",
       "forventet": {
         "etikett": "Privat",
         "prioritet": "Middels",
         "sammendrag": "Bestille time hos fastlegen",
-        "tidsrom": "Denne uken"
+        "tidsrom": "Forfalt"
       }
     },
     {
       "id": 14,
       "type": "hverdag",
       "tekst": "Vaske klær",
-      "forfallsdato": "2026-11-07",
+      "forfallsdato": null,
       "forventet": {
         "etikett": "Privat",
         "prioritet": "Lav",
         "sammendrag": "Vaske klær",
-        "tidsrom": "Denne uken"
+        "tidsrom": "Uten dato"
       }
     },
     {
