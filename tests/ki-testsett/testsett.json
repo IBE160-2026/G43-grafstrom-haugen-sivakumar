@@ -1,0 +1,246 @@
+{
+  "beskrivelse": "Fast testsett for KI-forslagene i dueNext. Se README.md.",
+  "referansedato": "2026-11-02",
+  "oppgaver": [
+    {
+      "id": 1,
+      "type": "studie",
+      "tekst": "Levere programmeringsoppgave i IBE160 fredag",
+      "forfallsdato": "2026-11-06",
+      "forventet": {
+        "etikett": "Skole",
+        "prioritet": "Høy",
+        "sammendrag": "Ferdigstille og levere programmeringsoppgaven i IBE160 innen fredag",
+        "tidsrom": "Denne uken"
+      }
+    },
+    {
+      "id": 2,
+      "type": "studie",
+      "tekst": "Gruppemøte med prosjektgruppa onsdag kl. 10 for å fordele arbeidet på rapporten",
+      "forfallsdato": "2026-11-04",
+      "forventet": {
+        "etikett": "Gruppearbeid",
+        "prioritet": "Middels",
+        "sammendrag": "Møte prosjektgruppa onsdag for å fordele arbeidet på rapporten",
+        "tidsrom": "Denne uken"
+      }
+    },
+    {
+      "id": 3,
+      "type": "studie",
+      "tekst": "Eksamen i statistikk 20. november, må begynne å repetere",
+      "forfallsdato": "2026-11-20",
+      "forventet": {
+        "etikett": "Skole",
+        "prioritet": "Høy",
+        "sammendrag": "Repetere pensum til statistikkeksamen 20. november",
+        "tidsrom": "Senere"
+      }
+    },
+    {
+      "id": 4,
+      "type": "studie",
+      "tekst": "Lese kapittel 4 i læreboka før forelesningen i morgen",
+      "forfallsdato": "2026-11-03",
+      "forventet": {
+        "etikett": "Skole",
+        "prioritet": "Middels",
+        "sammendrag": "Lese kapittel 4 som forberedelse til forelesningen",
+        "tidsrom": "Denne uken"
+      }
+    },
+    {
+      "id": 5,
+      "type": "studie",
+      "tekst": "Levere refleksjonsnotat i Canvas innen kl. 23.59 i kveld",
+      "forfallsdato": "2026-11-02",
+      "forventet": {
+        "etikett": "Skole",
+        "prioritet": "Høy",
+        "sammendrag": "Levere refleksjonsnotatet i Canvas før midnatt i kveld",
+        "tidsrom": "I dag"
+      }
+    },
+    {
+      "id": 6,
+      "type": "studie",
+      "tekst": "Skrive min del av gruppepresentasjonen og sende den til de andre før torsdag",
+      "forfallsdato": "2026-11-05",
+      "forventet": {
+        "etikett": "Gruppearbeid",
+        "prioritet": "Høy",
+        "sammendrag": "Skrive egen del av gruppepresentasjonen og dele den med gruppa før torsdag",
+        "tidsrom": "Denne uken"
+      }
+    },
+    {
+      "id": 7,
+      "type": "studie",
+      "tekst": "Se opptaket av forelesningen jeg gikk glipp av",
+      "forfallsdato": "2026-11-13",
+      "forventet": {
+        "etikett": "Skole",
+        "prioritet": "Lav",
+        "sammendrag": "Se opptaket av den tapte forelesningen",
+        "tidsrom": "Senere"
+      }
+    },
+    {
+      "id": 8,
+      "type": "studie",
+      "tekst": "Melde meg opp til kontinuasjonseksamen før fristen 1. desember",
+      "forfallsdato": "2026-12-01",
+      "forventet": {
+        "etikett": "Skole",
+        "prioritet": "Middels",
+        "sammendrag": "Melde seg opp til kontinuasjonseksamen innen 1. desember",
+        "tidsrom": "Senere"
+      }
+    },
+    {
+      "id": 9,
+      "type": "studie",
+      "tekst": "Booke grupperom til prosjektmøtet neste uke",
+      "forfallsdato": "2026-11-06",
+      "forventet": {
+        "etikett": "Gruppearbeid",
+        "prioritet": "Lav",
+        "sammendrag": "Reservere grupperom til prosjektmøtet neste uke",
+        "tidsrom": "Denne uken"
+      }
+    },
+    {
+      "id": 10,
+      "type": "studie",
+      "tekst": "Svare på spørsmålet fra en på gruppa om koden vår i Teams",
+      "forfallsdato": "2026-11-02",
+      "forventet": {
+        "etikett": "Gruppearbeid",
+        "prioritet": "Lav",
+        "sammendrag": "Svare gruppemedlemmet i Teams om koden",
+        "tidsrom": "I dag"
+      }
+    },
+    {
+      "id": 11,
+      "type": "hverdag",
+      "tekst": "Betale husleia innen 5. november",
+      "forfallsdato": "2026-11-05",
+      "forventet": {
+        "etikett": "Privat",
+        "prioritet": "Høy",
+        "sammendrag": "Betale husleia før fristen 5. november",
+        "tidsrom": "Denne uken"
+      }
+    },
+    {
+      "id": 12,
+      "type": "hverdag",
+      "tekst": "Handle mat til middag i kveld",
+      "forfallsdato": "2026-11-02",
+      "forventet": {
+        "etikett": "Privat",
+        "prioritet": "Middels",
+        "sammendrag": "Handle inn mat til kveldens middag",
+        "tidsrom": "I dag"
+      }
+    },
+    {
+      "id": 13,
+      "type": "hverdag",
+      "tekst": "Ringe fastlegen og bestille time",
+      "forfallsdato": "2026-11-03",
+      "forventet": {
+        "etikett": "Privat",
+        "prioritet": "Middels",
+        "sammendrag": "Bestille time hos fastlegen",
+        "tidsrom": "Denne uken"
+      }
+    },
+    {
+      "id": 14,
+      "type": "hverdag",
+      "tekst": "Vaske klær",
+      "forfallsdato": "2026-11-07",
+      "forventet": {
+        "etikett": "Privat",
+        "prioritet": "Lav",
+        "sammendrag": "Vaske klær",
+        "tidsrom": "Denne uken"
+      }
+    },
+    {
+      "id": 15,
+      "type": "hverdag",
+      "tekst": "Kjøpe bursdagsgave til mamma, hun har bursdag 15. november",
+      "forfallsdato": "2026-11-14",
+      "forventet": {
+        "etikett": "Privat",
+        "prioritet": "Middels",
+        "sammendrag": "Kjøpe bursdagsgave til mamma før 15. november",
+        "tidsrom": "Senere"
+      }
+    },
+    {
+      "id": 16,
+      "type": "hverdag",
+      "tekst": "Søke om studielån for vårsemesteret før fristen 15. november",
+      "forfallsdato": "2026-11-15",
+      "forventet": {
+        "etikett": "Privat",
+        "prioritet": "Høy",
+        "sammendrag": "Sende søknad om studielån for vårsemesteret innen 15. november",
+        "tidsrom": "Senere"
+      }
+    },
+    {
+      "id": 17,
+      "type": "hverdag",
+      "tekst": "Rydde rommet i helgen",
+      "forfallsdato": "2026-11-08",
+      "forventet": {
+        "etikett": "Privat",
+        "prioritet": "Lav",
+        "sammendrag": "Rydde rommet i løpet av helgen",
+        "tidsrom": "Denne uken"
+      }
+    },
+    {
+      "id": 18,
+      "type": "hverdag",
+      "tekst": "Fornye busskortet, det går ut i dag",
+      "forfallsdato": "2026-11-02",
+      "forventet": {
+        "etikett": "Privat",
+        "prioritet": "Høy",
+        "sammendrag": "Fornye busskortet før det går ut i dag",
+        "tidsrom": "I dag"
+      }
+    },
+    {
+      "id": 19,
+      "type": "hverdag",
+      "tekst": "Trene med venner torsdag kveld",
+      "forfallsdato": "2026-11-05",
+      "forventet": {
+        "etikett": "Privat",
+        "prioritet": "Lav",
+        "sammendrag": "Trene sammen med venner torsdag kveld",
+        "tidsrom": "Denne uken"
+      }
+    },
+    {
+      "id": 20,
+      "type": "hverdag",
+      "tekst": "Sjekke om jeg kan ta ekstravakter på jobben i desember",
+      "forfallsdato": "2026-11-20",
+      "forventet": {
+        "etikett": "Privat",
+        "prioritet": "Lav",
+        "sammendrag": "Undersøke muligheten for ekstravakter på jobben i desember",
+        "tidsrom": "Senere"
+      }
+    }
+  ]
+}
