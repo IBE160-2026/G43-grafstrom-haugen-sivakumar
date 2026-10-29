@@ -1,8 +1,8 @@
-<<<<<<< HEAD
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
+# Next.js / Node
 /node_modules
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -10,25 +10,6 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-=======
-# Next.js / Node
-node_modules/
 .next/
 out/
 dist/
@@ -37,23 +18,13 @@ build/
 .turbo/
 *.tsbuildinfo
 next-env.d.ts
->>>>>>> e5947681949ec2eb915063c5c6d0f7d0f8bffe78
+
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-<<<<<<< HEAD
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-=======
 # Python environments, bytecode, packaging and caches
 .venv/
 venv/
@@ -71,6 +42,7 @@ __pycache__/
 pip-wheel-metadata/
 
 # Tests / coverage
+/coverage
 coverage/
 htmlcov/
 .coverage
@@ -84,6 +56,7 @@ playwright-report/
 .env.*
 !.env.example
 !.env.*.example
+*.pem
 *.log
 
 # BMAD: keep shared framework, skills, plans and documentation
@@ -100,4 +73,3 @@ Thumbs.db
 *.swp
 *.swo
 *~
->>>>>>> e5947681949ec2eb915063c5c6d0f7d0f8bffe78
