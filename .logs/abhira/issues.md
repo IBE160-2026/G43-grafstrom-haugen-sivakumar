@@ -9,5 +9,5 @@
 - [x] 2026-10-29 [ki-testsett](995-2026-10-29-19-20-00-ki-testsett.md) — gå gjennom forventet etikett og prioritet i testsettet sammen i gruppa (løst 2026-10-29)
 - [x] 2026-10-29 [smarte-lister](994-2026-10-29-19-35-00-smarte-lister.md) — legg til testtilfeller for «Forfalt» og «Uten dato» i KI-testsettet (løst 2026-10-29)
 - [ ] 2026-10-29 [smarte-lister](994-2026-10-29-19-35-00-smarte-lister.md) — bekreft at fullførte og arkiverte oppgaver ikke vises i smarte lister
-- [ ] 2026-10-29 [endre-dato-og-etikett](993-2026-10-29-19-55-00-endre-dato-og-etikett.md) — bestem om etiketter er faste eller om brukeren kan lage egne
-- [ ] 2026-10-29 [endre-dato-og-etikett](993-2026-10-29-19-55-00-endre-dato-og-etikett.md) — bestem om KI skal foreslå på nytt når oppgaveteksten endres
+- [x] 2026-10-29 [endre-dato-og-etikett](993-2026-10-29-19-55-00-endre-dato-og-etikett.md) — bestem om etiketter er faste eller om brukeren kan lage egne (løst 2026-10-29)
+- [x] 2026-10-29 [endre-dato-og-etikett](993-2026-10-29-19-55-00-endre-dato-og-etikett.md) — bestem om KI skal foreslå på nytt når oppgaveteksten endres (løst 2026-10-29)
