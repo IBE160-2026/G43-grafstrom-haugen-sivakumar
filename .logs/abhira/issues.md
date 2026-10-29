@@ -11,4 +11,5 @@
 - [ ] 2026-10-29 [smarte-lister](994-2026-10-29-19-35-00-smarte-lister.md) — bekreft at fullførte og arkiverte oppgaver ikke vises i smarte lister
 - [x] 2026-10-29 [endre-dato-og-etikett](993-2026-10-29-19-55-00-endre-dato-og-etikett.md) — bestem om etiketter er faste eller om brukeren kan lage egne (løst 2026-10-29)
 - [x] 2026-10-29 [endre-dato-og-etikett](993-2026-10-29-19-55-00-endre-dato-og-etikett.md) — bestem om KI skal foreslå på nytt når oppgaveteksten endres (løst 2026-10-29)
-- [ ] 2026-10-29 [env-example](991-2026-10-29-20-20-00-env-example.md) — beskriv i README hvordan .env.example kopieres til .env.local, og at appen virker uten nøkkel
+- [x] 2026-10-29 [env-example](991-2026-10-29-20-20-00-env-example.md) — beskriv i README hvordan .env.example kopieres til .env.local, og at appen virker uten nøkkel (løst 2026-10-29)
+- [ ] 2026-10-29 [readme-oppsett](990-2026-10-29-20-45-00-readme-oppsett.md) — bygg regelbasert reserveløsning, slik at README stemmer når den sier at appen virker uten nøkkel
