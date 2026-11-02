@@ -19,5 +19,5 @@
 - [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — avgjør om gruppen skal skrive en overføringsvurdering (TIA) for Anthropic (Å-6)
 - [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — gå gjennom forventede svar i det oppdaterte KI-testsettet
 - [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — sjekk tallene i forskningsnotatet mot fulltekst før de siteres
-- [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — lagre promptene fra PRD-økta som dokumentasjon av KI-styringen
+- [x] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — lagre promptene fra PRD-økta som dokumentasjon av KI-styringen (løst 2026-11-02)
 - [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — lag arkitektur med `bmad-architecture` (lagring, Sonnet-versjon, navnemaskering, nøkkelord)
