@@ -4,7 +4,7 @@
 
  dueNext er en norsk, KI-assistert oppgaveapplikasjon for studenter. Brukeren skriver inn oppgaven med egne ord, og applikasjonen foreslår automatisk etikett, prioritet og et kort sammendrag. Forslagene kan godtas eller endres av brukeren.
 
- Målet er å samle studie- og hverdagsoppgaver på ett sted og redusere tiden studenten bruker på manuell kategorisering og prioritering. Første versjon skal gi en enkel og oversiktlig arbeidsflyt med oppretting, redigering, fullføring, arkivering og sletting av oppgaver, i tillegg til smarte lister basert på oppgavenes metadata.
+ Målet er å samle studie- og hverdagsoppgaver på ett sted og redusere tiden studenten bruker på manuell kategorisering og prioritering. Første versjon skal gi en enkel og oversiktlig arbeidsflyt med oppretting, redigering, fullføring og sletting av oppgaver, i tillegg til smarte lister basert på oppgavenes metadata.
 
  ## Problemet
 
@@ -23,11 +23,11 @@
 
  Brukeren registrerer en oppgave med oppgavetekst, eventuell forfallsdato, prosjekttilknytning og notater. KI analyserer teksten og foreslår nøyaktig tre felt:
 
- - etikett, valgt blant de faste etikettene Skole, Privat og Gruppearbeid
+ - etikett, valgt blant de faste etikettene Privat, Skole og Jobb
  - prioritet, for eksempel Lav, Middels eller Høy
  - et kort sammendrag
 
- Regler håndterer opplysninger som er enkle og forutsigbare, som forfallsdato og tidsrom («Forfalt», «I dag», «Denne uken», «Senere» eller «Uten dato»), som beregnes ut fra forfallsdatoen. KI brukes når innholdet må tolkes. Denne kombinasjonen skal gi raske og forståelige resultater, samtidig som brukeren beholder kontrollen over egne oppgaver.
+ Regler håndterer opplysninger som er enkle og forutsigbare, som forfallsdato og tidsrom («I dag», «Denne uken», «Senere», «Ingen frist» eller «Forfalt»), som beregnes ut fra forfallsdatoen. KI brukes når innholdet må tolkes. Denne kombinasjonen skal gi raske og forståelige resultater, samtidig som brukeren beholder kontrollen over egne oppgaver.
 
  Eksempel:
 
@@ -45,15 +45,15 @@
 
  ## Smarte lister
 
- Første versjon har fem smarte lister. Hver oppgave havner i nøyaktig én liste ut fra tidsrommet. Bare aktive oppgaver vises, ikke fullførte eller arkiverte.
+ Første versjon har fem smarte lister. Hver oppgave havner i nøyaktig én liste ut fra tidsrommet. Bare aktive oppgaver vises, ikke fullførte. Listene vises i rekkefølgen under, med «Forfalt» nederst.
 
  | Liste | Frist |
  |---|---|
- | Forfalt | før i dag |
  | I dag | i dag |
  | Denne uken | i morgen til og med søndag |
  | Senere | etter denne uken |
- | Uten dato | ingen frist |
+ | Ingen frist | ingen frist |
+ | Forfalt | før i dag |
 
  Listene beregnes av regler, ikke av KI. Uka regnes fra mandag til søndag. Er det søndag i dag, er listen «Denne uken» tom. Endrer brukeren forfallsdatoen, flyttes oppgaven automatisk til riktig liste.
 
@@ -63,7 +63,7 @@
  2. ved lik frist etter prioritet, med Høy først
  3. ved lik frist og prioritet etter når oppgaven ble opprettet, med eldste først
 
- I «Uten dato» sorteres oppgavene etter prioritet og deretter opprettelsestidspunkt. Brukeren kan velge en annen sortering, men standard rekkefølge gjelder når listen åpnes.
+ I «Ingen frist» sorteres oppgavene etter prioritet og deretter opprettelsestidspunkt. Brukeren kan velge en annen sortering, men standard rekkefølge gjelder når listen åpnes.
 
  ## KI-tjeneste
 
@@ -86,7 +86,7 @@
 
  ### Sekundærmålgruppe
 
- Enkeltpersoner og små team som ønsker en enkel oppgaveplanlegger med KI-assistert organisering. Deling mellom brukere inngår ikke i første versjon.
+ Enkeltpersoner og små team som ønsker en enkel oppgaveplanlegger med KI-assistert organisering, er utenfor første versjon. De kan bli en utvidelse senere.
 
  ## Produktmål
 
@@ -108,28 +108,28 @@
 
  - opprette oppgaver
  - redigere oppgaver, også etter at de er lagret. Brukeren kan når som helst endre oppgavetekst, forfallsdato, etikett, prioritet, prosjekt og notater, og kan fjerne forfallsdatoen helt
- - fullføre og arkivere oppgaver
+ - fullføre oppgaver. Fullførte oppgaver vises under «Fullførte» i 7 dager og slettes deretter automatisk
  - slette oppgaver
  - angi oppgavetekst, forfallsdato, prosjekt og notater
  - KI-forslag til etikett, prioritet og sammendrag
  - godta eller endre KI-forslag
  - nye KI-forslag når brukeren endrer oppgaveteksten på en lagret oppgave. Forslagene vises på samme måte som ved oppretting, og de gamle verdiene beholdes til brukeren godtar de nye
  - filtrere og sortere etter etikett, prioritet og forfallsdato, med nærmeste frist først som standard
- - fem smarte lister basert på forfallsdato: Forfalt, I dag, Denne uken, Senere og Uten dato
+ - fem smarte lister basert på forfallsdato: I dag, Denne uken, Senere, Ingen frist og Forfalt
  - lokal lagring uten innlogging, slik at oppgaver er tilgjengelige når brukeren kommer tilbake på samme maskin
  - regelbasert reserveløsning når KI ikke er tilgjengelig
 
  ### Utenfor MVP
 
  - innlogging, brukerkontoer og synkronisering mellom enheter (kan legges til som eget trinn hvis det blir tid)
- - egne etiketter laget av brukeren. Første versjon har bare de faste etikettene Skole, Privat og Gruppearbeid
+ - egne etiketter laget av brukeren. Første versjon har bare de faste etikettene Privat, Skole og Jobb
  - automatisk innhenting fra Canvas, Teams eller andre eksterne systemer
  - deling og samarbeid mellom flere brukere
  - mobilapplikasjon
  - avanserte varsler og automatiserte påminnelser
  - full kalenderintegrasjon
 
- Regler for hvor lenge fullførte oppgaver skal arkiveres, må avklares som en del av MVP-arbeidet. Siden det ikke er innlogging, lagres oppgavene bare lokalt, og ingen brukerdata lagres hos gruppen. Første versjon skal være tydelig på hvilke opplysninger som sendes til KI, og gi brukeren kontroll over egne data.
+ Fullførte oppgaver ligger under «Fullførte» i 7 dager og slettes deretter automatisk. Det gjelder også oppgaver som ikke ble gjort, for eksempel en prøve studenten var syk på. Studenten legger da inn en ny oppgave med ny frist. Siden det ikke er innlogging, lagres oppgavene bare lokalt, og ingen brukerdata lagres hos gruppen. Første versjon skal være tydelig på hvilke opplysninger som sendes til KI, og gi brukeren kontroll over egne data.
 
  ## Hva gjør løsningen annerledes?
 
@@ -144,7 +144,7 @@
 
  Produktet regnes som vellykket når:
 
- - brukeren kan opprette, redigere, fullføre, arkivere og slette oppgaver
+ - brukeren kan opprette, redigere, fullføre og slette oppgaver
  - brukeren kan endre forfallsdato og etikett på en lagret oppgave, og oppgaven flyttes da til riktig smart liste
  - KI kan foreslå forståelige etiketter, prioriteringer og sammendrag på norsk
  - brukeren enkelt kan godta eller endre forslagene

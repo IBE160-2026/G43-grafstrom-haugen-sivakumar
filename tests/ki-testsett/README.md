@@ -1,6 +1,6 @@
 # KI-testsett
 
-Fast testsett for å måle KI-forslagene i dueNext mot suksesskriteriene i [product brief](../../docs/product-brief.md). Settet har 20 oppgavetekster: 10 studieoppgaver og 10 hverdagsoppgaver.
+Fast testsett for å måle KI-forslagene i dueNext mot suksesskriteriene i [product brief](../../docs/product-brief.md). Settet har 20 oppgavetekster: 8 studieoppgaver (to av dem gruppearbeid), 5 jobboppgaver og 7 hverdagsoppgaver.
 
 ## Format
 
@@ -9,13 +9,13 @@ Fast testsett for å måle KI-forslagene i dueNext mot suksesskriteriene i [prod
 | Felt | Innhold |
 |---|---|
 | `id` | Løpenummer 1–20 |
-| `type` | `studie` eller `hverdag` |
+| `type` | `studie`, `jobb` eller `hverdag` |
 | `tekst` | Oppgaveteksten slik brukeren skriver den |
 | `forfallsdato` | Forfallsdato (`ÅÅÅÅ-MM-DD`), eller `null` hvis oppgaven ikke har frist |
-| `forventet.etikett` | `Skole`, `Gruppearbeid` eller `Privat` |
+| `forventet.etikett` | `Privat`, `Skole` eller `Jobb`. Gruppearbeid i studiet er `Skole` |
 | `forventet.prioritet` | `Lav`, `Middels` eller `Høy` |
 | `forventet.sammendrag` | Eksempel på et godt sammendrag |
-| `forventet.tidsrom` | `Forfalt`, `I dag`, `Denne uken`, `Senere` eller `Uten dato` (de fem smarte listene) |
+| `forventet.tidsrom` | `Forfalt`, `I dag`, `Denne uken`, `Senere` eller `Ingen frist` (de fem smarte listene) |
 
 ## Slik vurderes svarene
 
@@ -29,7 +29,7 @@ Fast testsett for å måle KI-forslagene i dueNext mot suksesskriteriene i [prod
   | I dag | 2026-11-02 |
   | Denne uken | 2026-11-03 til og med 2026-11-08 |
   | Senere | etter 2026-11-08 |
-  | Uten dato | ingen forfallsdato (`null`) |
+  | Ingen frist | ingen forfallsdato (`null`) |
 
   Tidsrom skal stemme 20 av 20.
 
