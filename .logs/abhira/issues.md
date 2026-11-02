@@ -13,3 +13,5 @@
 - [x] 2026-10-29 [endre-dato-og-etikett](993-2026-10-29-19-55-00-endre-dato-og-etikett.md) — bestem om KI skal foreslå på nytt når oppgaveteksten endres (løst 2026-10-29)
 - [x] 2026-10-29 [env-example](991-2026-10-29-20-20-00-env-example.md) — beskriv i README hvordan .env.example kopieres til .env.local, og at appen virker uten nøkkel (løst 2026-10-29)
 - [ ] 2026-10-29 [readme-oppsett](990-2026-10-29-20-45-00-readme-oppsett.md) — bygg regelbasert reserveløsning, slik at README stemmer når den sier at appen virker uten nøkkel
+- [ ] 2026-11-02 [bmad-installasjon](989-2026-11-02-17-15-35-bmad-installasjon.md) — lag PRD med `bmad-prd` fra product brief og tilbakemelding, og lagre promptene
+- [ ] 2026-11-02 [bmad-installasjon](989-2026-11-02-17-15-35-bmad-installasjon.md) — gruppemedlemmene kjører `npx bmad-method install` for egen `config.user.toml`
