@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<!--
+  UX Design Validation Report — skeleton template.
+
+  This file is a starter the synthesis pass fills in directly. There is no
+  substitution engine. The LLM:
+    1. Reads {doc_workspace}/review-rubric.md and every review-{slug}.md from
+       additional reviewers.
+    2. Copies this skeleton.
+    3. Replaces the placeholder content (everything between TEMPLATE markers)
+       with the consolidated review, preserving the structure and CSS.
+    4. Writes the result to {doc_workspace}/validation-report.html.
+    5. Writes a markdown twin to {doc_workspace}/validation-report.md.
+
+  Visual rules the LLM must preserve:
+    - The container width, the color tokens, the typography.
+    - One dimension = one collapsible <section class="dimension">.
+    - Verdict pill uses the verdict-* class matching its judgment.
+    - Severity badge uses the badge-sev-* class matching its level.
+    - Each extra reviewer (accessibility, adversarial, etc.) gets its own
+      collapsible section below the rubric dimensions.
+    - The footer always shows the artifact paths and timestamp.
+-->
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<title>UX Design Validation: dueNext</title>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --border: #e7e5e4;
+    --text: #1c1917;
+    --muted: #78716c;
+
+    --verdict-strong: #16a34a;
+    --verdict-adequate: #65a30d;
+    --verdict-thin: #d97706;
+    --verdict-broken: #dc2626;
+
+    --sev-low: #64748b;
+    --sev-medium: #ca8a04;
+    --sev-high: #ea580c;
+    --sev-critical: #dc2626;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  header.report-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+  .title h1 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  .title .subtitle { color: var(--muted); font-size: 13px; margin-top: 4px; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+  .synthesis {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--muted);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    font-size: 15.5px;
+  }
+  .synthesis p { margin: 0 0 10px; }
+  .synthesis p:last-child { margin-bottom: 0; }
+
+  .dimension-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .dim-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .dim-card .dim-name { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .dim-card .dim-verdict { font-size: 14px; font-weight: 600; }
+
+  section.dimension, section.reviewer-section { margin-bottom: 14px; }
+  section.dimension details, section.reviewer-section details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  section summary {
+    padding: 14px 20px;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  section summary::-webkit-details-marker { display: none; }
+  section summary::before {
+    content: "▸";
+    display: inline-block;
+    color: var(--muted);
+    transition: transform 0.15s ease;
+  }
+  section details[open] summary::before { transform: rotate(90deg); }
+  section summary h2 {
+    display: inline;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    flex: 1;
+  }
+  .verdict-pill {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: white;
+  }
+  .verdict-strong { background: var(--verdict-strong); }
+  .verdict-adequate { background: var(--verdict-adequate); }
+  .verdict-thin { background: var(--verdict-thin); }
+  .verdict-broken { background: var(--verdict-broken); }
+
+  .dim-body { padding: 4px 20px 18px; }
+  .dim-judgment { color: var(--text); font-size: 14.5px; }
+  .dim-judgment p { margin: 0 0 10px; }
+
+  .findings-list { padding: 0 20px 4px; }
+  article.finding {
+    padding: 14px 0;
+    border-top: 1px solid var(--border);
+  }
+  article.finding:first-child { border-top: none; }
+  article.finding header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .badge {
+    font-size: 10.5px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+  .badge-sev-low { background: rgba(100, 116, 139, 0.12); color: var(--sev-low); }
+  .badge-sev-medium { background: rgba(202, 138, 4, 0.14); color: var(--sev-medium); }
+  .badge-sev-high { background: rgba(234, 88, 12, 0.14); color: var(--sev-high); }
+  .badge-sev-critical { background: rgba(220, 38, 38, 0.14); color: var(--sev-critical); }
+  .finding-title { margin: 0; font-size: 15px; font-weight: 500; flex: 1; min-width: 200px; }
+  .finding-location { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px; color: var(--muted); }
+  .finding-note, .finding-fix { margin-top: 6px; font-size: 14px; }
+  .finding-fix strong { color: var(--muted); font-weight: 500; }
+
+  .reviewer-source {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  .mechanical {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 24px;
+    font-size: 14px;
+  }
+  .mechanical h3 { margin: 0 0 10px; font-size: 14px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .mechanical ul { margin: 0; padding-left: 20px; }
+  .mechanical li { margin-bottom: 4px; color: var(--text); }
+
+  footer.report-footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  footer .meta { display: flex; gap: 24px; flex-wrap: wrap; }
+</style>
+</head>
+<body><div class="container">
+<header class="report-header"><div class="title"><h1>dueNext – valideringsrapport for UX</h1>
+<div class="subtitle">./DESIGN.md · EXPERIENCE.md</div></div></header>
+<div class="synthesis"><p>Spinene er godt skrevet og har riktig form. Kjernen (oppgavekort, smartlister, KI-forslagsboks, temaer, glød, lys/mørk) er tydelig nok til å bygges, og kontrastpåstandene i Colors stemmer når de regnes ut. De to nye funksjonene som ikke finnes i PRD-en, <strong>hendelser</strong> og <strong>KI-økter</strong>, er bare beskrevet for «gladveien». Livssyklus, gjentakelse, nattevakter over midnatt og kalenderens egen oppførsel mangler, så en arkitekt eller story-utvikler må gjette på datamodell og regler. I tillegg er det ett PRD-avvik som ikke er listet (FR-26-filtre), et par AA-brudd som motsier målet om WCAG 2.1 AA, og flere komponenter som bare har visuell spesifikasjon eller bare oppførsel. Paret er <strong>ikke klart som kontrakt</strong> før de høye funnene er lukket. Ingen funn er kritiske.</p><p>Personverngjennomgangen endrer bildet. Den fant ett kritisk funn: KI-samtykket dekker ikke alt som faktisk sendes, blant annet hendelsestitler som kan være helseopplysninger. Den fant også fem høye funn om tekst og kontroller. Ingen av gruppas valg må reverseres. Alt kan løses med fastsatt tekst og presiseringer.</p><p><strong>Antall funn:</strong> Kritisk: 1 · Høy: 14 · Middels: 26 · Lav: 24</p></div>
+<div class="dimension-summary"><div class="dim-card"><div class="dim-name">Flytdekning</div><div class="dim-verdict" style="color: var(--verdict-thin)">tynn</div></div><div class="dim-card"><div class="dim-name">Tokenkomplett</div><div class="dim-verdict" style="color: var(--verdict-adequate)">tilstrekkelig</div></div><div class="dim-card"><div class="dim-name">Komponentdekning</div><div class="dim-verdict" style="color: var(--verdict-thin)">tynn</div></div><div class="dim-card"><div class="dim-name">Tilstandsdekning</div><div class="dim-verdict" style="color: var(--verdict-adequate)">tilstrekkelig</div></div><div class="dim-card"><div class="dim-name">Visuell referansedekning</div><div class="dim-verdict" style="color: var(--verdict-adequate)">tilstrekkelig</div></div><div class="dim-card"><div class="dim-name">Overflødig og overspesifisert</div><div class="dim-verdict" style="color: var(--verdict-strong)">sterk</div></div><div class="dim-card"><div class="dim-name">Arvedisiplin</div><div class="dim-verdict" style="color: var(--verdict-adequate)">tilstrekkelig</div></div><div class="dim-card"><div class="dim-name">Formtilpasning</div><div class="dim-verdict" style="color: var(--verdict-strong)">sterk</div></div></div>
+<section class="dimension"><details open><summary><h2>Flytdekning</h2>
+<span class="verdict-pill verdict-thin">tynn</span></summary><div class="dim-body"><div class="dim-judgment"><p>Sjekket: PRD-funksjonene F1–F6 (PRD-en har ingen navngitte brukerreiser) og reisene i <code>.memlog.md</code> mot Key Flows (navngitt person, nummererte steg, klimaks, avviksvei).</p></div></div>
+<div class="findings-list"><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title">F5 (Arkiv: fullføre, angre via snackbar, gjenopprette, slette nå, 7-dagersregel) har ingen Key Flow</h3><span class="finding-location">EXPERIENCE, Key Flows</span></header>
+<div class="finding-note">Reglene finnes bare spredt i State Patterns og Interaction Primitives (EXPERIENCE, Key Flows).</div><div class="finding-fix"><strong>Fiks:</strong> Legg til «Flyt 5 – Ida huker av og angrer» med avhuking → snackbar → Arkiv → Gjenopprett, og som avvik at 5 sekunder er gått og angring skjer fra Arkiv.</div></article><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title">F4 søk har et ferdig scenario i PRD-en (FR-28, «statistikk»), men ingen flyt</h3><span class="finding-location">EXPERIENCE, Key Flows</span></header>
+<div class="finding-note">Filter og sortering mangler også flyt (EXPERIENCE, Key Flows).</div><div class="finding-fix"><strong>Fiks:</strong> Legg til en kort søkeflyt med navngitt person, der klimaks er at treffet viser <em>Fullført</em> og frist, og avviksveien er «Fant ingenting …».</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">F6 etter oppstart mangler flyt: endre KI-valg (FR-36), Eksporter/Importer (FR-43) og Slett alle data (FR-40)</h3><span class="finding-location"></span></header>
+<div class="finding-note">Det er heller ikke sagt hva som skjer etter Slett alle data, for eksempel om appen går tilbake til Førstegangsoppsett.</div><div class="finding-fix"><strong>Fiks:</strong> Lag én flyt for Personvern og data med bekreftelse og sluttilstand.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Flyt 3 og Flyt 4 har ingen navngitt person og ingen klimaks</h3><span class="finding-location">EXPERIENCE linje 200–210</span></header>
+<div class="finding-note">Flyt 3 beskriver ikke hva som skjer ved <em>Nei</em> eller <em>Hopp over</em>, for eksempel hvordan hilsenen ser ut uten navn (EXPERIENCE linje 200–210).</div><div class="finding-fix"><strong>Fiks:</strong> Bruk Ida eller Sara, legg til klimaks, og legg til avvik for «Nei til KI» (ingen KI-boks, «+ Legg til økt») og «uten navn» (f.eks. «Hei 👋»).</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">FR-13 (ny tekst gir nye forslag, mens de gamle verdiene beholdes) har ingen flyt eller tilstand</h3><span class="finding-location"></span></header>
+<div class="finding-note">Flyt 4 nevner det bare i en bisetning.</div><div class="finding-fix"><strong>Fiks:</strong> Legg til et avvikssteg i Flyt 4 der teksten endres, og vis hvordan gamle og nye forslag står i KI-boksen.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Flyt 2 mangler avviksvei når KI er utilgjengelig ved «Foreslå ny tid», og når KI er av (EXPERIENCE linje 195)</h3><span class="finding-location">EXPERIENCE linje 195</span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> Legg til «Avvik: uten KI → knappen skjules, studenten flytter økta selv med Endre».</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">I Flyt 2 steg 5 «ser» Sara kollisjonen med legetimen <em>før</em> hun har lagt den inn (linje 194)</h3><span class="finding-location">linje 194</span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> Skriv om til at hun husker legetimen og legger den inn, og at merket så dukker opp.</div></article></div></details></section><section class="dimension"><details><summary><h2>Tokenkomplett</h2>
+<span class="verdict-pill verdict-adequate">tilstrekkelig</span></summary><div class="dim-body"><div class="dim-judgment"><p>Sjekket: alle frontmatter-tokens, alle <code>{…}</code>-referanser i prosa og komponenter, lys/mørk-par og kontrast. Alle referanser løses (<code>{colors.text-on-pastel}</code>, <code>{colors.text-on-glow}</code>, <code>{colors.border-hairline}</code>, <code>{colors.accent-ink}</code> og <code>{rounded.*}</code>). Kontrasttallene i Colors er regnet ut på nytt og stemmer (ink/hvit 5,99–8,28, tekst på pastell 8,98–12,31, pastell/mørkt kort 9,13–12,51, text-on-glow ≥ 5,15).</p></div></div>
+<div class="findings-list"><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title">Snackbar: «Angre» i pastell på <em>lys pille i mørk modus</em> gir bare ca</h3><span class="finding-location">DESIGN linje 254</span></header>
+<div class="finding-note">1,3–1,8:1, som er et klart AA-brudd. Pillens farger er heller ikke tokens (DESIGN linje 254).</div><div class="finding-fix"><strong>Fiks:</strong> Legg til tokenene <code>snackbar-bg</code> og <code>snackbar-bg-dark</code>, og bruk <code>accent-ink</code> (ikke pastell) for «Angre» på lys pille.</div></article><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title">Skjemafelt har bare kantlinjen <code>border-hairline</code> (#E7E7E3 mot #FFFFFF = 1,24:1)</h3><span class="finding-location">DESIGN linje 244, 249–251</span></header>
+<div class="finding-note">WCAG 1.4.11 krever 3:1 for feltgrenser. Det samme gjelder valgt filter, prioritetsvelger og valgt dag, der valgt tilstand bare vises med pastellfyll (1,28–1,76:1 mot hvit) (DESIGN linje 244, 249–251).</div><div class="finding-fix"><strong>Fiks:</strong> Gi feltene en egen <code>border-input</code> på ≥ 3:1, og gi valgt tilstand et ekstra signal (kant i <code>accent-ink</code> eller hake).</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Gløden og KI-boksen er ikke tokens</h3><span class="finding-location">DESIGN linje 145, 224</span></header>
+<div class="finding-note"><code>ai-suggestion-box.background</code> er prosa («accent 35 % blandet …»), og gløden (radiell gradient, 75 %/30 %) finnes bare i prosa (DESIGN linje 145, 224).</div><div class="finding-fix"><strong>Fiks:</strong> Legg inn <code>glow-strength: 0.75</code> / <code>glow-strength-dark: 0.30</code> og <code>ai-box-mix</code> / <code>ai-box-mix-dark</code> som tokens, eller skriv dem som <code>color-mix()</code>-uttrykk med tokenreferanser.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Kontrast er ikke oppgitt for <code>warn</code> (5,11:1 på hvit og 4,76:1 på bakgrunnen, men bare 3,4:1 på gløden) eller for <code>text-muted</code> mot <code>surface-base</code> (4,51:1, rett over grensen og brukt i <code>tag</code>) (DESIGN Colors)</h3><span class="finding-location">DESIGN Colors</span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> Legg til begge i kontrollavsnittet, og si at <code>warn</code> aldri brukes i glødsonen.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Fargene på kalenderprikkene på mobil er ikke definert: «fargede prikker eller streker»</h3><span class="finding-location">DESIGN linje 246, 264</span></header>
+<div class="finding-note">Hva skiller oppgave, økt, hendelse og forfalt når etikettene ikke har egne farger og bare én pastell brukes (DESIGN linje 246, 264)?</div><div class="finding-fix"><strong>Fiks:</strong> Gi en eksplisitt mapping, for eksempel oppgave = <code>accent-ink</code>, hendelse = <code>text-muted</code>, forfalt = <code>warn</code>, og økt = hul ring.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Komponent-tokens peker bare til lys-varianter</h3><span class="finding-location">DESIGN linje 102–155</span></header>
+<div class="finding-note">Mørk modus må utledes av <code>-dark</code>-suffikset, og den regelen står ikke noe sted (DESIGN linje 102–155).</div><div class="finding-fix"><strong>Fiks:</strong> Skriv én setning om at <code>{colors.x}</code> løses til <code>x-dark</code> i mørk modus når tokenet finnes.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title"><code>typography.fontFamily</code> er en streng på rotnivå, mens spesifikasjonen forventer et objekt per rolle</h3><span class="finding-location">DESIGN linje 48, 99, 107</span></header>
+<div class="finding-note"><code>task-card.padding: &#x27;10px 12px&#x27;</code> og <code>margin-desktop: 26px</code> ligger utenfor 4 px-skalaen (DESIGN linje 48, 99, 107).</div><div class="finding-fix"><strong>Fiks:</strong> Flytt reservefontene inn i hver rolle (eller en <code>note</code>), og bruk 8/12 og 24 eller 28, eller begrunn avvikene.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Skygge på dialoger, «svakere linje» på hendelsesraden og fokusringen (2 px) mangler tokens (DESIGN linje 226, 242, 249)</h3><span class="finding-location">DESIGN linje 226, 242, 249</span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> Legg til <code>dialog.shadow</code>, <code>border-subtle</code> og <code>focus-ring</code>.</div></article></div></details></section><section class="dimension"><details open><summary><h2>Komponentdekning</h2>
+<span class="verdict-pill verdict-thin">tynn</span></summary><div class="dim-body"><div class="dim-judgment"><p>Sjekket: alle komponentnavn i begge filene mot DESIGN Components (visuelt) og EXPERIENCE Component Patterns (oppførsel).</p></div></div>
+<div class="findings-list"><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title"></h3><span class="finding-location">DESIGN linje 246, EXPERIENCE linje 154, 191</span></header>
+<div class="finding-note">Kalender** har bare en visuell rad. Oppførselen mangler: hva trykk på dag gjør (dagsliste eller skjema), månedsnavigasjon (forrige/neste/«I dag»), hva som skjer når en dag har mange elementer på PC («+3 til»), og hvor «+ Ny» står på PC, der den flytende knappen ikke finnes. Flyt 2 steg 2 bruker likevel «+ Ny» på PC (DESIGN linje 246, EXPERIENCE linje 154, 191).</div><div class="finding-fix"><strong>Fiks:</strong> Legg til en rad «Kalender» i Component Patterns med disse reglene.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Disse har bare visuell spesifikasjon og ingen oppførselsrad: Bunnmeny/sidemeny, Prioritetsvelger, Bryter [Oppgave | Hendelse] (bare nevnt inne i Skjema-raden), Dialog/bekreftelse, Snackbar (oppførselen står i Interaction Primitives) og Skeleton</h3><span class="finding-location"></span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> Gi hver sin rad med regler (f.eks. Dialog: fokusfelle, Esc = Avbryt, standardfokus på Avbryt ved sletting).</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Disse har bare oppførsel og ingen visuell rad: Sortering «⇅ Frist», «+ Legg til økt», Foreslåtte økter (som egen radtype), KI-påminnelse, Skrivefelt «+ Ny oppgave … skriv med egne ord» (nevnt i Layout og Shapes, men har ikke egen komponent), Prosjektliste, merket «regelbasert», og «✦»-prikken for ubesvarte forslag (EXPERIENCE linje 77–89, 102)</h3><span class="finding-location">EXPERIENCE linje 77–89, 102</span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> Legg til korte visuelle rader i DESIGN Components.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Det finnes ingen komponent i noen av filene for: Arkivrad (nedtelling, «…»-meny med Gjenopprett/Slett nå), Gruppeoverskrift med antall og sammenleggbar «Ingen frist (n)», Hendelsesdetalj, sidene i Førstegangsoppsett og lenken til Personvernerklæringen (FR-41 krever at den finnes på <em>alle</em> skjermer, men plasseringen er ikke tegnet)</h3><span class="finding-location"></span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> Legg dem til i begge filene. Lenken til Personvernerklæringen er viktigst, fordi FR-41 er et Må-krav.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Sortering: de andre sorteringsvalgene er ikke navngitt (FR-25), bare standardvalget (EXPERIENCE linje 77)</h3><span class="finding-location">EXPERIENCE linje 77</span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> List valgene, f.eks. Frist / Prioritet / Nyeste.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Tema-velgeren i DESIGN dekker bare fargeprøvene</h3><span class="finding-location"></span></header>
+<div class="finding-note">Kontrollen Lys/Mørk/«Følg systemet» fra EXPERIENCE linje 90 har ingen visuell form.</div><div class="finding-fix"><strong>Fiks:</strong> Spesifiser den som segmentert pille, likt bryteren [Oppgave | Hendelse].</div></article></div></details></section><section class="dimension"><details><summary><h2>Tilstandsdekning</h2>
+<span class="verdict-pill verdict-adequate">tilstrekkelig</span></summary><div class="dim-body"><div class="dim-judgment"><p>Sjekket: hver IA-flate mot tomme tilstander, lasting, feil, fokus, KI av/utilgjengelig og lagringsfeil.</p></div></div>
+<div class="findings-list"><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title"></h3><span class="finding-location">Flyt 2, KI-planlegging steg 3</span></header>
+<div class="finding-note">Hendelse over midnatt motsier skjemaet.** Hendelsesfelt har én dato, og «Slutt før start» gir feilmelding. Da kan ikke Saras nattevakt (Flyt 2, KI-planlegging steg 3) legges inn (EXPERIENCE linje 83, 115).</div><div class="finding-fix"><strong>Fiks:</strong> Legg til sluttdato eller regelen «slutt før start = neste dag», og juster feilmeldingen.</div></article><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title"></h3><span class="finding-location">Hendelsesdetalj, EXPERIENCE linje 30, 83</span></header>
+<div class="finding-note">Gjentakende hendelser:** Det er ikke sagt hva <em>Endre</em> og <em>Slett</em> gjør på én forekomst kontra hele serien (Hendelsesdetalj, EXPERIENCE linje 30, 83). Dette påvirker datamodellen direkte.</div><div class="finding-fix"><strong>Fiks:</strong> Bestem dette, f.eks. «Bare denne / Hele serien» i dialogen, eller «bare hele serien i v1», og skriv det inn.</div></article><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title"></h3><span class="finding-location">Flyt 4</span></header>
+<div class="finding-note">Økters livssyklus er udefinert.** Det står ikke hva som skjer med godtatte økter når fristen endres (Flyt 4), når oppgaven fullføres, slettes eller gjenopprettes, eller når en økt passeres uten å være huket av. Det står heller ikke hvilken smartliste en økt havner i, og om den teller i gruppeantallet (EXPERIENCE linje 73–74, 158–167).</div><div class="finding-fix"><strong>Fiks:</strong> Legg til en tabell for økters livssyklus i KI-planlegging.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Oppgaver: tomt resultat når et filter er valgt (f.eks</h3><span class="finding-location">EXPERIENCE linje 97–98</span></header>
+<div class="finding-note">ingen <em>Privat</em>) mangler. Det er heller ikke sagt om tomme grupper utenom «I dag» skjules, inkludert søndagsregelen i FR-22 (EXPERIENCE linje 97–98).</div><div class="finding-fix"><strong>Fiks:</strong> Legg til tilstandene «Tomt filter» og «Tom gruppe».</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Lagring i nettleseren feiler (privat modus, full kvote, blokkert lagring) mangler</h3><span class="finding-location"></span></header>
+<div class="finding-note">NFR-4 gjør lagringen bærende.</div><div class="finding-fix"><strong>Fiks:</strong> Legg til en saklig melding og at appen kan brukes uten lagring.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Skjema: det er ikke sagt hva som skjer med ulagrede endringer ved tilbakepil/Esc (forkaste eller spørre) (EXPERIENCE linje 82, 123)</h3><span class="finding-location">EXPERIENCE linje 82, 123</span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> Bestem dette, f.eks. «Forkaste endringene?» bare når noe er endret.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Import: det er ikke sagt om import <em>erstatter</em> eller <em>slår sammen</em> data, og det mangler både bekreftelse og suksessmelding (EXPERIENCE linje 114)</h3><span class="finding-location">EXPERIENCE linje 114</span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> Bestem regelen og legg til tilstanden «Import fullført».</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Oppgave med «🔒 Ikke send til KI» mangler i State Patterns</h3><span class="finding-location"></span></header>
+<div class="finding-note">Den står bare i Component Patterns, og låseikonet på kortet står bare i DESIGN.</div><div class="finding-fix"><strong>Fiks:</strong> Legg til en rad «Ikke send til KI» for Oppgavedetalj: ingen KI-boks, «+ Legg til økt» vises.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Hilsen uten fornavn (<em>Hopp over</em>) mangler</h3><span class="finding-location"></span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> «Hei 👋».</div></article></div></details></section><section class="dimension"><details><summary><h2>Visuell referansedekning</h2>
+<span class="verdict-pill verdict-adequate">tilstrekkelig</span></summary><div class="dim-body"><div class="dim-judgment"><p>Sjekket: <code>imports/</code> (1 fil), <code>.working/</code> (4 filer), <code>mockups/</code> og <code>wireframes/</code> (finnes ikke ennå).</p></div></div>
+<div class="findings-list"><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Lenkene til <code>mockups/color-themes.html</code>, <code>mockups/backgrounds-dark.html</code> og <code>mockups/desktop-layout.html</code> peker ikke til noe ennå</h3><span class="finding-location">DESIGN linje 258, EXPERIENCE linje 48</span></header>
+<div class="finding-note">Det er forventet, fordi mockupene ikke er flyttet over. Men navnene stemmer ikke med <code>.working/</code>-filene (<code>color-themes-1</code>, <code>backgrounds-2-dark</code>, <code>desktop-layouts-1</code>), og ikke med mockup-planen i <code>.memlog.md</code> linje 82 (Oppgaver, Oppgavedetalj, Kalender, Skjema + oppstart) (DESIGN linje 258, EXPERIENCE linje 48).</div><div class="finding-fix"><strong>Fiks:</strong> Bestem endelige filnavn når mockupene flyttes over, og lenk de planlagte mockupene inline i Kalender, KI-forslagsboks og State Patterns.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">DESIGN lenker ikke skissen inline</h3><span class="finding-location"></span></header>
+<div class="finding-note">Den står bare i frontmatter, og Colors omtaler «den første skissen» uten sti. <code>reconcile-skisse-design.md</code> er ikke lenket fra noen av spinene.</div><div class="finding-fix"><strong>Fiks:</strong> Legg til lenke i Colors og ved IA.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Regelen om at spinene gjelder foran mockupene står i begge filene (DESIGN linje 258, EXPERIENCE linje 48)</h3><span class="finding-location">DESIGN linje 258, EXPERIENCE linje 48</span></header>
+<div class="finding-note">Det er greit, men den skal ideelt stå én gang.</div><div class="finding-fix"><strong>Fiks:</strong> Ingen handling nødvendig, eventuelt stryk den ene.</div></article></div></details></section><section class="dimension"><details><summary><h2>Overflødig og overspesifisert</h2>
+<span class="verdict-pill verdict-strong">sterk</span></summary><div class="dim-body"><div class="dim-judgment"><p></p></div></div>
+<div class="findings-list"><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Colors-prosaen og tematabellen gjentar alle hex-verdiene fra frontmatter</h3><span class="finding-location">DESIGN linje 172–187</span></header>
+<div class="finding-note">Det er en risiko for at de glir fra hverandre ved senere endringer (DESIGN linje 172–187).</div><div class="finding-fix"><strong>Fiks:</strong> Behold tabellen, men henvis til tokennavn i stedet for hex i punktlista.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Tekster i Voice and Tone som «Sterkt!</h3><span class="finding-location">EXPERIENCE linje 57, 59</span></header>
+<div class="finding-note">3 av 4 økter gjort 💪» og «Du har kontroll på uka!» har ingen flate eller utløser. <code>.memlog.md</code> linje 70 sier i tillegg «ingen egen fremdriftsstrek for økter». Dette er tekst uten en beslutning bak (EXPERIENCE linje 57, 59).</div><div class="finding-fix"><strong>Fiks:</strong> Knytt dem til en tilstand (f.eks. snackbar når en økt hukes av), eller merk dem som eksempler på tonen.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">«Størrelsene er hentet fra forhåndsvisningene og godkjent av gruppa» er en prosessnotis (DESIGN linje 209)</h3><span class="finding-location">DESIGN linje 209</span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> Stryk den. Den hører hjemme i memlog.</div></article></div></details></section><section class="dimension"><details><summary><h2>Arvedisiplin</h2>
+<span class="verdict-pill verdict-adequate">tilstrekkelig</span></summary><div class="dim-body"><div class="dim-judgment"><p>Sjekket: at <code>sources</code> løses (alle tre stier finnes), navn er ordrett fra kildene, begrepene er like, komponentnavn er like i begge filene, og at tokenreferanser løses.</p></div></div>
+<div class="findings-list"><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title"></h3><span class="finding-location">EXPERIENCE linje 76, DESIGN linje 244</span></header>
+<div class="finding-note">Avvik som ikke er listet:** FR-26 sier at studenten kan filtrere på etikett, <em>prioritet, frist og prosjekt</em>. Spinene har bare filtrene Alle/Skole/Jobb/Privat (EXPERIENCE linje 76, DESIGN linje 244).</div><div class="finding-fix"><strong>Fiks:</strong> Legg til prioritet, frist og prosjekt (f.eks. et «Filter»-ark), eller før det opp som avvik nr. 12 i «Avvik fra PRD».</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title"></h3><span class="finding-location">EXPERIENCE linje 163, 220</span></header>
+<div class="finding-note">Avvik som ikke er listet:** I KI-planlegging steg 2 sendes <em>frist</em> til KI, og trolig også godtatte økter ved «Foreslå ny tid». FR-15 sier «bare oppgavetekst og notater». Avvik #3 dekker bare hendelser (EXPERIENCE linje 163, 220).</div><div class="finding-fix"><strong>Fiks:</strong> Utvid avvik #3 til «hendelser, frist og eksisterende økter», slik at PRD-oppdateringen, FR-35-teksten og personvernerklæringen tar det med.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title"></h3><span class="finding-location">EXPERIENCE linje 85–86</span></header>
+<div class="finding-note">Uenighet med memlog:** Ifølge <code>.memlog.md</code> linje 63 skal påminnelsen etter FR-37 også stå i <em>hendelsesskjemaet</em>. Raden KI-påminnelse dekker bare oppgavetekst. Det er heller ikke sagt om påminnelsen gjelder for skrivefeltet på PC (FR-37 sier «skrivefeltet») (EXPERIENCE linje 85–86).</div><div class="finding-fix"><strong>Fiks:</strong> Utvid raden med begge.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title"></h3><span class="finding-location">EXPERIENCE linje 29, 154</span></header>
+<div class="finding-note">Uenighet med memlog:** Linje 49 sier at trykk på dag åpner «+ Ny oppgave» med frist ferdig utfylt. Linje 57 sier at trykk på dag viser dagslista. IA-raden «Ny / Endre nås fra … trykk på dag i Kalender» og Responsive («valgt dag åpner dagslista») sier hver sitt (EXPERIENCE linje 29, 154).</div><div class="finding-fix"><strong>Fiks:</strong> Velg dagsliste + «+ Ny» (i tråd med linje 57), og rett IA-raden.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">FR-18-merket er skrevet om fra «Forslag basert på nøkkelord – KI var ikke tilgjengelig» til «regelbasert» + «KI var ikke tilgjengelig</h3><span class="finding-location">EXPERIENCE linje 61, 100</span></header>
+<div class="finding-note">Forslagene er basert på nøkkelord.», og det er ikke listet som avvik (EXPERIENCE linje 61, 100).</div><div class="finding-fix"><strong>Fiks:</strong> Bruk PRD-teksten ordrett, eller list endringen.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">FR-38 «privat» heter nå «🔒 Ikke send til KI» (<code>.memlog.md</code> linje 75)</h3><span class="finding-location">`.memlog.md` linje 75</span></header>
+<div class="finding-note">Navnebyttet står ikke i Avvik-tabellen, og avvik #4 dekker bare utvidelsen til hendelser.</div><div class="finding-fix"><strong>Fiks:</strong> Nevn navnebyttet i #4, så begrepet blir oppdatert i PRD-en.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Komponentnavnene er ikke helt like</h3><span class="finding-location"></span></header>
+<div class="finding-note">Frontmatter bruker engelske nøkler (<code>task-card</code>, <code>check-ring</code>, <code>filter-chip</code>, <code>ai-suggestion-box</code>, <code>fab</code>, <code>bottom-nav</code>, <code>sidebar-item-active</code>) uten kobling til de norske prosanavnene. Disse navneparene er også ulike: «Søkefelt» / «Lupe / søkefelt», «Skjemafelt» / «Skjema Ny/Endre», «Flytende knapp» / «+ Ny oppgave» / «+ Ny».</div><div class="finding-fix"><strong>Fiks:</strong> Gjør komponentnavnene like i begge filene, og legg til en kolonne med tokennøkkel.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Punkt 4 og 5 i <code>reconcile-skisse-design.md</code> («Navn, telefon og e-post sendes aldri» og plassholderen for behandlingsansvarlig) er ikke avgjort i <code>.memlog.md</code></h3><span class="finding-location"></span></header>
+<div class="finding-note">Linje 80 avgjør bare punkt 1, 2, 3 og 6.</div><div class="finding-fix"><strong>Fiks:</strong> Avgjør punktene og logg beslutningen. Punkt 4 bør avvises så lenge FR-42 bare er et Bør-krav.</div></article></div></details></section><section class="dimension"><details><summary><h2>Formtilpasning</h2>
+<span class="verdict-pill verdict-strong">sterk</span></summary><div class="dim-body"><div class="dim-judgment"><p>Sjekket: kanonisk rekkefølge i DESIGN, påkrevde seksjoner i EXPERIENCE og om de oppfunne seksjonene fortjener plassen sin.</p></div></div>
+<div class="findings-list"><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">DESIGN følger den kanoniske rekkefølgen</h3><span class="finding-location"></span></header>
+<div class="finding-note">EXPERIENCE har alle påkrevde seksjoner, i tillegg til Responsive og Inspiration. De oppfunne seksjonene «KI-planlegging (økter)» og «Avvik fra PRD» fortjener plassen sin, men KI-planlegging overlapper med Component Patterns (Foreslåtte økter, Kollisjonsmerke).</div><div class="finding-fix"><strong>Fiks:</strong> La KI-planlegging eie reglene (og livssyklusen, se 4), og la komponentradene bare henvise dit.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Layout sier ikke hva som gjelder for «+ Ny oppgave» mellom 768 og 1023 px: flytende knapp eller skrivefelt (DESIGN linje 217, EXPERIENCE linje 153)</h3><span class="finding-location">DESIGN linje 217, EXPERIENCE linje 153</span></header>
+<div class="finding-note"></div><div class="finding-fix"><strong>Fiks:</strong> Legg til én setning.</div></article></div></details></section><section class="reviewer-section"><details><summary><h2>Personvern-tekst</h2><span class="reviewer-source">review-personvern.md</span></summary>
+<div class="dim-body"><div class="dim-judgment"><p><strong>Retningen er god, men teksten er ikke klar ennå.</strong> Gruppas valg er gjennomtenkt og står åpent i spinen: hendelser med tittel sendes til KI, «🔒 Ikke send til KI» gjelder også hendelser, og fornavnet lagres lokalt uten konto eller telefon. Opt-in og like store Ja/Nei uten forhåndsvalg er også riktig beskrevet. Hovedproblemet er at utvidelsen ikke er ført helt gjennom i tekstene og kontrollene. Det gjelder fem ting:</p><p>1. Det finnes ingen ferdig samtykketekst. Beskrivelsen i Flyt 3 nevner ikke frist, tidspunkter for økter, lagring i inntil 2 år, SCC eller uttrykkelig samtykke til helseopplysninger. Hendelsestitler som «Legetime» eller «Psykolog» gjør art. 9-risikoen <em>større</em> enn i PRD-en.</p><p>2. FR-37-påminnelsen gjelder bare oppgaveteksten. Den gjelder ikke hendelser, selv om det er der helsetitlene oftest står.</p><p>3. «🔒 Ikke send til KI» på en hendelse er feil navngitt, fordi tidspunktet fortsatt sendes.</p><p>4. På mobil ligger personvernerklæringen ikke tydelig ett klikk unna (FR-41).</p><p>5. Skissens løfter («Navn, telefon og e-post sendes aldri», «slettes innen 30 dager», «regelbaserte forslag når KI er av») er ikke uttrykkelig forkastet. «Hva som sendes» i Personvern og data har ingen fastsatt tekst.</p><p>Alt kan rettes med tekst og små presiseringer. Ingen av gruppas valg må endres.</p></div></div>
+<div class="findings-list"><article class="finding"><header><span class="badge badge-sev-critical">Kritisk</span>
+<h3 class="finding-title">KI-samtykket dekker ikke det som faktisk sendes, og ber ikke uttrykkelig om samtykke til helseopplysninger i hendelser</h3><span class="finding-location">EXPERIENCE → Flyt 3 steg 2, State Patterns «Første oppstart», KI-planlegging punkt 2</span></header>
+<div class="finding-note">(EXPERIENCE → Flyt 3 steg 2, State Patterns «Første oppstart», KI-planlegging punkt 2). Flyt 3 sier «oppgavetekst, notater og hendelser». Følgende mangler:<br>- at <strong>frist</strong>, <strong>hendelsenes tittel, dato og klokkeslett</strong>, «opptatt»-tider og tidspunkter for økter sendes<br>- at Anthropic kan lagre flaggede samtaler i <strong>inntil 2 år</strong> (FR-41, research-anthropic-lagringstid). Dette kan stå i erklæringen, men samtykket bør si «normalt» og lenke til den.<br>- avtalepart (Anthropic Ireland) og overføringsgrunnlag (<strong>SCC</strong>, ikke DPF)<br>- en <strong>uttrykkelig</strong> art. 9-formulering (research-gdpr-regelverk §2). Hendelsestitler som «Legetime», «Psykolog» eller «Fysio» er helseopplysninger, og gjentakende hendelser avslører mønstre. Risikoen er større enn PRD-en forutsatte, fordi studenten ikke tenker på kalenderen som «tekst til KI».<br>- at «🔒 Ikke send til KI» finnes, og at appen virker fullt ut med «Nei» (frivillighet, NFR-P7)<br>- en lenke til hele personvernerklæringen<br>Siden det ikke finnes noen ferdig tekst, kan hvem som helst skrive den under implementeringen.</div><div class="finding-fix"><strong>Fiks:</strong> Ta inn teksten under «Foreslått tekst for KI-samtykke» ordrett i EXPERIENCE (Flyt 3) som fastsatt tekst, og oppdater FR-35 i PRD-en.</div></article><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title">Personvernerklæringen er ikke synlig ett klikk unna på mobil</h3><span class="finding-location">EXPERIENCE IA «Personvernerklæring – Lenke på alle skjermer» mot Navigasjon og DESIGN Layout for mobil</span></header>
+<div class="finding-note">(EXPERIENCE IA «Personvernerklæring – Lenke på alle skjermer» mot Navigasjon og DESIGN Layout for mobil). Mobiloppsettet har logo, lupe og ⚙ øverst og Oppgaver/Kalender/Arkiv nederst. Det er ikke sagt hvor lenken står. Via ⚙ → Personvern og data → erklæring blir det to–tre klikk. Avvikstabellen (#11) sier «FR-41 er fortsatt oppfylt», men det er ikke vist.</div><div class="finding-fix"><strong>Fiks:</strong> Bestem en fast plassering, for eksempel lenken «Personvern» nederst i ⚙-menyen <em>som første nivå</em>. Det er bedre med en liten tekstlenke «Personvern» i bunnen av hver side, under lista eller over bunnmenyen, og i toppen av skjema og detalj. Lenken bør også stå i samtykkedialogen og i Personvern og data. Skriv inn i EXPERIENCE: «Lenken <em>Personvernerklæring</em> er synlig uten å åpne menyer på alle skjermer, også mobil.»</div></article><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title">FR-37-påminnelsen mangler for hendelser og notater</h3><span class="finding-location">EXPERIENCE Component Patterns «KI-påminnelse»</span></header>
+<div class="finding-note">(EXPERIENCE Component Patterns «KI-påminnelse»). Påminnelsen står bare «under oppgavetekst» og sier «Teksten sendes …». I Flyt 2 legger Sara inn «Legetime» uten å få vite at tittelen sendes. Det står bare i en kommentar i spinen, ikke i UI-et.</div><div class="finding-fix"><strong>Fiks:</strong> Bruk tre varianter når KI er på:<br>- Oppgave: «Teksten og notatene sendes til KI (Claude) for å lage forslag.» Uten «og notatene» når FR-39 er på.<br>- Hendelse: «Tittel og tid brukes av KI (Claude) når den planlegger økter. Slå på 🔒 hvis tittelen er privat – da sendes bare at du er opptatt.»<br>- Når 🔒 er på, byttes påminnelsen ut med: «Sendes ikke til KI.» (oppgave) eller «KI ser bare at du er opptatt.» (hendelse).</div></article><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title">«🔒 Ikke send til KI» lover for mye på hendelser</h3><span class="finding-location">EXPERIENCE Component Patterns, DESIGN Components «Bryteren»</span></header>
+<div class="finding-note">(EXPERIENCE Component Patterns, DESIGN Components «Bryteren»). På en hendelse sendes fortsatt dato og klokkeslett som «opptatt». Etiketten sier noe annet enn det som skjer.</div><div class="finding-fix"><strong>Fiks:</strong> Behold samme bryter og ikon, men bruk en egen tekst for hendelser: <strong>«🔒 Skjul tittel for KI»</strong> med hjelpeteksten «KI får bare vite at du er opptatt kl. 14–15, ikke hva du skal.» Kan ikke etiketten endres, må hjelpeteksten stå rett under bryteren.</div></article><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title">Skissens personverntekster lover mer enn det som bygges, og de er ikke forkastet</h3><span class="finding-location">reconcile-skisse-design «Kvalitative ideer» #4, skissens Personvern og data, EXPERIENCE IA «hva sendes, lagring»</span></header>
+<div class="finding-note">(reconcile-skisse-design «Kvalitative ideer» #4, skissens Personvern og data, EXPERIENCE IA «hva sendes, lagring»). Skissen sier tre ting som ikke stemmer:<br>- «✕ Navn, telefon og e-post sendes aldri». FR-42 er bare et <em>Bør</em>, og selv da gjelder det pseudonymisering med feilrate. Reconcile flagger dette, men memloggen har ingen beslutning.<br>- «Det Anthropic mottar, slettes hos dem innen 30 dager». Teksten er absolutt, men flaggede samtaler kan lagres i inntil 2 år.<br>- «Slår du den av, får du regelbaserte forslag i stedet». Det stemmer ikke med FR-19. Med KI av får studenten ingen forslag, og reserveløsningen gjelder bare når KI er på, men utilgjengelig.</div><div class="finding-fix"><strong>Fiks:</strong> Skriv en fastsatt tekst for «Hva sendes til KI» og «Lagring» i EXPERIENCE (se forslaget under), og noter beslutningen i memloggen. Fram til FR-42 er bygget skal det stå: «Skriv ikke navn, telefonnummer eller helseopplysninger – appen fjerner dem ikke automatisk.» Når FR-42 er bygget: «Appen prøver å bytte ut telefonnumre og e-post med plassholdere før sending, men kan ikke garantere at alt blir fanget.»</div></article><article class="finding"><header><span class="badge badge-sev-high">Høy</span>
+<h3 class="finding-title">Data for «Foreslå ny tid» og økter er ikke beskrevet, og forholdet til 🔒 og KI av er udefinert</h3><span class="finding-location">EXPERIENCE Component Patterns «Kollisjonsmerke», KI-planlegging punkt 5</span></header>
+<div class="finding-note">(EXPERIENCE Component Patterns «Kollisjonsmerke», KI-planlegging punkt 5). Det står ikke hva som sendes når studenten trykker «Foreslå ny tid»: oppgavetekst, notater, frist, alle hendelser og andre økter? Det står heller ikke at knappen må skjules (1) når KI er av, (2) på økter til en oppgave med 🔒, og (3) for manuelle økter når KI er av. Ellers bryter en 🔒-oppgave FR-38 i det øyeblikket det oppstår en kollisjon.</div><div class="finding-fix"><strong>Fiks:</strong> Legg til i Component Patterns: «<em>Foreslå ny tid</em> vises bare når KI er på og oppgaven ikke er merket 🔒. Ellers vises bare <em>Endre tid</em>. Til KI sendes det samme som ved øktforslag: oppgavetekst, notater (om tillatt), frist, hendelser i perioden (🔒-hendelser som «opptatt») og tidspunktene for andre godtatte økter som «opptatt».» Nevn «Foreslå ny tid» i samtykket og i erklæringen.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Hendelsestitler sendes som standard, og det finnes ingen global innstilling</h3><span class="finding-location">EXPERIENCE IA «Personvern og data», KI-planlegging</span></header>
+<div class="finding-note">(EXPERIENCE IA «Personvern og data», KI-planlegging). Art. 25 nr. 2 (personvern som standard) og motmålet i PRD-en peker mot minst mulig data. Gruppas valg om å sende titler godtas, men studenten bør ha en samlet bryter, slik FR-39 har for notater.</div><div class="finding-fix"><strong>Fiks:</strong> Legg til i Personvern og data: «<strong>Send hendelsestitler til KI</strong> (på/av). Av: KI ser bare når du er opptatt, ikke hva du skal.» Vurder om standarden skal være <em>av</em>. Det er gruppas avveining.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">At fornavnet aldri sendes til KI, står bare i memloggen</h3><span class="finding-location">`.memlog.md`: «Sendes aldri til KI», EXPERIENCE IA «Profil»</span></header>
+<div class="finding-note">(<code>.memlog.md</code>: «Sendes aldri til KI», EXPERIENCE IA «Profil»). Spinen sier ikke noe om det. Det må være en uttrykkelig regel for arkitekturen (ikke i prompt eller systemprompt, for eksempel for et personlig sammendrag) og stå i teksten til brukeren.</div><div class="finding-fix"><strong>Fiks:</strong> I EXPERIENCE Profil: «Fornavnet lagres bare i nettleseren, brukes i hilsenen og sendes aldri til KI eller serveren.» Samme setning hører hjemme i Personvern og data og i erklæringen. Steg 1 i Flyt 3 kan få hjelpeteksten «Bare for hilsenen. Lagres på denne enheten.»</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Hvordan godtatte økter og 🔒-oppgaver brukes som «opptatt», er udefinert</h3><span class="finding-location"></span></header>
+<div class="finding-note">(KI-planlegging punkt 2). Når en ny oppgave planlegges, må KI kjenne til økter som allerede er godtatt. Slike økter heter «Økt 1/3 – &lt;oppgavetekst&gt;», og det er uklart om teksten sendes med. For en 🔒-oppgave ville det bryte FR-38.</div><div class="finding-fix"><strong>Fiks:</strong> «Andre godtatte økter sendes bare som opptatt-tid, uten oppgavetekst.»</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Omfanget av «Slett alle data» er ikke oppdatert, og den ærlige setningen om Anthropic mangler i UI-et</h3><span class="finding-location">EXPERIENCE IA «Personvern og data», FR-40</span></header>
+<div class="finding-note">(EXPERIENCE IA «Personvern og data», FR-40). FR-40 sier «oppgaver og innstillinger». Nå finnes også hendelser, økter, fornavn, tema, prosjekter og samtykkevalg.</div><div class="finding-fix"><strong>Fiks:</strong> Dialogtekst: «<strong>Slette alle data?</strong> Alle oppgaver, hendelser, økter, navnet ditt og innstillingene slettes fra denne nettleseren, og appen starter på nytt. Det kan ikke angres. Tekst som allerede er sendt til KI, kan ikke slettes herfra – Anthropic sletter den normalt innen 30 dager.» Knapper: <em>Avbryt</em> / <em>Slett alt</em> (varselfarge).</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Eksport og import mangler personverntekst og regler</h3><span class="finding-location">EXPERIENCE IA, State Patterns «Import feiler»</span></header>
+<div class="finding-note">(EXPERIENCE IA, State Patterns «Import feiler»). Eksportfila inneholder fornavn og eventuelle helsetitler i klartekst. Det står ikke om import erstatter eller fletter data, og ikke om importerte oppgaver sendes til KI automatisk.</div><div class="finding-fix"><strong>Fiks:</strong> Eksport: «Fila inneholder alt du har skrevet, også navnet ditt og hendelsene. Lagre den et trygt sted.» Import: «Importen erstatter alle data i appen. Fortsette?» Legg også til regelen at importerte oppgaver ikke sender noe til KI før studenten endrer teksten eller ber om forslag. Merk at FR-43 er <em>Bør</em>. Om den ikke bygges, må knappene fjernes fra spinen.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Samtykket mangler tilbaketrekking, lenke og frivillighet</h3><span class="finding-location">Flyt 3 steg 2–3</span></header>
+<div class="finding-note">(Flyt 3 steg 2–3). Teksten «Valget kan endres i Innstillinger» står bare i flyten, ikke i dialogen. Art. 7 nr. 3 krever at studenten får vite om retten til å trekke samtykket <em>før</em> hen samtykker.</div><div class="finding-fix"><strong>Fiks:</strong> Ta det med i dialogteksten (se forslaget) sammen med «Les hele personvernerklæringen».</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Hvor mye som sendes, er ikke avgrenset (dataminimering)</h3><span class="finding-location"></span></header>
+<div class="finding-note">(KI-planlegging punkt 2: «hendelser … i perioden fram til fristen»). Har en oppgave frist om fire måneder, sendes alle hendelser i fire måneder. FR-13 sender dem på nytt hver gang teksten endres.</div><div class="finding-fix"><strong>Fiks:</strong> Begrens perioden, for eksempel til maks 14 dager fram, eller til fristen hvis den er tidligere. Skriv det i spinen og i erklæringen: «KI får bare hendelser for de nærmeste 14 dagene.» Selve tallet bestemmes i arkitekturen.</div></article><article class="finding"><header><span class="badge badge-sev-medium">Middels</span>
+<h3 class="finding-title">Opplysninger om andre personer i hendelsestitler</h3><span class="finding-location">Flyt 1–2</span></header>
+<div class="finding-note">(Flyt 1–2). Titler som «Middag med Ola» eller «Kjøre mamma til sykehus» er tredjepersons opplysninger, også helse. Samtykket fra studenten dekker ikke dem.</div><div class="finding-fix"><strong>Fiks:</strong> Advarselen i samtykket og hendelsespåminnelsen bør si: «Unngå navn på andre og helseopplysninger – bruk 🔒 eller en nøytral tittel som «Avtale».»</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Låsikonet vises bare på oppgavekort</h3><span class="finding-location">DESIGN Components «Bryteren»</span></header>
+<div class="finding-note">(DESIGN Components «Bryteren»). Hendelsesrader, kalenderceller og hendelsesdetalj viser ikke om hendelsen er 🔒.</div><div class="finding-fix"><strong>Fiks:</strong> Bruk samme lille låsikon på hendelsesrad og hendelsesdetalj, med skjermlesertekst «Skjult for KI».</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">«Helt tom app» sier at KI hjelper selv om studenten har sagt nei</h3><span class="finding-location"></span></header>
+<div class="finding-note">(State Patterns: «… KI hjelper deg å sortere»).</div><div class="finding-fix"><strong>Fiks:</strong> Bruk en variant uten KI: «Hei, Ida 👋 Skriv inn det første du må huske.»</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Påminnelsen er unøyaktig</h3><span class="finding-location">Component Patterns «KI-påminnelse»</span></header>
+<div class="finding-note">(Component Patterns «KI-påminnelse»). «Teksten sendes til KI (Claude) for å lage forslag» nevner ikke notatene. Se fiks under høy-funnet om FR-37.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Erklæringen bør nevne mer</h3><span class="finding-location"></span></header>
+<div class="finding-note">(FR-41). Formålet er nå også <em>planlegging av økter</em>, ikke bare sortering. Ingen automatiske avgjørelser tas (studenten godtar alt, art. 22 er ikke relevant), reserveløsningen sender ingenting, aldersgrensen er 13 år (pol. § 5), og fornavn, tema og samtykkevalg lagres lokalt (ekomloven § 3-15, strengt nødvendig).</div><div class="finding-fix"><strong>Fiks:</strong> Legg punktene inn i FR-41-lista.</div></article><article class="finding"><header><span class="badge badge-sev-low">Lav</span>
+<h3 class="finding-title">Dokumentasjon av samtykket</h3><span class="finding-location"></span></header>
+<div class="finding-note">(research-gdpr-regelverk §2, [Usikkert]). Lagre samtykket lokalt med dato og versjon av teksten. Vis da samtykket på nytt hvis innholdet endres, for eksempel hvis titler kommer til senere.</div><div class="finding-fix"><strong>Fiks:</strong> «Godkjent 9.11.2026 (tekst v2)» vises i Personvern og data.</div></article></div></details></section>
+<div class="mechanical"><h3>Mekaniske merknader</h3><ul><li>Alle <code>{…}</code>-referanser i DESIGN løses. EXPERIENCE refererer bare til <code>accent-ink</code>, og det løses.</li><li><code>sources</code> i frontmatter løses for begge filene. EXPERIENCE mangler <code>description</code> (valgfritt).</li><li><code>task-card-overdue.borderLeft</code> og <code>check-ring.border</code> bygger tokens inn i CSS-strenger (<code>&#x27;4px solid {colors.warn}&#x27;</code>). Sjekk at resolveren håndterer dette, eller del opp i <code>borderLeftWidth</code> og <code>borderLeftColor</code>.</li><li>Ulik knappetekst: «+ Ny oppgave» (flytende knapp, også brukt til å lage Hendelse i Flyt 1 steg 2) og «+ Ny» (Kalender, Flyt 2). Velg én.</li><li>Lenkene til <code>mockups/</code> peker ikke til noe ennå (forventet, se 5).</li><li>Ingen Mermaid-diagrammer i filene.</li></ul></div>
+<footer class="report-footer"><div class="meta"><span>Rubrikk: review-rubric.md</span><span>Personvern: review-personvern.md</span><span>Generert: 2026-11-09T21:18</span></div></footer>
+</div></body></html>

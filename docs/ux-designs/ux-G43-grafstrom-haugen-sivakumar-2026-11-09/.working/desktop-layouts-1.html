@@ -1,0 +1,74 @@
+<!doctype html><html lang="no"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>dueNext desktop-oppsett</title><style>
+/* Tema: Pastellblå (standard) #A9CBF2 / ink #2C5B8E · glød B 75 % lys */
+*{box-sizing:border-box;margin:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#ECECE8;color:#1F2328;padding:24px 16px 48px}
+.intro,section{max-width:1240px;margin:0 auto 24px}
+.intro h1{font-size:26px;margin-bottom:6px} .intro p{color:#555;max-width:75ch;line-height:1.5}
+section{background:#fff;border-radius:20px;padding:20px}
+section header{margin-bottom:14px} section h2{font-size:19px} section header p{color:#555;font-size:14px;max-width:80ch;margin-top:4px;line-height:1.45}
+.frame{overflow-x:auto;border-radius:16px;border:1px solid #E7E7E3}
+.t-blue{--p:#A9CBF2;--ink:#2C5B8E;--bg:#F7F7F5;--sf:#fff;--tx:#1F2328;--mu:#6B7280;--ln:#E7E7E3;--warn:#C2413B}
+.win{min-width:1080px;height:640px;display:flex;font-size:14px;color:var(--tx);position:relative;
+ background:radial-gradient(70% 38% at 50% 0%,color-mix(in srgb,var(--p) 75%,transparent),transparent 70%),var(--bg)}
+.win.col{flex-direction:column}
+.side{width:200px;padding:20px 12px;display:flex;flex-direction:column;gap:4px;background:color-mix(in srgb,var(--sf) 70%,transparent);border-right:1px solid var(--ln)}
+.logo{font-weight:600;font-size:18px;padding:0 10px 14px} .logo b{color:var(--ink);margin-left:2px}
+.side a{padding:9px 12px;border-radius:10px;color:var(--mu)} .side a.on{background:var(--p);color:#1F2328;font-weight:600}
+.side .sp{flex:1} .side .small{font-size:12px}
+main{flex:1;padding:22px 26px;overflow:hidden}
+main.narrow{max-width:640px;width:100%;margin:0 auto;position:relative}
+.hello h3{font-size:24px} .date{color:var(--mu);font-size:13px;margin:2px 0 12px}
+.chips{display:flex;gap:6px;margin-bottom:12px;align-items:center}
+.chip{padding:6px 13px;border-radius:999px;background:var(--sf);border:1px solid var(--ln);font-size:13px}
+.chip.on{background:var(--p);border-color:var(--p);font-weight:600} .chip.ghost{background:transparent}
+.search{margin-left:auto;background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;color:var(--mu);font-size:13px;width:220px}
+.newbar{background:var(--sf);border:1px dashed var(--ink);color:var(--ink);border-radius:12px;padding:10px 14px;margin-bottom:6px}
+.grp{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin:12px 0 6px}
+.grp i{font-style:normal;background:var(--sf);border:1px solid var(--ln);padding:0 6px;border-radius:8px;margin-left:4px} .grp.warn{color:var(--warn)}
+.task{display:flex;gap:10px;background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:9px 12px;margin-bottom:6px}
+.task.overdue{border-left:4px solid var(--warn)} .task.sel{outline:2px solid var(--ink)}
+.ring{width:18px;height:18px;border-radius:50%;border:2px solid var(--ink);flex:none;margin-top:1px}
+.tt{font-weight:500} .sum{font-size:12px;color:var(--ink);margin-top:2px}
+.meta{display:flex;gap:5px;margin-top:4px} .tag{font-size:11px;padding:1px 7px;border-radius:6px;background:var(--bg);color:var(--mu);border:1px solid var(--ln)} .tag.hi{color:var(--warn);border-color:currentColor}
+.detail{width:340px;background:var(--sf);border-left:1px solid var(--ln);padding:18px;display:flex;flex-direction:column;gap:10px}
+.dh{display:flex;justify-content:space-between;align-items:center} .x{color:var(--mu)}
+.detail h4{font-size:18px} .kv{display:flex;justify-content:space-between;font-size:13px} .kv span{color:var(--mu)} .kv.col{flex-direction:column;gap:4px}
+.ki{background:color-mix(in srgb,var(--p) 35%,var(--sf));border-radius:14px;padding:10px 12px;font-size:13px;display:flex;flex-direction:column;gap:6px}
+.ki>b{color:var(--ink)} .kirow{display:flex;gap:6px;align-items:center;flex-wrap:wrap} .kirow u{margin-right:auto}
+.btn{padding:4px 11px;border-radius:999px;border:1px solid var(--ln);background:var(--sf);font-size:12px}
+.btn.pri{background:var(--p);border-color:var(--p);font-weight:600} .btn.danger{color:var(--warn)}
+.dfoot{margin-top:auto;display:flex;gap:8px}
+.topnav{display:flex;align-items:center;gap:24px;padding:14px 26px;border-bottom:1px solid var(--ln);background:color-mix(in srgb,var(--sf) 70%,transparent)}
+.topnav .logo{padding:0} .tabs{display:flex;gap:6px;margin:0 auto} .tabs a{padding:7px 16px;border-radius:999px;color:var(--mu)} .tabs a.on{background:var(--p);color:#1F2328;font-weight:600}
+.gear{color:var(--mu);font-size:18px}
+.fab{position:absolute;right:0;bottom:16px;background:var(--p);font-weight:600;padding:12px 18px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+.modal-hint{position:absolute;right:24px;top:80px;width:230px;font-size:12px;color:var(--mu);background:var(--sf);border:1px dashed var(--ln);padding:10px;border-radius:10px}
+.board{display:grid;grid-template-columns:repeat(5,1fr);gap:10px} .kcol{background:color-mix(in srgb,var(--sf) 55%,transparent);border-radius:14px;padding:4px 8px}
+.kcol .task{flex-direction:row}
+</style></head><body>
+<div class="intro"><h1>dueNext på PC · 3 oppsett</h1>
+<p>Alle tre bruker standardtemaet pastellblå, med glød ovenfra og det samme innholdet. Mobilversjonen er den samme som før. Det som skiller variantene, er hvordan dette er lagt ut på en bred skjerm. Kalender og Arkiv følger samme rammeverk. Hvis vinduet er smalere enn skjermen, kan du rulle sidelengs inne i hver ramme.</p></div>
+<section><header><h2>A · Sidemeny + liste + detaljpanel</h2><p>Klassisk «e-post»-oppsett. Bunnmenyen på mobil blir en sidemeny til venstre. Lista er i midten, og den valgte oppgaven åpnes i et panel til høyre. Man ser oversikten og detaljene samtidig.</p></header><div class="frame t-blue light"><div class="win"><nav class="side"><div class="logo">due<b>Next</b></div>
+<a class="on">☰ Oppgaver</a><a>▦ Kalender</a><a>⌂ Arkiv</a>
+<div class="sp"></div><a>⚙ Innstillinger</a><a class="small">Personvern</a></nav><main><div class="hello"><h3>Hei, Ida 👋</h3><div class="date">Mandag 9. november · 7 aktive oppgaver</div></div><div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span><span class="chip ghost">⇅ Frist</span><span class="search">🔍 Søk i oppgaver</span></div><div class="newbar">+ Ny oppgave … skriv med egne ord</div><div class="grp warn">Forfalt <i>1</i></div><div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div><div class="grp">I dag <i>2</i></div><div class="task sel"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div><div class="task "><span class="ring"></span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">i dag</span><span class="tag">Lav</span></div></div></div><div class="grp">Denne uken <i>2</i></div><div class="task "><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">torsdag</span><span class="tag">Lav</span></div></div></div><div class="task "><span class="ring"></span><div><div class="tt">Skrive utkast til PRD-gjennomgang</div><div class="meta"><span class="tag">IBE160</span><span class="tag">fredag</span><span class="tag">Middels</span></div></div></div><div class="grp">Senere <i>1</i></div><div class="task "><span class="ring"></span><div><div class="tt">Eksamen i statistikk</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18. nov</span><span class="tag hi">Høy</span></div></div></div><div class="grp">Ingen frist <i>1</i></div><div class="task "><span class="ring"></span><div><div class="tt">Vaske klær</div><div class="meta"><span class="tag">Hjemme</span><span class="tag">Lav</span></div></div></div></main><aside class="detail">
+<div class="dh"><span class="x">✕</span><span class="btn">Endre</span></div>
+<h4>Lese kapittel 4–5 i statistikk</h4>
+<div class="kv"><span>Frist</span><b>I dag 18:00</b></div>
+<div class="kv"><span>Prosjekt</span><b>STAT100</b></div>
+<div class="kv"><span>Etikett</span><b>–</b></div>
+<div class="kv"><span>Prioritet</span><b>Middels</b></div>
+<div class="ki"><b>✦ KI-forslag</b>
+ <div class="kirow">Etikett: <u>Skole</u><span class="btn pri">Godta</span><span class="btn">Endre</span></div>
+ <div class="kirow">Prioritet: <u>Høy</u><span class="btn pri">Godta</span><span class="btn">Endre</span></div>
+ <div class="kirow">Sammendrag: <u>Les to kapitler før eksamen</u><span class="btn pri">Godta</span><span class="btn">Endre</span></div>
+</div>
+<div class="kv col"><span>Notater</span><p>Fokus på regresjon, se forelesning 7.</p></div>
+<div class="dfoot"><span class="btn">✓ Fullfør</span><span class="btn danger">Slett</span></div>
+</aside></div></div></section><section><header><h2>B · Toppmeny + sentrert kolonne</h2><p>Nærmest mobilversjonen. Fanene ligger øverst, og lista er en sentrert kolonne. Detaljene åpnes som en dialog. Enkelt, men utnytter lite av skjermen.</p></header><div class="frame t-blue light"><div class="win col">
+<div class="topnav"><div class="logo">due<b>Next</b></div><div class="tabs"><a class="on">Oppgaver</a><a>Kalender</a><a>Arkiv</a></div><span class="gear">⚙</span></div>
+<main class="narrow"><div class="hello"><h3>Hei, Ida 👋</h3><div class="date">Mandag 9. november · 7 aktive oppgaver</div></div><div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span><span class="chip ghost">⇅ Frist</span><span class="search">🔍 Søk i oppgaver</span></div><div class="grp warn">Forfalt <i>1</i></div><div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div><div class="grp">I dag <i>2</i></div><div class="task sel"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div><div class="task "><span class="ring"></span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">i dag</span><span class="tag">Lav</span></div></div></div><div class="grp">Denne uken <i>2</i></div><div class="task "><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">torsdag</span><span class="tag">Lav</span></div></div></div><div class="task "><span class="ring"></span><div><div class="tt">Skrive utkast til PRD-gjennomgang</div><div class="meta"><span class="tag">IBE160</span><span class="tag">fredag</span><span class="tag">Middels</span></div></div></div><div class="grp">Senere <i>1</i></div><div class="task "><span class="ring"></span><div><div class="tt">Eksamen i statistikk</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18. nov</span><span class="tag hi">Høy</span></div></div></div><div class="grp">Ingen frist <i>1</i></div><div class="task "><span class="ring"></span><div><div class="tt">Vaske klær</div><div class="meta"><span class="tag">Hjemme</span><span class="tag">Lav</span></div></div></div><div class="fab">+ Ny oppgave</div></main>
+<div class="modal-hint">Trykk på en oppgave → detaljer åpnes som et panel/dialog over lista</div>
+</div></div></section><section><header><h2>C · Sidemeny + kolonner per frist</h2><p>Hver smartliste er en egen kolonne side om side (Forfalt → Ingen frist). Gir oversikt over hele uka på én gang, men blir trangt med mange oppgaver.</p></header><div class="frame t-blue light"><div class="win"><nav class="side"><div class="logo">due<b>Next</b></div>
+<a class="on">☰ Oppgaver</a><a>▦ Kalender</a><a>⌂ Arkiv</a>
+<div class="sp"></div><a>⚙ Innstillinger</a><a class="small">Personvern</a></nav><main><div class="hello"><h3>Hei, Ida 👋</h3><div class="date">Mandag 9. november · 7 aktive oppgaver</div></div><div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span><span class="chip ghost">⇅ Frist</span><span class="search">🔍 Søk i oppgaver</span></div><div class="newbar">+ Ny oppgave … skriv med egne ord</div><div class="board"><div class="kcol"><div class="grp warn">Forfalt <i>1</i></div><div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div></div><div class="kcol"><div class="grp">I dag <i>2</i></div><div class="task sel"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div><div class="task "><span class="ring"></span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">i dag</span><span class="tag">Lav</span></div></div></div></div><div class="kcol"><div class="grp">Denne uken <i>2</i></div><div class="task "><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">torsdag</span><span class="tag">Lav</span></div></div></div><div class="task "><span class="ring"></span><div><div class="tt">Skrive utkast til PRD-gjennomgang</div><div class="meta"><span class="tag">IBE160</span><span class="tag">fredag</span><span class="tag">Middels</span></div></div></div></div><div class="kcol"><div class="grp">Senere <i>1</i></div><div class="task "><span class="ring"></span><div><div class="tt">Eksamen i statistikk</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18. nov</span><span class="tag hi">Høy</span></div></div></div></div><div class="kcol"><div class="grp">Ingen frist <i>1</i></div><div class="task "><span class="ring"></span><div><div class="tt">Vaske klær</div><div class="meta"><span class="tag">Hjemme</span><span class="tag">Lav</span></div></div></div></div></div></main></div></div></section></body></html>

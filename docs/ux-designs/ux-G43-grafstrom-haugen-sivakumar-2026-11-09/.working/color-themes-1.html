@@ -1,0 +1,301 @@
+<!doctype html><html lang="no"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>dueNext fargetemaer</title>
+<style>
+/* Felles nøytrale (forslag):
+   Lys:  bakgrunn #F7F7F5 · flate #FFFFFF · tekst #1F2328 · dempet #6B7280 · linje #E7E7E3
+   Mørk: bakgrunn #15161A · flate #202127 · tekst #ECEDEF · dempet #9CA1A9 · linje #2D2E35
+   Varsel (Forfalt/Høy): lys #C2413B · mørk #F09A94
+   Pastellen brukes som fyll (valgt filter, knapp, KI-boks). «Ink» er en mørkere tone av samme farge,
+   brukt på tekst/ikoner i lys modus så kontrasten holder (WCAG). I mørk modus brukes pastellen selv som ink. */
+* { box-sizing:border-box; margin:0; }
+body { font-family: system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:#ECECE8; color:#1F2328; padding:24px 16px 48px; }
+.intro { max-width:1100px; margin:0 auto 24px; }
+.intro h1 { font-size:26px; margin-bottom:6px; }
+.intro p { color:#555; max-width:70ch; line-height:1.5; }
+section { max-width:1100px; margin:0 auto 28px; background:#fff; border-radius:20px; padding:20px; }
+section header { display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-bottom:16px; }
+.sw { width:44px; height:44px; border-radius:14px; }
+section h2 { font-size:19px; } section header p { color:#666; font-size:14px; }
+.tok { margin-left:auto; display:flex; gap:8px; flex-wrap:wrap; }
+.tok code { font-size:12px; background:#f3f3f0; padding:4px 8px; border-radius:6px; }
+.pair { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; }
+
+/* Pastellblå: pastell #A9CBF2 · ink #2C5B8E */
+.t-blue { --p: #A9CBF2; --ink: #2C5B8E; }
+.t-blue.dark { --ink: #A9CBF2; }
+/* Pastelloransje: pastell #F9C9A2 · ink #9A4F1E */
+.t-orange { --p: #F9C9A2; --ink: #9A4F1E; }
+.t-orange.dark { --ink: #F9C9A2; }
+/* Pastellilla: pastell #CDBBEE · ink #5A3F8E */
+.t-purple { --p: #CDBBEE; --ink: #5A3F8E; }
+.t-purple.dark { --ink: #CDBBEE; }
+/* Pastellgul: pastell #F5E39E · ink #7A6008 */
+.t-yellow { --p: #F5E39E; --ink: #7A6008; }
+.t-yellow.dark { --ink: #F5E39E; }
+/* Pastellgrønn: pastell #B6E2C4 · ink #2C6B44 */
+.t-green { --p: #B6E2C4; --ink: #2C6B44; }
+.t-green.dark { --ink: #B6E2C4; }
+/* Pastellrosa: pastell #F5BFD4 · ink #983862 */
+.t-pink { --p: #F5BFD4; --ink: #983862; }
+.t-pink.dark { --ink: #F5BFD4; }
+.phone { --bg:#F7F7F5; --sf:#FFFFFF; --tx:#1F2328; --mu:#6B7280; --ln:#E7E7E3; --warn:#C2413B;
+  background:var(--bg); color:var(--tx); border-radius:28px; padding:18px 16px 0; position:relative; overflow:hidden;
+  border:1px solid var(--ln); font-size:14px; min-height:620px; }
+.phone.dark { --bg:#15161A; --sf:#202127; --tx:#ECEDEF; --mu:#9CA1A9; --ln:#2D2E35; --warn:#F09A94; }
+.top { display:flex; justify-content:space-between; align-items:center; }
+.logo { font-weight:600; } .logo b { color:var(--ink); margin-left:2px; }
+.gear { color:var(--mu); font-size:18px; }
+.phone h3 { font-size:24px; margin-top:14px; }
+.date { color:var(--mu); font-size:13px; margin:2px 0 12px; }
+.chips { display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
+.chip { padding:6px 13px; border-radius:999px; background:var(--sf); border:1px solid var(--ln); font-size:13px; }
+.chip.on { background:var(--p); border-color:var(--p); color:#1F2328; font-weight:600; }
+.grp { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--mu); margin:12px 0 6px; }
+.grp i { font-style:normal; background:var(--sf); border:1px solid var(--ln); padding:0 6px; border-radius:8px; margin-left:4px; }
+.grp.over { color:var(--warn); }
+.task { display:flex; gap:10px; background:var(--sf); border:1px solid var(--ln); border-radius:14px; padding:10px 12px; margin-bottom:6px; }
+.task.overdue { border-left:4px solid var(--warn); }
+.task.done .tt { text-decoration:line-through; color:var(--mu); }
+.ring { width:20px; height:20px; border-radius:50%; border:2px solid var(--ink); flex:none; margin-top:1px; display:grid; place-items:center; font-size:12px; }
+.ring.chk { background:var(--p); border-color:var(--p); color:#1F2328; }
+.tt { font-weight:500; }
+.sum { font-size:12px; color:var(--ink); margin-top:2px; }
+.meta { display:flex; gap:5px; margin-top:5px; flex-wrap:wrap; }
+.tag { font-size:11px; padding:2px 7px; border-radius:6px; background:var(--bg); color:var(--mu); border:1px solid var(--ln); }
+.tag.hi { color:var(--warn); border-color:currentColor; }
+.ki { margin-top:10px; background:color-mix(in srgb, var(--p) 35%, var(--sf)); border-radius:14px; padding:10px 12px; font-size:13px; }
+.dark .ki { background:color-mix(in srgb, var(--p) 18%, var(--sf)); }
+.ki b { color:var(--ink); margin-right:4px; }
+.kib { display:flex; gap:6px; margin-top:8px; }
+.btn { padding:5px 12px; border-radius:999px; border:1px solid var(--ln); background:var(--sf); font-size:12px; }
+.btn.pri { background:var(--p); border-color:var(--p); color:#1F2328; font-weight:600; }
+.fab { position:absolute; right:16px; bottom:76px; background:var(--p); color:#1F2328; font-weight:600; padding:12px 18px; border-radius:999px; box-shadow:0 6px 18px rgba(0,0,0,.15); }
+.nav { position:absolute; left:0; right:0; bottom:0; display:flex; justify-content:space-around; background:var(--sf); border-top:1px solid var(--ln); padding:8px 0 10px; font-size:11px; text-align:center; color:var(--mu); line-height:1.4; }
+.nav .on { color:var(--ink); font-weight:600; }
+</style></head><body>
+<div class="intro"><h1>dueNext · 6 pastelltemaer</h1>
+<p>Hvert tema vises i lys og mørk modus med samme innhold. De nøytrale fargene (bakgrunn, kort, tekst) er like i alle temaene, og bare aksentfargen bytter. Pastellen fyller valgt filter, knapper og KI-forslag. En mørkere tone av samme farge brukes på tekst og ikoner, slik at alt er lesbart i lys modus.</p></div>
+
+<section>
+  <header><span class="sw" style="background:#A9CBF2"></span><div><h2>Pastellblå</h2><p>rolig, klar, fokusert</p></div>
+  <div class="tok"><code>pastell #A9CBF2</code><code>ink #2C5B8E</code></div></header>
+  <div class="pair">
+<div class="phone t-blue light">
+  <div class="top"><span class="logo">due<b>Next</b></span><span class="gear">⚙</span></div>
+  <h3>Hei, Ida 👋</h3>
+  <div class="date">Mandag 9. november · 5 oppgaver</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span></div>
+  <div class="grp over">Forfalt <i>1</i></div>
+  <div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div>
+  <div class="grp">I dag <i>2</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div>
+  <div class="task done"><span class="ring chk">✓</span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">Lav</span></div></div></div>
+  <div class="grp">Denne uken <i>1</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">Torsdag</span></div></div></div>
+  <div class="ki"><b>✦ KI-forslag</b> Etikett: <u>Skole</u> · Prioritet: <u>Høy</u><div class="kib"><span class="btn pri">Godta</span><span class="btn">Endre</span></div></div>
+  <div class="fab">+ Ny oppgave</div>
+  <div class="nav"><span class="on">☰<br>Oppgaver</span><span>▦<br>Kalender</span><span>⌂<br>Arkiv</span></div>
+</div>
+<div class="phone t-blue dark">
+  <div class="top"><span class="logo">due<b>Next</b></span><span class="gear">⚙</span></div>
+  <h3>Hei, Ida 👋</h3>
+  <div class="date">Mandag 9. november · 5 oppgaver</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span></div>
+  <div class="grp over">Forfalt <i>1</i></div>
+  <div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div>
+  <div class="grp">I dag <i>2</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div>
+  <div class="task done"><span class="ring chk">✓</span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">Lav</span></div></div></div>
+  <div class="grp">Denne uken <i>1</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">Torsdag</span></div></div></div>
+  <div class="ki"><b>✦ KI-forslag</b> Etikett: <u>Skole</u> · Prioritet: <u>Høy</u><div class="kib"><span class="btn pri">Godta</span><span class="btn">Endre</span></div></div>
+  <div class="fab">+ Ny oppgave</div>
+  <div class="nav"><span class="on">☰<br>Oppgaver</span><span>▦<br>Kalender</span><span>⌂<br>Arkiv</span></div>
+</div></div>
+</section>
+<section>
+  <header><span class="sw" style="background:#F9C9A2"></span><div><h2>Pastelloransje</h2><p>varm, energisk, positiv</p></div>
+  <div class="tok"><code>pastell #F9C9A2</code><code>ink #9A4F1E</code></div></header>
+  <div class="pair">
+<div class="phone t-orange light">
+  <div class="top"><span class="logo">due<b>Next</b></span><span class="gear">⚙</span></div>
+  <h3>Hei, Ida 👋</h3>
+  <div class="date">Mandag 9. november · 5 oppgaver</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span></div>
+  <div class="grp over">Forfalt <i>1</i></div>
+  <div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div>
+  <div class="grp">I dag <i>2</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div>
+  <div class="task done"><span class="ring chk">✓</span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">Lav</span></div></div></div>
+  <div class="grp">Denne uken <i>1</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">Torsdag</span></div></div></div>
+  <div class="ki"><b>✦ KI-forslag</b> Etikett: <u>Skole</u> · Prioritet: <u>Høy</u><div class="kib"><span class="btn pri">Godta</span><span class="btn">Endre</span></div></div>
+  <div class="fab">+ Ny oppgave</div>
+  <div class="nav"><span class="on">☰<br>Oppgaver</span><span>▦<br>Kalender</span><span>⌂<br>Arkiv</span></div>
+</div>
+<div class="phone t-orange dark">
+  <div class="top"><span class="logo">due<b>Next</b></span><span class="gear">⚙</span></div>
+  <h3>Hei, Ida 👋</h3>
+  <div class="date">Mandag 9. november · 5 oppgaver</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span></div>
+  <div class="grp over">Forfalt <i>1</i></div>
+  <div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div>
+  <div class="grp">I dag <i>2</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div>
+  <div class="task done"><span class="ring chk">✓</span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">Lav</span></div></div></div>
+  <div class="grp">Denne uken <i>1</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">Torsdag</span></div></div></div>
+  <div class="ki"><b>✦ KI-forslag</b> Etikett: <u>Skole</u> · Prioritet: <u>Høy</u><div class="kib"><span class="btn pri">Godta</span><span class="btn">Endre</span></div></div>
+  <div class="fab">+ Ny oppgave</div>
+  <div class="nav"><span class="on">☰<br>Oppgaver</span><span>▦<br>Kalender</span><span>⌂<br>Arkiv</span></div>
+</div></div>
+</section>
+<section>
+  <header><span class="sw" style="background:#CDBBEE"></span><div><h2>Pastellilla</h2><p>kreativ, myk, drømmende</p></div>
+  <div class="tok"><code>pastell #CDBBEE</code><code>ink #5A3F8E</code></div></header>
+  <div class="pair">
+<div class="phone t-purple light">
+  <div class="top"><span class="logo">due<b>Next</b></span><span class="gear">⚙</span></div>
+  <h3>Hei, Ida 👋</h3>
+  <div class="date">Mandag 9. november · 5 oppgaver</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span></div>
+  <div class="grp over">Forfalt <i>1</i></div>
+  <div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div>
+  <div class="grp">I dag <i>2</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div>
+  <div class="task done"><span class="ring chk">✓</span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">Lav</span></div></div></div>
+  <div class="grp">Denne uken <i>1</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">Torsdag</span></div></div></div>
+  <div class="ki"><b>✦ KI-forslag</b> Etikett: <u>Skole</u> · Prioritet: <u>Høy</u><div class="kib"><span class="btn pri">Godta</span><span class="btn">Endre</span></div></div>
+  <div class="fab">+ Ny oppgave</div>
+  <div class="nav"><span class="on">☰<br>Oppgaver</span><span>▦<br>Kalender</span><span>⌂<br>Arkiv</span></div>
+</div>
+<div class="phone t-purple dark">
+  <div class="top"><span class="logo">due<b>Next</b></span><span class="gear">⚙</span></div>
+  <h3>Hei, Ida 👋</h3>
+  <div class="date">Mandag 9. november · 5 oppgaver</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span></div>
+  <div class="grp over">Forfalt <i>1</i></div>
+  <div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div>
+  <div class="grp">I dag <i>2</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div>
+  <div class="task done"><span class="ring chk">✓</span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">Lav</span></div></div></div>
+  <div class="grp">Denne uken <i>1</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">Torsdag</span></div></div></div>
+  <div class="ki"><b>✦ KI-forslag</b> Etikett: <u>Skole</u> · Prioritet: <u>Høy</u><div class="kib"><span class="btn pri">Godta</span><span class="btn">Endre</span></div></div>
+  <div class="fab">+ Ny oppgave</div>
+  <div class="nav"><span class="on">☰<br>Oppgaver</span><span>▦<br>Kalender</span><span>⌂<br>Arkiv</span></div>
+</div></div>
+</section>
+<section>
+  <header><span class="sw" style="background:#F5E39E"></span><div><h2>Pastellgul</h2><p>solfylt, lett, optimistisk</p></div>
+  <div class="tok"><code>pastell #F5E39E</code><code>ink #7A6008</code></div></header>
+  <div class="pair">
+<div class="phone t-yellow light">
+  <div class="top"><span class="logo">due<b>Next</b></span><span class="gear">⚙</span></div>
+  <h3>Hei, Ida 👋</h3>
+  <div class="date">Mandag 9. november · 5 oppgaver</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span></div>
+  <div class="grp over">Forfalt <i>1</i></div>
+  <div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div>
+  <div class="grp">I dag <i>2</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div>
+  <div class="task done"><span class="ring chk">✓</span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">Lav</span></div></div></div>
+  <div class="grp">Denne uken <i>1</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">Torsdag</span></div></div></div>
+  <div class="ki"><b>✦ KI-forslag</b> Etikett: <u>Skole</u> · Prioritet: <u>Høy</u><div class="kib"><span class="btn pri">Godta</span><span class="btn">Endre</span></div></div>
+  <div class="fab">+ Ny oppgave</div>
+  <div class="nav"><span class="on">☰<br>Oppgaver</span><span>▦<br>Kalender</span><span>⌂<br>Arkiv</span></div>
+</div>
+<div class="phone t-yellow dark">
+  <div class="top"><span class="logo">due<b>Next</b></span><span class="gear">⚙</span></div>
+  <h3>Hei, Ida 👋</h3>
+  <div class="date">Mandag 9. november · 5 oppgaver</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span></div>
+  <div class="grp over">Forfalt <i>1</i></div>
+  <div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div>
+  <div class="grp">I dag <i>2</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div>
+  <div class="task done"><span class="ring chk">✓</span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">Lav</span></div></div></div>
+  <div class="grp">Denne uken <i>1</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">Torsdag</span></div></div></div>
+  <div class="ki"><b>✦ KI-forslag</b> Etikett: <u>Skole</u> · Prioritet: <u>Høy</u><div class="kib"><span class="btn pri">Godta</span><span class="btn">Endre</span></div></div>
+  <div class="fab">+ Ny oppgave</div>
+  <div class="nav"><span class="on">☰<br>Oppgaver</span><span>▦<br>Kalender</span><span>⌂<br>Arkiv</span></div>
+</div></div>
+</section>
+<section>
+  <header><span class="sw" style="background:#B6E2C4"></span><div><h2>Pastellgrønn</h2><p>frisk, balansert, nær skissen</p></div>
+  <div class="tok"><code>pastell #B6E2C4</code><code>ink #2C6B44</code></div></header>
+  <div class="pair">
+<div class="phone t-green light">
+  <div class="top"><span class="logo">due<b>Next</b></span><span class="gear">⚙</span></div>
+  <h3>Hei, Ida 👋</h3>
+  <div class="date">Mandag 9. november · 5 oppgaver</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span></div>
+  <div class="grp over">Forfalt <i>1</i></div>
+  <div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div>
+  <div class="grp">I dag <i>2</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div>
+  <div class="task done"><span class="ring chk">✓</span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">Lav</span></div></div></div>
+  <div class="grp">Denne uken <i>1</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">Torsdag</span></div></div></div>
+  <div class="ki"><b>✦ KI-forslag</b> Etikett: <u>Skole</u> · Prioritet: <u>Høy</u><div class="kib"><span class="btn pri">Godta</span><span class="btn">Endre</span></div></div>
+  <div class="fab">+ Ny oppgave</div>
+  <div class="nav"><span class="on">☰<br>Oppgaver</span><span>▦<br>Kalender</span><span>⌂<br>Arkiv</span></div>
+</div>
+<div class="phone t-green dark">
+  <div class="top"><span class="logo">due<b>Next</b></span><span class="gear">⚙</span></div>
+  <h3>Hei, Ida 👋</h3>
+  <div class="date">Mandag 9. november · 5 oppgaver</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span></div>
+  <div class="grp over">Forfalt <i>1</i></div>
+  <div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div>
+  <div class="grp">I dag <i>2</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div>
+  <div class="task done"><span class="ring chk">✓</span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">Lav</span></div></div></div>
+  <div class="grp">Denne uken <i>1</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">Torsdag</span></div></div></div>
+  <div class="ki"><b>✦ KI-forslag</b> Etikett: <u>Skole</u> · Prioritet: <u>Høy</u><div class="kib"><span class="btn pri">Godta</span><span class="btn">Endre</span></div></div>
+  <div class="fab">+ Ny oppgave</div>
+  <div class="nav"><span class="on">☰<br>Oppgaver</span><span>▦<br>Kalender</span><span>⌂<br>Arkiv</span></div>
+</div></div>
+</section>
+<section>
+  <header><span class="sw" style="background:#F5BFD4"></span><div><h2>Pastellrosa</h2><p>leken, vennlig, ungdommelig</p></div>
+  <div class="tok"><code>pastell #F5BFD4</code><code>ink #983862</code></div></header>
+  <div class="pair">
+<div class="phone t-pink light">
+  <div class="top"><span class="logo">due<b>Next</b></span><span class="gear">⚙</span></div>
+  <h3>Hei, Ida 👋</h3>
+  <div class="date">Mandag 9. november · 5 oppgaver</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span></div>
+  <div class="grp over">Forfalt <i>1</i></div>
+  <div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div>
+  <div class="grp">I dag <i>2</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div>
+  <div class="task done"><span class="ring chk">✓</span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">Lav</span></div></div></div>
+  <div class="grp">Denne uken <i>1</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">Torsdag</span></div></div></div>
+  <div class="ki"><b>✦ KI-forslag</b> Etikett: <u>Skole</u> · Prioritet: <u>Høy</u><div class="kib"><span class="btn pri">Godta</span><span class="btn">Endre</span></div></div>
+  <div class="fab">+ Ny oppgave</div>
+  <div class="nav"><span class="on">☰<br>Oppgaver</span><span>▦<br>Kalender</span><span>⌂<br>Arkiv</span></div>
+</div>
+<div class="phone t-pink dark">
+  <div class="top"><span class="logo">due<b>Next</b></span><span class="gear">⚙</span></div>
+  <h3>Hei, Ida 👋</h3>
+  <div class="date">Mandag 9. november · 5 oppgaver</div>
+  <div class="chips"><span class="chip on">Alle</span><span class="chip">Skole</span><span class="chip">Jobb</span><span class="chip">Privat</span></div>
+  <div class="grp over">Forfalt <i>1</i></div>
+  <div class="task overdue"><span class="ring"></span><div><div class="tt">Levere refleksjonsnotat</div><div class="meta"><span class="tag">IDATT2900</span><span class="tag">i går</span><span class="tag hi">Høy</span></div></div></div>
+  <div class="grp">I dag <i>2</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Lese kapittel 4–5 i statistikk</div><div class="sum">✦ Les to kapitler før eksamen</div><div class="meta"><span class="tag">STAT100</span><span class="tag">18:00</span><span class="tag">Middels</span></div></div></div>
+  <div class="task done"><span class="ring chk">✓</span><div><div class="tt">Svare veileder på e-post</div><div class="meta"><span class="tag">Lav</span></div></div></div>
+  <div class="grp">Denne uken <i>1</i></div>
+  <div class="task"><span class="ring"></span><div><div class="tt">Håndballtrening</div><div class="meta"><span class="tag">Håndball</span><span class="tag">Torsdag</span></div></div></div>
+  <div class="ki"><b>✦ KI-forslag</b> Etikett: <u>Skole</u> · Prioritet: <u>Høy</u><div class="kib"><span class="btn pri">Godta</span><span class="btn">Endre</span></div></div>
+  <div class="fab">+ Ny oppgave</div>
+  <div class="nav"><span class="on">☰<br>Oppgaver</span><span>▦<br>Kalender</span><span>⌂<br>Arkiv</span></div>
+</div></div>
+</section>
+</body></html>

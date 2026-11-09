@@ -1,0 +1,166 @@
+<!doctype html><html lang="no"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skjema og første oppstart</title><style>
+/* Styres av: EXPERIENCE Component Patterns (Skjema Ny/Endre, Hendelsesfelt, 🔒 Ikke send til KI, KI-påminnelse), State Patterns (Første oppstart, Skjemafeil), Flyt 3; DESIGN Components (Skjemafelt, Prioritetsvelger, Bryter)
+   Tema: Pastellblå (standard). Skrift: Poppins med systemskrift som reserve (vises uten nett).
+   Ved uenighet gjelder DESIGN.md og EXPERIENCE.md foran denne mockupen. */
+
+*{box-sizing:border-box;margin:0}
+body{font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#E9E9E5;color:#1F2328;padding:24px 16px 48px}
+.intro,.row{max-width:1400px;margin:0 auto 22px}
+.intro h1{font-size:24px} .intro p{color:#555;max-width:80ch;line-height:1.5;margin-top:4px;font-size:14px}
+.row{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
+.cap{font-size:13px;font-weight:600;color:#444;margin-bottom:8px}
+/* tokens */
+.th{--p:#A9CBF2;--ink:#2C5B8E;--bg:#F7F7F5;--sf:#FFFFFF;--tx:#1F2328;--mu:#6B7280;--glowtx:#4B5160;--ln:#E7E7E3;--warn:#C2413B;--glow:75%}
+.th.dark{--ink:#A9CBF2;--bg:#15161A;--sf:#202127;--tx:#ECEDEF;--mu:#9CA1A9;--glowtx:#ECEDEF;--ln:#2D2E35;--warn:#F09A94;--glow:30%}
+.glow{background:radial-gradient(120% 340px at 50% 0%,color-mix(in srgb,var(--p) var(--glow),transparent),transparent 70%),var(--bg);color:var(--tx)}
+.phone{width:375px;height:780px;border-radius:36px;border:10px solid #1b1b1f;position:relative;overflow:hidden;font-size:14px}
+.pin{padding:14px 16px 90px;height:100%;overflow:hidden}
+.browser{width:1180px;max-width:100%;border-radius:14px;overflow:hidden;border:1px solid #cfcfca;background:#fff}
+.bar{height:34px;background:#ececea;display:flex;align-items:center;gap:6px;padding:0 12px;font-size:12px;color:#777}
+.bar i{width:10px;height:10px;border-radius:50%;background:#d0d0cc;display:inline-block}
+.bar span{margin-left:16px;background:#fff;border-radius:6px;padding:3px 12px}
+.desk{display:flex;height:700px;font-size:14px}
+.top{display:flex;align-items:center;gap:12px}
+.logo{font-weight:600;font-size:18px} .logo b{color:var(--ink);margin-left:1px}
+.ico{margin-left:auto;display:flex;gap:14px;color:var(--glowtx);font-size:17px}
+h2.hi{font-size:24px;font-weight:600;margin-top:14px} .date{color:var(--glowtx);font-size:13px;margin:2px 0 12px}
+.chips{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
+.chip{padding:6px 13px;border-radius:999px;background:var(--sf);border:1px solid var(--ln);font-size:13px}
+.chip.on{background:var(--p);border-color:var(--p);color:#1F2328;font-weight:600}
+.sort{font-size:12px;color:var(--glowtx);margin-left:auto}
+.grp{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin:12px 0 6px}
+.grp i{font-style:normal;background:var(--sf);border:1px solid var(--ln);padding:0 6px;border-radius:8px;margin-left:4px}
+.grp.warn{color:var(--warn)}
+.task{display:flex;gap:10px;background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:10px 12px;margin-bottom:6px;align-items:flex-start}
+.task.over{border-left:4px solid var(--warn)} .task.sel{outline:2px solid var(--ink);outline-offset:-1px}
+.task.ev{background:color-mix(in srgb,var(--sf) 55%,transparent);border-style:dashed}
+.ev .time{font-size:13px;color:var(--mu);min-width:72px;font-weight:500}
+.ring{width:20px;height:20px;border-radius:50%;border:2px solid var(--ink);flex:none;margin-top:1px;display:grid;place-items:center;font-size:12px}
+.ring.on{background:var(--p);border-color:var(--p);color:#1F2328}
+.tt{font-size:15px;font-weight:500} .done .tt{text-decoration:line-through;color:var(--mu)}
+.sum{font-size:12px;color:var(--ink);margin-top:2px}
+.meta{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
+.tag{font-size:12px;font-weight:500;padding:1px 7px;border-radius:6px;background:var(--bg);color:var(--mu);border:1px solid var(--ln)}
+.tag.hi,.tag.w{color:var(--warn);border-color:currentColor}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--ink);display:inline-block;margin-left:auto;margin-top:6px}
+.lock{font-size:12px;margin-left:auto}
+.fab{position:absolute;right:16px;bottom:84px;background:var(--p);color:#1F2328;font-weight:600;padding:13px 18px;border-radius:999px;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+.nav{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-around;background:var(--sf);border-top:1px solid var(--ln);padding:9px 0 16px;font-size:11px;text-align:center;color:var(--mu);line-height:1.5}
+.nav span{font-size:18px;display:block} .nav .on{color:var(--ink);font-weight:600}
+.side{width:200px;padding:20px 12px;display:flex;flex-direction:column;gap:4px;background:color-mix(in srgb,var(--sf) 70%,transparent);border-right:1px solid var(--ln)}
+.side .logo{padding:0 10px 16px}
+.side a{padding:9px 12px;border-radius:12px;color:var(--mu)} .side a.on{background:var(--p);color:#1F2328;font-weight:600}
+.side .sp{flex:1} .side .small{font-size:12px}
+.main{flex:1;padding:22px 26px;overflow:hidden}
+.search{background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:6px 14px;color:var(--mu);font-size:13px;width:220px;margin-left:auto}
+.newbar{background:var(--sf);border:1px dashed var(--ink);color:var(--ink);border-radius:12px;padding:10px 14px;margin:4px 0 4px}
+.panel{width:340px;background:var(--sf);border-left:1px solid var(--ln);padding:18px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.ph{display:flex;align-items:center;gap:10px} .ph .x{color:var(--mu);margin-right:auto}
+h3.t{font-size:18px;font-weight:600}
+.kv{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid var(--ln)} .kv span{color:var(--mu)} .kv b{font-weight:500}
+.ki{background:color-mix(in srgb,var(--p) 35%,var(--sf));border-radius:14px;padding:12px;font-size:13px;display:flex;flex-direction:column;gap:7px}
+.dark .ki{background:color-mix(in srgb,var(--p) 18%,var(--sf))}
+.kih{display:flex;align-items:center} .kih b{color:var(--ink)} .kih .btn{margin-left:auto}
+.kir{display:flex;align-items:center;gap:6px} .kir .l{color:var(--mu);width:72px;flex:none;font-size:12px} .kir .v{margin-right:auto;font-weight:500}
+.kisub{font-size:12px;font-weight:600;color:var(--ink);margin-top:4px}
+.kinote{font-size:12px;color:var(--mu);font-style:italic}
+.btn{padding:5px 12px;border-radius:999px;border:1px solid var(--ln);background:var(--sf);font-size:12px;white-space:nowrap}
+.btn.pri{background:var(--p);border-color:var(--p);color:#1F2328;font-weight:600}
+.btn.dan{color:var(--warn)} .btn.big{padding:10px 18px;font-size:14px}
+.foot{display:flex;gap:8px;margin-top:auto}
+.coll{font-size:12px;color:var(--warn);display:flex;align-items:center;gap:6px;margin-top:4px}
+.notes{font-size:13px;color:var(--tx);background:var(--bg);border-radius:10px;padding:8px 10px}
+.lbl{font-size:13px;color:var(--mu);margin:12px 0 5px}
+.field{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:11px 12px;font-size:16px}
+.field.ph{color:var(--mu)} .field.focus{outline:2px solid var(--ink);outline-offset:-1px}
+.help{font-size:12px;color:var(--mu);margin-top:5px}
+.seg{display:flex;background:var(--sf);border:1px solid var(--ln);border-radius:999px;padding:3px}
+.seg span{flex:1;text-align:center;padding:7px;border-radius:999px;font-size:14px;color:var(--mu)} .seg .on{background:var(--p);color:#1F2328;font-weight:600}
+.pri3{display:flex;gap:6px} .pri3 span{flex:1;text-align:center;padding:9px;border:1px solid var(--ln);background:var(--sf);border-radius:12px;font-size:14px} .pri3 .on{background:var(--p);border-color:var(--p);font-weight:600}
+.two{display:flex;gap:8px} .two>div{flex:1}
+.tog{display:flex;align-items:center;gap:10px;background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:11px 12px;margin-top:14px}
+.tog .sw{margin-left:auto;width:40px;height:22px;border-radius:999px;background:var(--ln);position:relative}
+.tog .sw::after{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff}
+.tog .sw.on{background:var(--ink)} .tog .sw.on::after{left:21px}
+.remind{font-size:12px;color:var(--ink);margin-top:6px}
+.hd{display:flex;align-items:center;gap:10px;margin-bottom:6px} .hd .back{font-size:20px;color:var(--tx)} .hd .ttl{font-weight:600;font-size:16px;margin:0 auto}
+/* calendar */
+.mh{display:flex;align-items:center;justify-content:space-between;margin:10px 0 8px;font-weight:600;font-size:16px}
+.mh span{color:var(--mu);font-weight:400;font-size:18px;padding:0 6px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.cal .wd{font-size:11px;color:var(--mu);font-weight:600;padding:4px 0}
+.cal .d{background:var(--sf);border-radius:10px;padding:5px 0 6px;font-size:13px;min-height:44px;border:1px solid transparent}
+.cal .d.o{opacity:.35;background:transparent}
+.cal .d.today{border-color:var(--ink)} .cal .d.sel{background:var(--p);color:#1F2328;font-weight:600}
+.dots{display:flex;gap:2px;justify-content:center;margin-top:4px;height:6px}
+.dots i{width:5px;height:5px;border-radius:50%;background:var(--ink)} .dots i.e{background:transparent;border:1px solid var(--ink)} .dots i.w{background:var(--warn)}
+.sel .dots i{background:#1F2328} .sel .dots i.e{background:transparent;border-color:#1F2328}
+.legend{font-size:11px;color:var(--mu);display:flex;gap:12px;margin:8px 0 2px} .legend i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink);margin-right:4px} .legend i.e{background:transparent;border:1px solid var(--ink)} .legend i.w{background:var(--warn)}
+.dayh{font-size:13px;font-weight:600;margin:12px 0 6px}
+.nofrist{display:flex;justify-content:space-between;font-size:13px;background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:9px 12px;margin-top:8px;color:var(--mu)}
+.bigcal{display:grid;grid-template-columns:repeat(7,1fr);border-top:1px solid var(--ln);border-left:1px solid var(--ln);background:var(--sf);border-radius:12px;overflow:hidden}
+.bigcal .wd{font-size:11px;font-weight:600;color:var(--mu);padding:6px 8px;border-right:1px solid var(--ln);border-bottom:1px solid var(--ln);background:var(--bg)}
+.bigcal .c{min-height:92px;border-right:1px solid var(--ln);border-bottom:1px solid var(--ln);padding:5px 6px;font-size:12px}
+.bigcal .c.o{background:var(--bg);color:var(--mu)} .bigcal .c.sel{background:color-mix(in srgb,var(--p) 30%,var(--sf))}
+.bigcal .n{font-weight:600;font-size:12px;margin-bottom:3px;display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%}
+.bigcal .today .n{border:2px solid var(--ink);line-height:18px}
+.it{font-size:11px;padding:1px 5px;border-radius:5px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:color-mix(in srgb,var(--p) 45%,var(--sf))}
+.it.e{background:transparent;border:1px dashed var(--ink);color:var(--tx)} .it.w{background:transparent;color:var(--warn);border:1px solid var(--warn)} .it.s{background:var(--bg);border-left:3px solid var(--ink)}
+/* onboarding */
+.ob{display:flex;flex-direction:column;height:100%;padding:60px 22px 30px}
+.ob h2{font-size:24px;font-weight:600;margin-top:24px} .ob p{color:var(--glowtx);font-size:14px;line-height:1.55;margin-top:8px}
+.ob .acts{margin-top:auto;display:flex;flex-direction:column;gap:10px}
+.ob .acts .btn{text-align:center}
+.ob .eq{display:flex;gap:10px} .ob .eq .btn{flex:1;text-align:center;font-weight:600;padding:12px;font-size:15px;background:var(--sf);border:2px solid var(--ink);color:var(--tx)}
+.ob ul{margin:10px 0 0 18px;font-size:13px;line-height:1.6;color:var(--tx)}
+.link{color:var(--ink);text-decoration:underline;font-size:13px}
+.steps{display:flex;gap:6px} .steps i{width:22px;height:5px;border-radius:3px;background:var(--ln)} .steps i.on{background:var(--ink)}
+</style></head><body>
+<div class="intro"><h1>Skjema og første oppstart</h1><p>Skjemaet for ny oppgave og ny hendelse, med bryteren Oppgave/Hendelse, hjelpetekst, KI-påminnelse og «🔒 Ikke send til KI». Under vises de to skjermene ved første oppstart: fornavn og KI-valg. Ja og Nei er like store, og ingen er forhåndsvalgt (FR-35). Den endelige samtykketeksten kan bli justert etter personverngjennomgangen.</p></div>
+<div class="row"><div><div class="cap">Ny oppgave (KI på)</div>
+<div class="phone th glow"><div class="pin">
+<div class="hd"><span class="back">←</span><span class="ttl">Ny</span><span class="btn pri">Lagre</span></div>
+<div class="seg" style="margin-top:6px"><span class="on">Oppgave</span><span>Hendelse</span></div>
+<div class="lbl">Oppgave *</div><div class="field focus">Innlevering i markedsføring</div>
+<div class="help">Bare oppgaveteksten er påkrevd. Resten kan stå tomt.</div>
+<div class="remind">✦ Teksten sendes til KI (Claude) for å lage forslag.</div>
+<div class="lbl">Frist</div><div class="field">Fredag 13. nov · 23:59</div>
+<div class="lbl">Prosjekt</div><div class="field">MAR200</div>
+<div class="lbl">Prioritet</div><div class="pri3"><span>Lav</span><span class="on">Middels</span><span>Høy</span></div>
+<div class="lbl">Notater</div><div class="field ph">Valgfritt. Gir KI mer kontekst.</div>
+<div class="tog">🔒 <div><div style="font-weight:500">Ikke send til KI</div><div style="font-size:12px;color:var(--mu)">Ingen forslag på denne oppgaven</div></div><span class="sw"></span></div>
+</div></div></div><div><div class="cap">Ny hendelse, gjentakende</div>
+<div class="phone th glow"><div class="pin">
+<div class="hd"><span class="back">←</span><span class="ttl">Ny</span><span class="btn pri">Lagre</span></div>
+<div class="seg" style="margin-top:6px"><span>Oppgave</span><span class="on">Hendelse</span></div>
+<div class="lbl">Tittel *</div><div class="field">Håndballtrening</div>
+<div class="remind">✦ Tittel og tidspunkt sendes til KI for å planlegge økter.</div>
+<div class="lbl">Dato</div><div class="field">Torsdag 19. nov</div>
+<div class="two"><div><div class="lbl">Start</div><div class="field">18:00</div></div><div><div class="lbl">Slutt</div><div class="field">20:00</div></div></div>
+<div class="lbl">Gjenta</div><div class="seg"><span>Ingen</span><span class="on">Hver uke</span><span>Annenhver</span></div>
+<div class="lbl">Til og med</div><div class="field">17. desember</div>
+<div class="tog">🔒 <div><div style="font-weight:500">Ikke send til KI</div><div style="font-size:12px;color:var(--mu)">KI ser bare «opptatt» og tidspunkt</div></div><span class="sw"></span></div>
+</div></div></div></div><div class="row"><div><div class="cap">Første oppstart · 1 av 2</div>
+<div class="phone th glow"><div class="ob">
+<div class="steps"><i class="on"></i><i></i></div>
+<div class="logo" style="font-size:26px;margin-top:28px">due<b>Next</b></div>
+<h2>Hei! Hva heter du?</h2>
+<p>Vi bruker fornavnet ditt til å hilse på deg. Det lagres bare på denne enheten og sendes aldri til KI.</p>
+<div class="lbl" style="margin-top:22px">Fornavn</div><div class="field focus">Ida</div>
+<div class="acts"><span class="btn pri big">Fortsett</span><span class="btn big" style="border:none;background:transparent;color:var(--mu)">Hopp over</span></div>
+</div></div></div><div><div class="cap">Første oppstart · 2 av 2: KI-valg</div>
+<div class="phone th glow"><div class="ob" style="padding-top:44px">
+<div class="steps"><i class="on"></i><i class="on"></i></div>
+<h2 style="margin-top:18px">Vil du bruke KI-forslag?</h2>
+<p>KI kan foreslå etikett, prioritet, sammendrag og økter til oppgavene dine.</p>
+<ul>
+<li>Oppgavetekst, notater og hendelser i kalenderen (tittel og tid) sendes til KI-tjenesten Claude fra selskapet Anthropic i USA.</li>
+<li>Anthropic bruker ikke dataene til å trene KI-modeller, og sletter dem normalt innen 30 dager.</li>
+<li>Unngå å skrive sensitive opplysninger, for eksempel om helse.</li>
+<li>Du kan endre valget når som helst i Innstillinger.</li>
+</ul>
+<div style="margin-top:10px"><span class="link">Les personvernerklæringen</span></div>
+<div class="acts"><div class="eq"><span class="btn">Ja, bruk KI</span><span class="btn">Nei takk</span></div>
+<div style="font-size:12px;color:var(--mu);text-align:center">Uten KI fyller du ut feltene selv.</div></div>
+</div></div></div></div></body></html>
