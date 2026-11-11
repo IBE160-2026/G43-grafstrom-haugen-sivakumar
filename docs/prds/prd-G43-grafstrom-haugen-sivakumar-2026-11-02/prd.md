@@ -10,6 +10,9 @@ updated: 2026-11-11
 Gruppe G43: grafstrom-haugen-olsen-sivakumar
 Grunnlag: [product brief](../../product-brief.md), [tilbakemelding fra faglærer](../../../tilbakemelding-product-brief.md)
 UX: [DESIGN.md](../../ux-designs/ux-G43-grafstrom-haugen-sivakumar-2026-11-09/DESIGN.md) (utseende) og [EXPERIENCE.md](../../ux-designs/ux-G43-grafstrom-haugen-sivakumar-2026-11-09/EXPERIENCE.md) (oppførsel og fastsatte tekster). Oppdatert 2026-11-11 med [avvikene fra UX-arbeidet](../../ux-designs/ux-G43-grafstrom-haugen-sivakumar-2026-11-09/prd-avvik.md).
+Brukerreiser: EXPERIENCE.md → Key Flows (Flyt 1–7).
+
+**Ved konflikt** gjelder PRD-en for *hva* appen skal gjøre: krav, regler og grenser. EXPERIENCE.md gjelder for *hvordan* det virker på skjermen, og for de fastsatte tekstene.
 
 ## Visjon
 
@@ -89,7 +92,7 @@ KI foreslår etikett, prioritet og sammendrag, og for oppgaver med frist også �
 - **FR-11** Forslagene er tydelig merket som KI-forslag.
 - **FR-12** Svarer ikke studenten på forslagene, beholder oppgaven standardverdiene: tom etikett, prioritet «Middels», tomt sammendrag og ingen økter. Forslagene vises igjen neste gang studenten åpner appen, til hun har svart på dem. Unntak: Foreslåtte økter med en tid som har passert, forkastes uten melding. Er alle øktforslagene forkastet, vises bare «+ Legg til økt».
 - **FR-13** Endrer studenten teksten på en lagret oppgave, kommer nye forslag til etikett, prioritet og sammendrag på samme måte. De gamle verdiene beholdes til studenten godtar de nye. Er det allerede godtatte økter, kommer det ikke nye øktforslag.
-- **FR-62** Endres bare fristen, kommer det ingen nye forslag til etikett, prioritet og sammendrag. Får en oppgave uten godtatte økter frist, første gang eller ny frist, kommer det øktforslag (FR-49). Har oppgaven godtatte økter, gjelder FR-52.
+- **FR-62** Endres bare fristen, kommer det ingen nye forslag til etikett, prioritet og sammendrag. Får en oppgave uten frist og uten godtatte økter en frist, kommer det øktforslag (FR-49). Endres eller fjernes fristen mens oppgaven har ubesvarte øktforslag, forkastes forslagene, og det hentes ikke nye. Studenten kan da legge inn økter selv (FR-51). Har oppgaven godtatte økter, gjelder FR-52.
 - **FR-14** Svaret fra KI kontrolleres før det vises. Ugyldige verdier forkastes, og reserveløsningen brukes i stedet (F3). Et øktforslag som bryter grensene i FR-49, forkastes for seg. De andre forslagene vises som vanlig.
 - **FR-15** KI får bare det den trenger:
   - oppgavetekst, notater (ikke når FR-39 er på) og frist
@@ -157,7 +160,7 @@ Fullført betyr at oppgaven er ferdig eller ikke lenger skal gjøres, for eksemp
 - **FR-32** Studenten kan angre fullføringen, rett etter avhuking og senere så lenge oppgaven ligger i Arkiv. Oppgaven blir da aktiv igjen og havner i den smarte lista som passer fristen. Øktene kommer tilbake, og passerte økter som ikke er huket av, havner i «Forfalt».
 - **FR-33** Studenten kan slette en oppgave både fra de smarte listene og fra Arkiv.
 - **FR-34** Før en oppgave slettes, må studenten bekrefte i en «Er du sikker?»-dialog. Øktene slettes sammen med oppgaven, og dialogen sier hvor mange økter som slettes. En slettet oppgave kan ikke gjenopprettes.
-- **FR-56** Studenten kan huke av en økt for seg. Oppgaven er fullført først når selve oppgaven hukes av.
+- **FR-56** Studenten kan huke av en økt for seg. En avhuket økt blir stående i lista med strek over til dagen er over. Oppgaven er fullført først når selve oppgaven hukes av.
 - **FR-57** Fullfører studenten en oppgave som har uferdige økter, spør appen «Du har n økter igjen. Fullføre likevel?». Ved ja følger øktene oppgaven til Arkiv.
 
 ### F6 Personvern og egne data
@@ -207,7 +210,7 @@ Alle tekster i denne delen er fastsatt i [EXPERIENCE.md → Personvern og data �
 - **NFR-1 Kjørbar for sensor.** Appen kan startes lokalt etter README uten gruppens API-nøkkel, betalte kontoer eller eksterne tjenester. Uten nøkkel brukes reserveløsningen (F3).
 - **NFR-2 Nøkkelen er hemmelig.** Kallet til Claude gjøres fra serveren, aldri fra nettleseren. API-nøkkelen ligger bare i `.env.local`, som ikke er i Git. `.env.example` viser hvilke variabler som trengs.
 - **NFR-3 Ingen sporing.** Appen har ingen analyseverktøy eller tredjepartsskript. Serveren logger ikke innholdet i oppgaver, hendelser eller økter.
-- **NFR-4 Lokal lagring.** Alle data, også fornavn, tema og samtykke, lagres bare i studentens nettleser og er der neste gang hun åpner appen på samme maskin. Gruppen lagrer ingen brukerdata.
+- **NFR-4 Lokal lagring.** Alle data, også fornavn, tema og samtykke, lagres bare i studentens nettleser og er der neste gang hun åpner appen på samme maskin. Gruppen lagrer ingen brukerdata. Lar ikke nettleseren appen lagre, viser appen et varsel øverst på alle sider så lenge feilen varer (EXPERIENCE.md → State Patterns, «Lagring feiler»). Appen virker ellers som før.
 - **NFR-5 Rask lagring.** Lagring av en oppgave venter aldri på KI (FR-2).
 - **NFR-6 Testbar uten KI.** Automatiske tester bruker faste mock-svar i stedet for ekte kall til Claude.
 - **NFR-7 Testbar tid.** Regler som avhenger av dato og klokkeslett (smarte lister, økter i Forfalt, gjentakende hendelser, sletting etter 7 dager) kan testes med en fast «nå»-tid.

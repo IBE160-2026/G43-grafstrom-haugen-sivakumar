@@ -72,7 +72,7 @@ Heiingen hører hjemme i **positive øyeblikk**, som avhuking, tom dag og en pla
 
 ## Component Patterns
 
-Her beskrives oppførselen. Navnene er de samme som i `DESIGN.md` → Components, og tokenkolonnen viser til `components` i frontmatter i DESIGN.md. Regler for økter og KI-planlegging eies av seksjonen **KI-planlegging (økter)**. Radene under henviser dit.
+Her beskrives oppførselen. Navnene er de samme som i `DESIGN.md` → Components, og tokenkolonnen viser til `components` i frontmatter i DESIGN.md. Oppførselen for økter og KI-planlegging er samlet i seksjonen **KI-planlegging (økter)**, og radene under henviser dit. Reglene står i PRD-en.
 
 | Komponent | Token | Bruk | Regler |
 |---|---|---|---|
@@ -220,10 +220,10 @@ Samme komponenter og tokens brukes på alle bredder. Designet skal oppleves som 
 
 ## KI-planlegging (økter)
 
-Kravene til økter står i PRD-en (FR-49–54, FR-56 og FR-57). Her beskrives oppførselen i en enkel variant. Denne seksjonen eier reglene for økter. Komponentradene henviser hit.
+Kravene til økter står i PRD-en (FR-49–54, FR-56, FR-57, FR-62 og FR-64), og ved konflikt gjelder PRD-en. Her beskrives hvordan økter virker i appen. Komponentradene henviser hit.
 
 **Forslag**
-1. Når en oppgave **med frist** lagres og KI er på, kommer forslag til etikett, prioritet og sammendrag, og i tillegg **foreslåtte økter** i KI-boksen. Får en oppgave uten godtatte økter frist senere, kommer bare øktforslag (FR-62).
+1. Når en oppgave **med frist** lagres og KI er på, kommer forslag til etikett, prioritet og sammendrag, og i tillegg **foreslåtte økter** i KI-boksen. Får en oppgave uten frist og uten godtatte økter frist senere, kommer bare øktforslag. Endres eller fjernes fristen mens det finnes ubesvarte øktforslag, forkastes de, og det hentes ikke nye (FR-62).
 2. Øktene skal legges utenom hendelser og andre godtatte økter. Grensene for forslagene står i PRD-en (FR-49): 1–5 økter, 30 minutter til 3 timer, mellom kl. 07 og 23, og ingen økt de første 8 timene etter en nattevakt.
 3. Studenten godtar eller endrer hver økt, eller trykker *Godta alle*. Først da vises øktene i lister og Kalender. Ubesvarte øktforslag med en tid som har passert, forsvinner av seg selv (FR-12). Kolliderer et forslag med noe når det godtas, får økta merket «⚠ Kolliderer med <tittel>» (FR-50).
 4. **Ingen automatisk omplanlegging.** Kolliderer en hendelse med en godtatt økt, får økta merket «⚠ Kolliderer med <tittel>».
