@@ -15,8 +15,8 @@
 - [ ] 2026-10-29 [readme-oppsett](990-2026-10-29-20-45-00-readme-oppsett.md) — bygg regelbasert reserveløsning, slik at README stemmer når den sier at appen virker uten nøkkel
 - [x] 2026-11-02 [bmad-installasjon](989-2026-11-02-17-15-35-bmad-installasjon.md) — lag PRD med `bmad-prd` fra product brief og tilbakemelding, og lagre promptene (løst 2026-11-02)
 - [ ] 2026-11-02 [bmad-installasjon](989-2026-11-02-17-15-35-bmad-installasjon.md) — gruppemedlemmene kjører `npx bmad-method install` for egen `config.user.toml`
-- [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — bestem hvem i gruppen som er behandlingsansvarlig i personvernerklæringen (Å-3)
-- [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — avgjør om gruppen skal skrive en overføringsvurdering (TIA) for Anthropic (Å-6)
+- [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — bestem hvem i gruppen som er behandlingsansvarlig i personvernerklæringen (Å-3) — venter på svar fra faglærer (spurt 2026-11-11)
+- [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — avgjør om gruppen skal skrive en overføringsvurdering (TIA) for Anthropic (Å-6) — venter på svar fra faglærer (spurt 2026-11-11)
 - [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — gå gjennom forventede svar i det oppdaterte KI-testsettet
 - [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — sjekk tallene i forskningsnotatet mot fulltekst før de siteres
 - [x] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — lagre promptene fra PRD-økta som dokumentasjon av KI-styringen (løst 2026-11-02)
