@@ -25,5 +25,5 @@
 - [x] 2026-11-09 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — skriv beslutningene og funnene fra gjennomgangen inn i DESIGN.md og EXPERIENCE.md (kontrast, kalenderregler, flyt for Arkiv og søk, samtykketekst, FR-37 for hendelser) (løst 2026-11-11)
 - [x] 2026-11-09 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — fullfør bmad-ux: flytt .working til mockups/, kjør bmad-review (structure, prose), sett status: final (løst 2026-11-11)
 - [ ] 2026-11-09 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — oppdater PRD-en med UX-avvikene (11 i EXPERIENCE og 13 fra personverngjennomgangen) med bmad-prd før arkitekturen — kilde nå `prd-avvik.md` i UX-mappa
-- [ ] 2026-11-11 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — se gjennom `mockups/key-personvern.html` i nettleser (ikke visuelt sjekket)
+- [x] 2026-11-11 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — se gjennom `mockups/key-personvern.html` i nettleser (ikke visuelt sjekket) (løst 2026-11-11)
 - [ ] 2026-11-11 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — avgjør i arkitekturen hvor mange dager med hendelser/økter som sendes til KI
