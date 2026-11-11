@@ -22,7 +22,7 @@ Skissen viser fire mobilskjermer: Mine oppgaver, Ny oppgave med KI-forslag, Arki
 | Fra skissen | Hva skjedde |
 |---|---|
 | Mørkegrønn aksentfarge | Forkastet. Erstattet av 6 pastelltemaer med blå som standard |
-| Bunnmenyen Oppgaver / Arkiv / Personvern | Ny meny: Oppgaver / Kalender / Arkiv |
+| Bunnmenyen Oppgaver / Arkiv / Personvern | Ny meny: Oppgaver / Kalender / Arkiv. Personvern og data er flyttet fra bunnmenyen og inn i Innstillinger |
 | Grupperekkefølge uten «Senere» | «Senere» er lagt til, og Forfalt ligger øverst |
 | KI-forslag i skjemaet før Lagre | Forslagene vises nå på oppgaven etter lagring |
 

@@ -1,0 +1,213 @@
+<!doctype html><html lang="no"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Personvern og data</title><style>
+/* Styres av: EXPERIENCE Information Architecture (rad «↳ Personvern og data», Navigasjon, Personvernerklæringen FR-41),
+   «Personvern og data – fastsatte tekster» (KI-forslag, Send aldri notater til KI, Send hendelsestitler til KI, samtykkestatus,
+   Hva sendes til KI, Lagring, Import-bekreftelse, Slett alle data-dialog), Component Patterns (Personvernbryter-formen,
+   Dialog / bekreftelse, Personvern-lenke, Sidemeny), State Patterns (Samtykke gitt), Flyt 7, Responsive & Platform;
+   DESIGN Colors (lys/mørk, border-input, warn), Elevation (glød B, dialog-skygge), Components (privacy-switch, dialog,
+   button-primary/secondary/danger, privacy-link, sidebar-item-active), focus-ring, Do's and Don'ts.
+   Tema: Pastellblå (standard). Skrift: Poppins med systemskrift som reserve (vises uten nett).
+   Ved uenighet gjelder DESIGN.md og EXPERIENCE.md foran denne mockupen. */
+
+*{box-sizing:border-box;margin:0}
+body{font-family:'Poppins',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#E9E9E5;color:#1F2328;padding:24px 16px 48px}
+.intro,.row{max-width:1400px;margin:0 auto 22px}
+.intro h1{font-size:24px} .intro p{color:#555;max-width:80ch;line-height:1.5;margin-top:4px;font-size:14px}
+.row{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
+.cap{font-size:13px;font-weight:600;color:#444;margin-bottom:8px}
+/* tokens (DESIGN colors) */
+.th{--p:#A9CBF2;--ink:#2C5B8E;--bg:#F7F7F5;--sf:#FFFFFF;--tx:#1F2328;--mu:#6B7280;--glowtx:#4B5160;--ln:#E7E7E3;--inp:#858A93;--warn:#C2413B;--glow:75%}
+.th.dark{--ink:#A9CBF2;--bg:#15161A;--sf:#202127;--tx:#ECEDEF;--mu:#9CA1A9;--glowtx:#ECEDEF;--ln:#2D2E35;--inp:#737882;--warn:#F09A94;--glow:30%}
+.glow{background:radial-gradient(120% 340px at 50% 0%,color-mix(in srgb,var(--p) var(--glow),transparent),transparent 70%),var(--bg);color:var(--tx)}
+.phone{width:375px;height:1060px;border-radius:36px;border:10px solid #1b1b1f;position:relative;overflow:hidden;font-size:14px}
+.phone.short{height:780px}
+.pin{padding:14px 16px 24px;height:100%;overflow:hidden}
+.browser{width:1180px;max-width:100%;border-radius:14px;overflow:hidden;border:1px solid #cfcfca;background:#fff}
+.bar{height:34px;background:#ececea;display:flex;align-items:center;gap:6px;padding:0 12px;font-size:12px;color:#777}
+.bar i{width:10px;height:10px;border-radius:50%;background:#d0d0cc;display:inline-block}
+.bar span{margin-left:16px;background:#fff;border-radius:6px;padding:3px 12px}
+.desk{display:flex;min-height:760px;font-size:14px}
+.logo{font-weight:600;font-size:18px} .logo b{color:var(--ink);margin-left:1px}
+.side{width:200px;padding:20px 12px;display:flex;flex-direction:column;gap:4px;background:color-mix(in srgb,var(--sf) 70%,transparent);border-right:1px solid var(--ln)}
+.side .logo{padding:0 10px 16px}
+.side a{padding:9px 12px;border-radius:12px;color:var(--mu)} .side a.on{background:var(--p);color:#1F2328;font-weight:600;box-shadow:inset 0 0 0 2px var(--ink)}
+.side .sp{flex:1} .side .small{font-size:13px;text-decoration:underline}
+.main{flex:1;padding:22px 26px}
+.col{max-width:620px}
+/* sidehode (tilbakepil, som i key-detalj/key-skjema) */
+.hd{display:flex;align-items:center;gap:10px;margin-bottom:6px} .hd .back{font-size:20px;color:var(--tx)} .hd .ttl{font-weight:600;font-size:16px;margin:0 auto}
+h2.pg{font-size:24px;font-weight:600;line-height:1.25;margin:0 0 4px}
+/* section-label */
+.sec{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin:20px 0 8px}
+/* bryter: samme form som privacy-switch */
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:14px;overflow:hidden}
+.tog{display:flex;align-items:center;gap:12px;padding:12px;min-height:56px}
+.tog+.tog{border-top:1px solid var(--ln)}
+.tog .lab{font-weight:500;font-size:15px}
+.tog .hlp{font-size:13px;color:var(--mu);margin-top:2px;line-height:1.4}
+.tog .stat{font-size:13px;color:var(--tx);margin-top:2px}
+.sw{margin-left:auto;flex:none;width:44px;height:26px;border-radius:999px;background:var(--sf);border:2px solid var(--inp);position:relative}
+.sw::after{content:'';position:absolute;left:2px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--inp)}
+.sw.on{background:var(--ink);border-color:var(--ink)} .sw.on::after{left:20px;background:var(--sf)}
+/* tekstblokker */
+.box{background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.5}
+.box ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px}
+.box li{display:flex;gap:8px} .box li b{flex:none;width:14px;font-weight:600;color:var(--ink)}
+.box .note{margin-top:10px;padding-top:10px;border-top:1px solid var(--ln)}
+/* knapper */
+.btns{display:flex;flex-direction:column;gap:8px}
+.btn{display:block;text-align:center;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:500;background:var(--sf);border:1px solid var(--inp);color:var(--tx);white-space:nowrap}
+.btn.dan{background:var(--warn);border-color:var(--warn);color:var(--sf);font-weight:600}
+.btn.pri{background:var(--p);border-color:var(--p);color:#1F2328;font-weight:600}
+.btn.focus{outline:2px solid var(--ink);outline-offset:2px}
+.duo{display:flex;gap:8px} .duo .btn{flex:1}
+.plink{display:block;text-align:center;font-size:13px;color:var(--mu);text-decoration:underline;margin-top:22px}
+/* PC: to kolonner i høyre område */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;max-width:900px}
+/* dialog */
+.scrim{position:absolute;inset:0;background:rgba(15,16,20,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+.dlg{background:var(--sf);border-radius:28px;box-shadow:0 12px 32px rgba(0,0,0,.18);padding:22px 20px 18px;width:100%}
+.dlg h3{font-size:18px;font-weight:600;line-height:1.3;margin-bottom:8px}
+.dlg p{font-size:14px;line-height:1.5;color:var(--tx)}
+.dlg .duo{margin-top:18px}
+.mini{width:375px;height:300px;border-radius:24px;border:10px solid #1b1b1f;position:relative;overflow:hidden}
+</style></head><body>
+<div class="intro"><h1>Personvern og data</h1><p>Innstillinger → Personvern og data, slik Sara ser siden i Flyt 7 steg 1: samtykket er gitt (tekst v2), KI er på, notater sendes, og hendelsestitler sendes (standard). Under kommer de fastsatte tekstene «Hva sendes til KI» og «Lagring», Eksporter / Importer, Slett alle data i varselfarge, og lenken «Personvernerklæring» nederst. Mobilskjermene viser hele siden (rullet). Til slutt vises dialogen «Slette alle data?» og bekreftelsen før import.</p></div>
+
+<!-- ============ 1 + 2: mobil lys og mørk ============ -->
+<div class="row">
+<div><div class="cap">1 · Mobil · lys modus (hele siden)</div>
+<div class="phone th glow"><div class="pin">
+<div class="hd"><span class="back">←</span><span class="ttl">Personvern og data</span><span style="width:20px"></span></div>
+
+<div class="card" style="margin-top:14px">
+ <div class="tog"><div><div class="lab">KI-forslag</div><div class="stat">Godkjent 9.11.2026 (tekst v2)</div></div><span class="sw on" role="switch" aria-checked="true"></span></div>
+ <div class="tog"><div><div class="lab">Send aldri notater til KI</div></div><span class="sw" role="switch" aria-checked="false"></span></div>
+ <div class="tog"><div><div class="lab">Send hendelsestitler til KI</div><div class="hlp">Av: KI ser bare når du er opptatt, ikke hva du skal.</div></div><span class="sw on" role="switch" aria-checked="true"></span></div>
+</div>
+
+<div class="sec">Hva sendes til KI</div>
+<div class="box"><ul>
+ <li><b>✓</b><span>Oppgavetekst, notater (kan slås av) og frist</span></li>
+ <li><b>✓</b><span>Dato og klokkeslett på hendelser, og tittelen hvis «Send hendelsestitler til KI» er på. Hendelser med 🔒 sendes bare som «opptatt».</span></li>
+ <li><b>✓</b><span>Tidspunkter for andre økter, som «opptatt»</span></li>
+ <li><b>✓</b><span>Bare hendelser og økter for en begrenset periode fram til fristen</span></li>
+ <li><b>✕</b><span>Oppgaver merket 🔒</span></li>
+ <li><b>✕</b><span>Fornavnet ditt</span></li>
+</ul><div class="note">Skriv ikke navn, telefonnummer eller helseopplysninger – appen fjerner dem ikke automatisk.</div></div>
+
+<div class="sec">Lagring</div>
+<div class="box">Alt ligger bare i denne nettleseren. Det som sendes til Anthropic, slettes normalt innen 30 dager, men kan lagres i inntil 2 år hvis det flagges for brudd på bruksreglene.</div>
+
+<div class="btns" style="margin-top:20px">
+ <div class="duo"><span class="btn">Eksporter</span><span class="btn">Importer</span></div>
+ <span class="btn dan">Slett alle data</span>
+</div>
+<span class="plink">Personvernerklæring</span>
+</div></div></div>
+
+<div><div class="cap">2 · Mobil · mørk modus (hele siden)</div>
+<div class="phone th dark glow"><div class="pin">
+<div class="hd"><span class="back">←</span><span class="ttl">Personvern og data</span><span style="width:20px"></span></div>
+
+<div class="card" style="margin-top:14px">
+ <div class="tog"><div><div class="lab">KI-forslag</div><div class="stat">Godkjent 9.11.2026 (tekst v2)</div></div><span class="sw on" role="switch" aria-checked="true"></span></div>
+ <div class="tog"><div><div class="lab">Send aldri notater til KI</div></div><span class="sw" role="switch" aria-checked="false"></span></div>
+ <div class="tog"><div><div class="lab">Send hendelsestitler til KI</div><div class="hlp">Av: KI ser bare når du er opptatt, ikke hva du skal.</div></div><span class="sw on" role="switch" aria-checked="true"></span></div>
+</div>
+
+<div class="sec">Hva sendes til KI</div>
+<div class="box"><ul>
+ <li><b>✓</b><span>Oppgavetekst, notater (kan slås av) og frist</span></li>
+ <li><b>✓</b><span>Dato og klokkeslett på hendelser, og tittelen hvis «Send hendelsestitler til KI» er på. Hendelser med 🔒 sendes bare som «opptatt».</span></li>
+ <li><b>✓</b><span>Tidspunkter for andre økter, som «opptatt»</span></li>
+ <li><b>✓</b><span>Bare hendelser og økter for en begrenset periode fram til fristen</span></li>
+ <li><b>✕</b><span>Oppgaver merket 🔒</span></li>
+ <li><b>✕</b><span>Fornavnet ditt</span></li>
+</ul><div class="note">Skriv ikke navn, telefonnummer eller helseopplysninger – appen fjerner dem ikke automatisk.</div></div>
+
+<div class="sec">Lagring</div>
+<div class="box">Alt ligger bare i denne nettleseren. Det som sendes til Anthropic, slettes normalt innen 30 dager, men kan lagres i inntil 2 år hvis det flagges for brudd på bruksreglene.</div>
+
+<div class="btns" style="margin-top:20px">
+ <div class="duo"><span class="btn">Eksporter</span><span class="btn">Importer</span></div>
+ <span class="btn dan">Slett alle data</span>
+</div>
+<span class="plink">Personvernerklæring</span>
+</div></div></div>
+</div>
+
+<!-- ============ 3: PC ============ -->
+<div class="row"><div><div class="cap">3 · PC · lys modus, oppsett A (sidemeny + side i høyre område)</div>
+<div class="browser"><div class="bar"><i></i><i></i><i></i><span>duenext.app</span></div>
+<div class="desk th glow"><nav class="side"><div class="logo">due<b>Next</b></div><a>☰&nbsp; Oppgaver</a><a>▦&nbsp; Kalender</a><a>⌂&nbsp; Arkiv</a><div class="sp"></div><a>⚙&nbsp; Innstillinger</a><a class="on">🔒&nbsp; Personvern og data</a><a class="small">Personvernerklæring</a></nav>
+<div class="main">
+<div class="hd" style="justify-content:flex-start"><span class="back">←</span><h2 class="pg" style="margin:0">Personvern og data</h2></div>
+<div class="grid2">
+<div>
+ <div class="card" style="margin-top:14px">
+  <div class="tog"><div><div class="lab">KI-forslag</div><div class="stat">Godkjent 9.11.2026 (tekst v2)</div></div><span class="sw on" role="switch" aria-checked="true"></span></div>
+  <div class="tog"><div><div class="lab">Send aldri notater til KI</div></div><span class="sw" role="switch" aria-checked="false"></span></div>
+  <div class="tog"><div><div class="lab">Send hendelsestitler til KI</div><div class="hlp">Av: KI ser bare når du er opptatt, ikke hva du skal.</div></div><span class="sw on" role="switch" aria-checked="true"></span></div>
+ </div>
+ <div class="sec">Lagring</div>
+ <div class="box">Alt ligger bare i denne nettleseren. Det som sendes til Anthropic, slettes normalt innen 30 dager, men kan lagres i inntil 2 år hvis det flagges for brudd på bruksreglene.</div>
+ <div class="btns" style="margin-top:20px">
+  <div class="duo"><span class="btn">Eksporter</span><span class="btn">Importer</span></div>
+  <span class="btn dan">Slett alle data</span>
+ </div>
+</div>
+<div>
+ <div class="sec" style="margin-top:14px">Hva sendes til KI</div>
+ <div class="box"><ul>
+  <li><b>✓</b><span>Oppgavetekst, notater (kan slås av) og frist</span></li>
+  <li><b>✓</b><span>Dato og klokkeslett på hendelser, og tittelen hvis «Send hendelsestitler til KI» er på. Hendelser med 🔒 sendes bare som «opptatt».</span></li>
+  <li><b>✓</b><span>Tidspunkter for andre økter, som «opptatt»</span></li>
+  <li><b>✓</b><span>Bare hendelser og økter for en begrenset periode fram til fristen</span></li>
+  <li><b>✕</b><span>Oppgaver merket 🔒</span></li>
+  <li><b>✕</b><span>Fornavnet ditt</span></li>
+ </ul><div class="note">Skriv ikke navn, telefonnummer eller helseopplysninger – appen fjerner dem ikke automatisk.</div></div>
+</div>
+</div>
+</div></div></div></div></div>
+
+<!-- ============ 4: alternative tilstander ============ -->
+<div class="row">
+<div><div class="cap">4a · Dialog «Slette alle data?» (mobil, lys) · Avbryt har standardfokus</div>
+<div class="phone short th glow"><div class="pin">
+<div class="hd"><span class="back">←</span><span class="ttl">Personvern og data</span><span style="width:20px"></span></div>
+<div class="card" style="margin-top:14px">
+ <div class="tog"><div><div class="lab">KI-forslag</div><div class="stat">Godkjent 9.11.2026 (tekst v2)</div></div><span class="sw on"></span></div>
+ <div class="tog"><div><div class="lab">Send aldri notater til KI</div></div><span class="sw"></span></div>
+ <div class="tog"><div><div class="lab">Send hendelsestitler til KI</div><div class="hlp">Av: KI ser bare når du er opptatt, ikke hva du skal.</div></div><span class="sw on"></span></div>
+</div>
+<div class="sec">Lagring</div>
+<div class="box">Alt ligger bare i denne nettleseren. Det som sendes til Anthropic, slettes normalt innen 30 dager, men kan lagres i inntil 2 år hvis det flagges for brudd på bruksreglene.</div>
+<div class="btns" style="margin-top:20px"><div class="duo"><span class="btn">Eksporter</span><span class="btn">Importer</span></div><span class="btn dan">Slett alle data</span></div>
+</div>
+<div class="scrim"><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="d1">
+ <h3 id="d1">Slette alle data?</h3>
+ <p>Alle oppgaver, hendelser, økter, navnet ditt og innstillingene slettes fra denne nettleseren, og appen starter på nytt. Det kan ikke angres. Tekst som allerede er sendt til KI, kan ikke slettes herfra – Anthropic sletter den normalt innen 30 dager.</p>
+ <div class="duo"><span class="btn focus">Avbryt</span><span class="btn dan">Slett alt</span></div>
+</div></div>
+</div></div>
+
+<div><div class="cap">4b · Bekreftelse før import (mobil, lys)</div>
+<div class="mini th glow">
+<div class="scrim"><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="d2">
+ <h3 id="d2">Importere data?</h3>
+ <p>Importen erstatter alle data i appen. Fortsette?</p>
+ <div class="duo"><span class="btn focus">Avbryt</span><span class="btn pri">Importer</span></div>
+</div></div>
+</div>
+<div class="cap" style="margin-top:22px">4c · Slette alle data? · mørk modus</div>
+<div class="mini th dark glow" style="height:400px">
+<div class="scrim"><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="d3">
+ <h3 id="d3">Slette alle data?</h3>
+ <p>Alle oppgaver, hendelser, økter, navnet ditt og innstillingene slettes fra denne nettleseren, og appen starter på nytt. Det kan ikke angres. Tekst som allerede er sendt til KI, kan ikke slettes herfra – Anthropic sletter den normalt innen 30 dager.</p>
+ <div class="duo"><span class="btn focus">Avbryt</span><span class="btn dan">Slett alt</span></div>
+</div></div>
+</div>
+</div>
+</div>
+</body></html>
