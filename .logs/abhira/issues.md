@@ -24,6 +24,9 @@
 - [x] 2026-11-09 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — svar på spørsmålene om økters livssyklus (smartliste, passert økt, ny frist, fullfør/gjenopprett, sletting, «opptatt» til KI, når «Foreslå ny tid» skjules) (løst 2026-11-11)
 - [x] 2026-11-09 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — skriv beslutningene og funnene fra gjennomgangen inn i DESIGN.md og EXPERIENCE.md (kontrast, kalenderregler, flyt for Arkiv og søk, samtykketekst, FR-37 for hendelser) (løst 2026-11-11)
 - [x] 2026-11-09 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — fullfør bmad-ux: flytt .working til mockups/, kjør bmad-review (structure, prose), sett status: final (løst 2026-11-11)
-- [ ] 2026-11-09 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — oppdater PRD-en med UX-avvikene (11 i EXPERIENCE og 13 fra personverngjennomgangen) med bmad-prd før arkitekturen — kilde nå `prd-avvik.md` i UX-mappa
+- [x] 2026-11-09 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — oppdater PRD-en med UX-avvikene (11 i EXPERIENCE og 13 fra personverngjennomgangen) med bmad-prd før arkitekturen — kilde nå `prd-avvik.md` i UX-mappa (løst 2026-11-11)
 - [x] 2026-11-11 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — se gjennom `mockups/key-personvern.html` i nettleser (ikke visuelt sjekket) (løst 2026-11-11)
 - [ ] 2026-11-11 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — avgjør i arkitekturen hvor mange dager med hendelser/økter som sendes til KI
+- [ ] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — utvid KI-testsettet med minst 5 planleggingscaser (frist + hendelser) for suksesskriteriet for øktforslag
+- [ ] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — rett utdaterte henvisninger i EXPERIENCE.md («Økter … står ikke i PRD-en», Prioritetsvelger → FR-4)
+- [ ] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — vurder rubrikk- eller bmad-review-gjennomgang av den oppdaterte PRD-en før arkitekturen
