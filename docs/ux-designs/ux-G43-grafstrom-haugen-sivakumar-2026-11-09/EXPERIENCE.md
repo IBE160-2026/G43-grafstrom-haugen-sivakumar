@@ -81,8 +81,8 @@ Her beskrives oppførselen. Navnene er de samme som i `DESIGN.md` → Components
 | Øktvarsel | `session-warning` | Øktkort | «⚠ Kolliderer med <hendelse>» eller «⚠ Etter fristen», med *Endre tid* og eventuelt *Foreslå ny tid*. Når knappen vises, og hva som sendes: se KI-planlegging. |
 | Hendelsesrad | `event-row` | Øverst i «I dag», Kalender | Ingen ring. Trykk åpner hendelsesdetalj. Forsvinner av seg selv når den er over, og havner ikke i Arkiv. Andre dagers hendelser vises bare i Kalender. |
 | Avkrysningsring | `check-ring` | Oppgave- og øktkort | Avhuket oppgave: animasjon (se Interaction Primitives), deretter Snackbar og flytting til **Arkiv**. Har oppgaven uferdige økter, spør appen først (se KI-planlegging). Avhuket økt blir værende med strek over til dagen er slutt. |
-| Gruppeoverskrift | `group-header` | Oppgaver | Viser antall elementer i gruppa, inkludert økter. «Ingen frist (n)» kan felles sammen. |
-| Filterknapper | `filter-chip` | Oppgaver | Alle / Skole / Jobb / Privat. Én etikett er valgt om gangen. Filtrerer også Kalender. |
+| Gruppeoverskrift | `group-header` | Oppgaver | Viser antall oppgaver og økter i gruppa. Hendelser teller ikke (FR-48). «Ingen frist (n)» kan felles sammen. |
+| Filterknapper | `filter-chip` | Oppgaver | Alle / Skole / Jobb / Privat. Én etikett er valgt om gangen. Filtrerer også Kalender. Økter følger etiketten til oppgaven sin, og hendelser vises alltid (FR-26). |
 | Filterark | `filter-sheet` | Knappen «☰ Filter» ved filterknappene | Velg prioritet, frist og prosjekt (FR-26). Aktive filtre vises som fjernbare filterknapper med «×». Frist-filteret har valgene Forfalt / I dag / Denne uken / Senere / Ingen frist. |
 | Sortering | `sort-button` | Oppgaver («⇅ Frist») | Valg: **Frist** (standard, FR-24) / **Prioritet** / **Nyeste**. Velger studenten noe annet enn Frist, gjelder valget til lista åpnes på nytt (FR-25). |
 | Søkefelt | `search-field` | Lupe øverst (mobil), ved filterknappene (PC) | Søker i tekst, notater, prosjekt og sammendrag (FR-27). Hvert treff viser *Aktiv* eller *Fullført* og frist (FR-28). På mobil fyller feltet toppen når lupen trykkes, med *Avbryt* til høyre. Esc eller *Avbryt* lukker søket. |
@@ -223,9 +223,9 @@ Samme komponenter og tokens brukes på alle bredder. Designet skal oppleves som 
 Kravene til økter står i PRD-en (FR-49–54, FR-56 og FR-57). Her beskrives oppførselen i en enkel variant. Denne seksjonen eier reglene for økter. Komponentradene henviser hit.
 
 **Forslag**
-1. Når en oppgave **med frist** lagres og KI er på, kommer forslag til etikett, prioritet og sammendrag, og i tillegg **foreslåtte økter** i KI-boksen.
-2. Øktene skal legges utenom hendelser og andre godtatte økter. KI-en skal helst unngå å legge økter rett etter for eksempel en nattevakt. Hvordan dette styres i prompten, bestemmes i arkitekturen.
-3. Studenten godtar eller endrer hver økt, eller trykker *Godta alle*. Først da vises øktene i lister og Kalender.
+1. Når en oppgave **med frist** lagres og KI er på, kommer forslag til etikett, prioritet og sammendrag, og i tillegg **foreslåtte økter** i KI-boksen. Får en oppgave uten godtatte økter frist senere, kommer bare øktforslag (FR-62).
+2. Øktene skal legges utenom hendelser og andre godtatte økter. Grensene for forslagene står i PRD-en (FR-49): 1–5 økter, 30 minutter til 3 timer, mellom kl. 07 og 23, og ingen økt de første 8 timene etter en nattevakt.
+3. Studenten godtar eller endrer hver økt, eller trykker *Godta alle*. Først da vises øktene i lister og Kalender. Ubesvarte øktforslag med en tid som har passert, forsvinner av seg selv (FR-12). Kolliderer et forslag med noe når det godtas, får økta merket «⚠ Kolliderer med <tittel>» (FR-50).
 4. **Ingen automatisk omplanlegging.** Kolliderer en hendelse med en godtatt økt, får økta merket «⚠ Kolliderer med <tittel>».
 5. **Uten KI** (KI av, KI utilgjengelig eller 🔒 på oppgaven) blir det ingen øktforslag. Studenten bruker «+ Legg til økt». Reserveløsningen foreslår ikke økter.
 6. **Endret oppgavetekst (FR-13)** gir nye forslag til etikett, prioritet og sammendrag, men ikke nye øktforslag når økter allerede er godtatt. Godtatte økter beholdes, og studenten flytter dem selv ved behov.
@@ -243,7 +243,7 @@ Kravene til økter står i PRD-en (FR-49–54, FR-56 og FR-57). Her beskrives op
 | # | Situasjon | Regel |
 |---|---|---|
 | 1 | Godtatt økt | Vises i smartlista for sin dag som «Økt n/N – <oppgave>» og teller med i antallet i gruppeoverskriften. Vises også i Kalender. Kan hukes av for seg. Oppgaven er fullført først når selve oppgaven hukes av. |
-| 2 | Passert økt som ikke er huket av | Havner i **Forfalt** i varselfarge til den hukes av, flyttes (*Endre tid*) eller slettes. |
+| 2 | Passert økt som ikke er huket av (dagen er over) | Havner i **Forfalt** i varselfarge til den hukes av, flyttes (*Endre tid*) eller slettes. |
 | 3 | Ny, tidligere frist | Økter etter fristen beholdes, men får merket «⚠ Etter fristen» med *Endre tid* (og *Foreslå ny tid* når den er tilgjengelig). Ingen automatisk endring. |
 | 4 | Oppgaven fullføres med uferdige økter | Dialog: «Du har n økter igjen. Fullføre likevel?» Ved ja følger øktene oppgaven til Arkiv. Ved gjenoppretting kommer de tilbake, og passerte uferdige økter havner i Forfalt. |
 | 5 | Oppgaven slettes | Alle øktene slettes. Dialog: «Oppgaven og n økter slettes. Det kan ikke angres.» |
