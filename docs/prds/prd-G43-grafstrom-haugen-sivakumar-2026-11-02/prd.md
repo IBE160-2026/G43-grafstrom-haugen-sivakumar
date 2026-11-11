@@ -73,7 +73,8 @@ Studenten oppretter, redigerer og fullfører oppgaver, og legger inn hendelser. 
 - **FR-44** Studenten kan opprette en hendelse med tittel, dato, starttid og sluttid. Alle fire er påkrevd.
 - **FR-45** Er sluttiden før starttiden, slutter hendelsen neste dag. Den vises da som for eksempel «21:00 – 07:30 (+1 dag)». Lik start og slutt er ugyldig.
 - **FR-46 (Bør)** En hendelse kan gjentas: Ingen, Hver uke eller Annenhver uke, med sluttdato for gjentakelsen. Uregelmessige tider, for eksempel en turnus, legges inn én og én. Uten FR-46 legges alle hendelser inn én og én.
-- **FR-47 (Bør, sammen med FR-46)** Endrer eller sletter studenten én forekomst av en gjentakende hendelse, spør appen «Bare denne / Denne og alle senere». Sletting av en hendelse må bekreftes.
+- **FR-64** Studenten kan endre og slette en hendelse og en enkelt økt. Sletting må bekreftes.
+- **FR-47 (Bør, sammen med FR-46)** Endrer eller sletter studenten én forekomst av en gjentakende hendelse, spør appen «Bare denne / Denne og alle senere».
 - **FR-48** Hendelser kan ikke fullføres og havner aldri i Arkiv. Dagens hendelser vises øverst i «I dag», sortert etter starttid, og forsvinner derfra når de er over. De teller ikke med i antallet i gruppeoverskriften. Hendelser på andre dager vises bare i Kalender (FR-55).
 
 ### F2 KI-forslag og økter
@@ -136,7 +137,7 @@ Listene beregnes av regler, ikke av KI.
 | Ingen frist | ingen frist |
 
 - **FR-20** Appen har fem smarte lister, vist i rekkefølgen i tabellen over, med «Forfalt» øverst.
-- **FR-21** Hver aktive oppgave ligger i nøyaktig én liste, bestemt av fristen. En godtatt økt vises i lista for øktas dato som «Økt n/N – <oppgave>», og teller med i antallet i gruppeoverskriften. En økt som ikke er huket av, er passert når dagen den gjelder, er over. Da ligger den i «Forfalt» til den hukes av, flyttes eller slettes. Fullførte oppgaver og deres økter vises ikke i smarte lister. Antallet i gruppeoverskriften teller oppgaver og økter, ikke hendelser (FR-48).
+- **FR-21** Hver aktive oppgave ligger i nøyaktig én liste, bestemt av fristen. En godtatt økt vises i lista for øktas dato som «Økt n/N – <oppgave>», og teller med i antallet i gruppeoverskriften. En økt som ikke er huket av, er passert når dagen den gjelder, er over. Da ligger den i «Forfalt» til den hukes av, flyttes eller slettes (FR-64). Fullførte oppgaver og deres økter vises ikke i smarte lister. Antallet i gruppeoverskriften teller oppgaver og økter, ikke hendelser (FR-48).
 - **FR-22** Uka regnes fra mandag til søndag. Er det søndag i dag, er «Denne uken» tom.
 - **FR-23** Endrer studenten fristen, flyttes oppgaven straks til riktig liste.
 - **FR-24** Standard rekkefølge i en liste er: nærmeste frist først, deretter prioritet (Høy først), deretter opprettelsestidspunkt (eldste først). I «Ingen frist» sorteres oppgavene etter prioritet og deretter opprettelsestidspunkt. Økter sorteres sammen med oppgavene etter dato. På samme dato står øktene først, etter starttid. Dagens hendelser står alltid øverst i «I dag» (FR-48).

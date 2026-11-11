@@ -77,7 +77,7 @@ Her beskrives oppførselen. Navnene er de samme som i `DESIGN.md` → Components
 | Komponent | Token | Bruk | Regler |
 |---|---|---|---|
 | Oppgavekort | `task-card` | Oppgaver, Kalender (dagsliste), søk | Trykk på kortet åpner detaljen. Trykk på ringen huker av. |
-| Øktkort | `session-card` | Smartlista for øktas dag, Kalender | «Økt n/N – <oppgave>». Trykk åpner oppgavens detalj. Se KI-planlegging for livssyklus. |
+| Øktkort | `session-card` | Smartlista for øktas dag, Kalender, oppgavedetaljen | «Økt n/N – <oppgave>». Trykk åpner oppgavens detalj. I oppgavedetaljen har hver økt en «…»-meny med *Endre tid* og *Slett* (FR-64). Se KI-planlegging for livssyklus. |
 | Øktvarsel | `session-warning` | Øktkort | «⚠ Kolliderer med <hendelse>» eller «⚠ Etter fristen», med *Endre tid* og eventuelt *Foreslå ny tid*. Når knappen vises, og hva som sendes: se KI-planlegging. |
 | Hendelsesrad | `event-row` | Øverst i «I dag», Kalender | Ingen ring. Trykk åpner hendelsesdetalj. Forsvinner av seg selv når den er over, og havner ikke i Arkiv. Andre dagers hendelser vises bare i Kalender. |
 | Avkrysningsring | `check-ring` | Oppgave- og øktkort | Avhuket oppgave: animasjon (se Interaction Primitives), deretter Snackbar og flytting til **Arkiv**. Har oppgaven uferdige økter, spør appen først (se KI-planlegging). Avhuket økt blir værende med strek over til dagen er slutt. |
@@ -102,7 +102,7 @@ Her beskrives oppførselen. Navnene er de samme som i `DESIGN.md` → Components
 | Ubesvarte forslag | `unanswered-dot` | Oppgavekort | «✦»-prikken vises til alle forslag er besvart (FR-12). |
 | «+ Legg til økt» | `add-session-button` | Oppgavedetalj | Alltid tilgjengelig. Eneste måte å få økter på uten KI. Åpner valg av dag og tid for en ny økt. |
 | Oppgavedetalj | `detail-panel` | Egen side (mobil), panel (PC) | *Endre* åpner skjemaet. *Fullfør* huker av som ringen. *Slett* åpner slettedialogen. Se [mockups/key-detalj.html](mockups/key-detalj.html). |
-| Hendelsesdetalj | `detail-panel` | Egen side (mobil), panel (PC) | *Endre* og *Slett*. På en gjentakende hendelse spør appen «Bare denne / Denne og alle senere». Sletting bekreftes. |
+| Hendelsesdetalj | `detail-panel` | Egen side (mobil), panel (PC) | *Endre* og *Slett* (FR-64). På en gjentakende hendelse spør appen «Bare denne / Denne og alle senere» (FR-47). Sletting bekreftes. |
 | Kalender | `calendar` | Kalender-fanen | Trykk på en dag velger den og viser **dagslista**. Se [Kalender](#kalender). |
 | Kalenderprikk | `calendar-dot` | Kalender (mobil) | Oppgave = `{colors.accent-ink}`, økt = hul ring, hendelse = `{colors.text-muted}`, forfalt = `{colors.warn}`. Dagen har alltid en tekstlig ekvivalent for skjermleser. |
 | Bunnmeny | `bottom-nav` | Mobil | Tre faner. Trykk på aktiv fane ruller til toppen. Ingen badge-tellere. |
@@ -247,6 +247,7 @@ Kravene til økter står i PRD-en (FR-49–54, FR-56 og FR-57). Her beskrives op
 | 3 | Ny, tidligere frist | Økter etter fristen beholdes, men får merket «⚠ Etter fristen» med *Endre tid* (og *Foreslå ny tid* når den er tilgjengelig). Ingen automatisk endring. |
 | 4 | Oppgaven fullføres med uferdige økter | Dialog: «Du har n økter igjen. Fullføre likevel?» Ved ja følger øktene oppgaven til Arkiv. Ved gjenoppretting kommer de tilbake, og passerte uferdige økter havner i Forfalt. |
 | 5 | Oppgaven slettes | Alle øktene slettes. Dialog: «Oppgaven og n økter slettes. Det kan ikke angres.» |
+| 6 | Studenten endrer eller sletter én økt | I oppgavedetaljen, fra «…»-menyen på økta (FR-64). *Endre tid* åpner valg av dag og tid, som «+ Legg til økt». *Slett* gir dialogen «Slette økta? Det kan ikke angres.» Bare den ene økta endres, og nummereringen n/N oppdateres. |
 
 ## Personvern og data – fastsatte tekster
 

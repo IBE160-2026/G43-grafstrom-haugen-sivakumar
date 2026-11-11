@@ -208,14 +208,14 @@
       <div class="grade grade-fair">Middels</div>
     </header>
     <div class="synthesis">
-      <p>PRD-en holder til arkitekturen. Visjonen, personvernkravene og de gamle kravene (F3–F6) er konkrete og sporbare. De nye kravene om hendelser, økter og kalender er derimot tynnere enn resten. Smartlistene er fortsatt skrevet bare for oppgaver, økta mangler felt og grenser, og flere overganger (frist lagt til senere, utdaterte øktforslag) er ikke avgjort. Disse bør rettes før epics og stories. Omfanget er nesten doblet uten at det er prioritert.</p>
-      <p>UX-samsvarskontrollen bekrefter at alle 24 avvik fra prd-avvik.md er tatt inn (22 helt, 2 delvis), og at de fastsatte tekstene stemmer ordrett. Den fant ingen høye funn, men åtte middels hull som overlapper med rubrikkfunnene om økter: når en økt er passert, hvordan økter sorteres, hvordan én økt endres eller slettes, og hva import gjør med samtykke og fornavn. I tillegg mangler kravet om banner når lagring feiler.</p>
-      <p>Funn totalt: 0 kritiske, 6 høye, 17 middels og 15 lave.</p>
+      <p>PRD-en er nå klar for arkitektur og epics. De seks høye funnene fra forrige kjøring er rettet, og rettingene holder: økter og hendelser har plass i lister, sortering, filter og antall, økta har grenser, og Må/Bør gjelder hele PRD-en. Rettingene har gitt én ny høy svakhet: å endre og slette hendelser står nå bare i et Bør-krav (FR-47), så v1 kan ende uten det. Ellers gjenstår mest mindre kanter rundt øktforslag som venter, øktmerker og avhuking.</p>
+
+      <p>Funn totalt: 0 kritiske, 1 høye, 7 middels og 10 lave.</p>
     </div>
     <div class="dimension-summary">
       <div class="dim-card">
         <div class="dim-name">Beslutningsklarhet</div>
-        <div class="dim-verdict" style="color: var(--verdict-adequate)">god</div>
+        <div class="dim-verdict" style="color: var(--verdict-strong)">sterk</div>
       </div>
       <div class="dim-card">
         <div class="dim-name">Innhold fremfor pynt</div>
@@ -227,7 +227,7 @@
       </div>
       <div class="dim-card">
         <div class="dim-name">Klarhet om når et krav er ferdig</div>
-        <div class="dim-verdict" style="color: var(--verdict-thin)">tynn</div>
+        <div class="dim-verdict" style="color: var(--verdict-adequate)">god</div>
       </div>
       <div class="dim-card">
         <div class="dim-name">Omfang</div>
@@ -246,33 +246,16 @@
       <details>
         <summary>
           <h2>Beslutningsklarhet</h2>
-          <span class="verdict-pill verdict-adequate">god</span>
+          <span class="verdict-pill verdict-strong">sterk</span>
         </summary>
         <div class="dim-body">
           <div class="dim-judgment">
-            <p>De fleste valg står som beslutninger med begrunnelse. FR-5 («KI setter aldri frist»), FR-42 («Navn maskeres ikke, fordi de er vanskelige å finne sikkert») og FR-38 («Godtatte økter på oppgaven kan likevel sendes som «opptatt»») sier både hva som er valgt og hva som er gitt opp. Å-3 er godt formulert: den har eier, og PRD-en sier hva som gjelder til den er avklart (plassholder i FR-41).</p>
-            <p>Svakheten er FR-58. Her er et personvernvalg tatt uten at avveiningen står i PRD-en.</p>
+            <p>Valgene står som beslutninger, og avveiningene er skrevet ut. FR-58 sier nå både hva gruppen får («KI ser forskjell på en forelesning og en jobbvakt»), hva det koster («titler som «Legetime» kan være helseopplysninger»), og når valget tas opp igjen (svar på Å-6). FR-5, FR-42 og FR-49 («Regelen bruker bare klokkeslett, så den virker også når titlene ikke sendes») er gode eksempler på det samme.</p>
+            <p>Å-3 og Å-6 er åpne med vilje, og PRD-en sier hva som gjelder imens. Prioriteringslinja over F1 gjør at leseren vet hva som kan kuttes.</p>
           </div>
         </div>
         <div class="findings-list">
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-high">høy</span>
-              <h3 class="finding-title">Hendelsestitler sendes som standard, uten begrunnelse</h3>
-              <span class="finding-location">§ FR-58, FR-35, Motmål</span>
-            </header>
-            <div class="finding-note">FR-58 sier bare «Standard er på». Titler som «Legetime» kan være helseopplysninger (art. 9), og Å-6 nevner dette selv. Motmålet sier at KI ikke skal få «mer data enn nødvendig». Standard på går mot innebygd personvern (art. 25), og PRD-en sier ikke hva gruppen får igjen for det (bedre økter rundt nattevakt?).</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv én setning i FR-58 om hvorfor standard er på, og hva som er gitt opp. Alternativt: sett standard til av. Knytt Å-6 til FR-58: «Svarer faglærer at DPIA trengs, vurderes standarden på nytt.»</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-low">lav</span>
-              <h3 class="finding-title">Å-6 og Å-8 samler to spørsmål hver</h3>
-              <span class="finding-location">§ Åpne spørsmål</span>
-            </header>
-            <div class="finding-note">Å-6 spør om både TIA og DPIA, og sier ikke hva svaret endrer i PRD-en. Å-8 blander antall dager og prompt-styring.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Del dem opp. Skriv i Å-6 hva et «ja» betyr for v1, for eksempel «må være skrevet før KI slås på i innleveringen».</div>
-          </article>
+
         </div>
       </details>
     </section>
@@ -284,7 +267,7 @@
         </summary>
         <div class="dim-body">
           <div class="dim-judgment">
-            <p>Ingen personas, ingen pynt i visjonen og ingen generiske NFR-er. NFR-1, NFR-2, NFR-6 og NFR-7 er knyttet til konkrete behov i emnet. NFR-9 viser til en målbar standard (WCAG 2.1 AA). NFR-10 er unntaket.</p>
+            <p>Ingen personas, ingen pynt i visjonen og ingen generiske NFR-er. NFR-1, NFR-2, NFR-6 og NFR-7 svarer på konkrete behov i emnet. NFR-10 er fortsatt unntaket.</p>
           </div>
         </div>
         <div class="findings-list">
@@ -295,7 +278,7 @@
               <span class="finding-location">§ NFR-10</span>
             </header>
             <div class="finding-note">«fungerer like godt på telefon, nettbrett og PC» kan ikke testes.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Bruk bruddpunktene fra EXPERIENCE.md (&lt; 768, 768–1023, ≥ 1024 px), en minste bredde (for eksempel 320 px uten vannrett rulling) og hvilke nettlesere som testes.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Bruk bruddpunktene fra EXPERIENCE.md, en minste bredde (for eksempel 320 px uten vannrett rulling) og hvilke nettlesere som testes.</div>
           </article>
         </div>
       </details>
@@ -308,18 +291,18 @@
         </summary>
         <div class="dim-body">
           <div class="dim-judgment">
-            <p>Kjernen er fortsatt tydelig: KI der teksten må tolkes, regler der svaret er forutsigbart, og studenten bestemmer. Økter passer inn, fordi de bare er forslag (FR-50, FR-52). Visjonen er oppdatert med planlegging. Suksesskriteriene validerer derimot planleggingen dårlig.</p>
+            <p>Kjernen er tydelig: KI der teksten må tolkes, regler der svaret er forutsigbart, og studenten bestemmer. Økter passer inn fordi de bare er forslag (FR-50, FR-52). Øktkriteriet er nå strammet inn og kan ikke nås ved å foreslå null økter. Brukertesten måler derimot fortsatt bare oppgaver.</p>
           </div>
         </div>
         <div class="findings-list">
           <article class="finding">
             <header>
               <span class="badge badge-sev-medium">middels</span>
-              <h3 class="finding-title">Øktkriteriet kan nås ved å ikke foreslå noe</h3>
-              <span class="finding-location">§ Suksesskriterier, «Øktforslag»</span>
+              <h3 class="finding-title">Brukertesten dekker ikke planlegging</h3>
+              <span class="finding-location">§ Suksesskriterier, «Brukervennlighet»</span>
             </header>
-            <div class="finding-note">«Ingen foreslåtte økter kolliderer …» er oppfylt hvis KI foreslår null økter, eller legger alle kl. 23. Ingen brukertest dekker økter, hendelser eller kalender.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Legg til «minst én økt per planleggingscase» og et tidsvindu (for eksempel 08–22). Legg til en oppgave i brukertesten: «legg inn en vakt og godta en økt».</div>
+            <div class="finding-note">Kriteriet er å opprette en oppgave og endre et KI-forslag. Hendelser, økter og Kalender er en stor del av v1, men ingen testbruker prøver dem.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Legg til én oppgave i brukertesten, for eksempel «legg inn en vakt og godta en økt».</div>
           </article>
           <article class="finding">
             <header>
@@ -327,59 +310,32 @@
               <h3 class="finding-title">Jobben som skal gjøres nevner ikke planlegging</h3>
               <span class="finding-location">§ Målgruppe</span>
             </header>
-            <div class="finding-note">JTBD handler om å skrive raskt og se hva som haster. Visjonen lover nå også «når studenten kan jobbe med oppgaven».</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Utvid JTBD med én setning om å finne tid rundt jobb og andre faste avtaler.</div>
+            <div class="finding-note">Visjonen lover «når studenten kan jobbe med oppgaven», men JTBD handler bare om å skrive raskt og se hva som haster.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Utvid JTBD med én setning om å finne tid rundt jobb og faste avtaler.</div>
           </article>
         </div>
       </details>
     </section>
     <section class="dimension">
-      <details open>
+      <details>
         <summary>
           <h2>Klarhet om når et krav er ferdig</h2>
-          <span class="verdict-pill verdict-thin">tynn</span>
+          <span class="verdict-pill verdict-adequate">god</span>
         </summary>
         <div class="dim-body">
           <div class="dim-judgment">
-            <p>De gamle kravene (FR-1–FR-43) er fortsatt testbare. Mange har eksempler og ordrette tekster. De nye kravene om økter og hendelser er derimot ofte skrevet som hovedregel uten kanter. En story-skriver vil støte på spørsmålene under med én gang. Flere av svarene finnes delvis i EXPERIENCE.md, men PRD-en sier ikke at de gjelder.</p>
+            <p>Dette var tynt sist, og er nå mye bedre. FR-49 gir målbare grenser (1–5 økter, 30 min–3 t, 07–23, 8 timer etter nattevakt). FR-21 sier når en økt er passert. FR-24–FR-26 sier hvor økter og hendelser står i sortering og filter. FR-12, FR-14 og FR-50 sier hva som skjer med utdaterte og ugyldige forslag. En story-skriver kan nå skrive akseptkriterier for det meste. Kantene under er mindre, men vil dukke opp i stories.</p>
           </div>
         </div>
         <div class="findings-list">
           <article class="finding">
             <header>
-              <span class="badge badge-sev-high">høy</span>
-              <h3 class="finding-title">Smartlistene er skrevet for oppgaver, men inneholder nå økter og hendelser</h3>
-              <span class="finding-location">§ FR-21, FR-24, FR-25, FR-26, FR-48, Begreper «Smart liste»</span>
+              <span class="badge badge-sev-medium">middels</span>
+              <h3 class="finding-title">Ventende øktforslag ved ny eller fjernet frist</h3>
+              <span class="finding-location">§ FR-62, FR-12, FR-50</span>
             </header>
-            <div class="finding-note">Begrepet sier lista er «beregnet av regler ut fra fristen», men økter og hendelser har ingen frist. FR-24 sorterer på frist og prioritet. Det står ikke hvor økter og hendelser havner i sorteringen, eller hva «Prioritet» og «Nyeste» (FR-25) gjør med dem. Det står ikke om etikettfilteret (FR-26) skjuler hendelser, som ikke har etikett, eller om økter arver oppgavens etikett. FR-21 sier at økter teller i gruppeoverskriften, men ikke om hendelser gjør det.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Legg til ett krav som sier: hendelser står alltid øverst i «I dag» etter starttid, økter sorteres etter starttid sammen med oppgavene (eller i egen blokk), økter arver oppgavens etikett og prosjekt i filteret, og hendelser vises/vises ikke ved etikettfilter. Oppdater begrepet «Smart liste».</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-high">høy</span>
-              <h3 class="finding-title">Økta mangler felt og grenser</h3>
-              <span class="finding-location">§ FR-49, FR-51, FR-53, Begreper «Økt»</span>
-            </header>
-            <div class="finding-note">Oppgaven har en felttabell, men økta har ingen. Det står ikke om en økt har start og slutt eller bare start, hvor lang den kan være, hvor mange økter KI foreslår, hvilke klokkeslett som er lov, eller at forslag ikke kan ligge i fortiden. «KI bør unngå økter rett etter for eksempel en nattevakt» er et ønske, ikke et krav, og kan ikke virke når titler er av (FR-58).</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Lag en felttabell for økt (og hendelse). Sett grenser for forslag: ikke i fortiden, innenfor et tidsvindu, 1–N økter, lengde. Gjør nattevakt-regelen målbar (for eksempel «minst 8 timer etter en hendelse som slutter etter 02:00») eller flytt den helt til Å-8.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-high">høy</span>
-              <h3 class="finding-title">Frist lagt til senere gir aldri øktforslag</h3>
-              <span class="finding-location">§ FR-8, FR-13</span>
-            </header>
-            <div class="finding-note">FR-8 henter øktforslag bare når en oppgave med frist lagres. FR-13 sier «Endres bare fristen, kommer det ingen nye forslag». En oppgave lagret uten frist og gitt frist dagen etter, får derfor aldri KI-økter. Det finnes ingen knapp for å be om øktforslag.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Avgjør det: enten gir ny frist (fra ingen frist) øktforslag når oppgaven ikke har økter, eller så skrives det som bevisst valg, med «+ Legg til økt» som vei videre.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-high">høy</span>
-              <h3 class="finding-title">Ubesvarte øktforslag kan bli utdaterte</h3>
-              <span class="finding-location">§ FR-12, FR-50</span>
-            </header>
-            <div class="finding-note">FR-12 sier at forslag vises igjen neste gang appen åpnes, til hun har svart. Et øktforslag for mandag 08:00 kan da vises på onsdag, eller kollidere med en hendelse som er lagt inn etterpå. Godtas det, havner økta rett i «Forfalt» (FR-21).</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv at øktforslag med passert tid forkastes, og at kollisjon sjekkes på nytt når studenten godtar.</div>
+            <div class="finding-note">FR-62 sier at ny frist gir nye øktforslag. Det står ikke om ubesvarte forslag fra den gamle fristen erstattes. Det står heller ikke hva som skjer med dem når fristen fjernes. FR-50 sjekker bare kollisjon ved Godta, ikke om forslaget nå ligger etter fristen.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Skriv i FR-62: «Ubesvarte øktforslag forkastes når fristen endres eller fjernes.»</div>
           </article>
           <article class="finding">
             <header>
@@ -387,26 +343,8 @@
               <h3 class="finding-title">Øktmerkene er knyttet til hendelser, ikke til tilstand</h3>
               <span class="finding-location">§ FR-52</span>
             </header>
-            <div class="finding-note">«⚠ Etter fristen» settes når oppgaven «får en tidligere frist». Det står ikke hva som skjer med en økt studenten selv legger etter fristen (FR-51), eller når fristen fjernes. Det står ikke når merkene forsvinner (hendelsen slettes, økta flyttes). Kollisjon mellom to økter er ikke nevnt.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv merkene som beregnet tilstand: «En økt har merket så lenge den overlapper en hendelse / ligger etter fristen.» Si om økt mot økt gir merke.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-medium">middels</span>
-              <h3 class="finding-title">«Svarer» kan ikke vites før kallet, og tidsgrensen mangler</h3>
-              <span class="finding-location">§ FR-54, FR-53, FR-16</span>
-            </header>
-            <div class="finding-note">FR-54 sier at «Foreslå ny tid» finnes bare når KI «er på og svarer». FR-53 har en egen melding for når KI ikke svarer, altså må knappen vises før svaret. Ingen krav sier hvor lenge appen venter før «Claude ikke svarer» (FR-16) gjelder.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv «når KI er på og oppgaven ikke er merket 🔒» i FR-54. Sett en tidsgrense (for eksempel 15 sekunder) eller legg den inn som Å-9 for arkitekturen.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-medium">middels</span>
-              <h3 class="finding-title">FR-14 sier ikke hva et ugyldig øktforslag er</h3>
-              <span class="finding-location">§ FR-14, FR-17</span>
-            </header>
-            <div class="finding-note">FR-14 sier at ugyldige verdier forkastes og at reserveløsningen brukes. Reserveløsningen foreslår ikke økter (FR-17). Det står ikke om en økt som kolliderer eller ligger etter fristen, er ugyldig, og hva som vises hvis alle øktforslag forkastes.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv at øktforslag som bryter FR-49 forkastes enkeltvis, og at de andre forslagene vises som vanlig. Da blir også suksesskriteriet for økter en regel i appen, ikke bare i testen.</div>
+            <div class="finding-note">«⚠ Etter fristen» settes når oppgaven «får en tidligere frist». Det står ikke hva som skjer med en økt studenten selv legger etter fristen (FR-51), når fristen fjernes, eller når merkene forsvinner. Kollisjon mellom to økter er ikke nevnt.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Skriv merkene som beregnet tilstand: «En økt har merket så lenge den overlapper en hendelse eller ligger etter fristen.» Si om økt mot økt gir merke.</div>
           </article>
           <article class="finding">
             <header>
@@ -414,17 +352,44 @@
               <h3 class="finding-title">Avhuket økt er ikke beskrevet</h3>
               <span class="finding-location">§ FR-56</span>
             </header>
-            <div class="finding-note">FR-56 sier bare at en økt kan hukes av. Det står ikke om økta blir i lista (EXPERIENCE.md: «med strek over til dagen er slutt»), om avhukingen kan angres, eller hvordan «Økt n/N» nummereres når økter legges til eller slettes.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Legg til to setninger i FR-56, eller vis til EXPERIENCE.md → KI-planlegging som bindende.</div>
+            <div class="finding-note">FR-56 sier bare at en økt kan hukes av. Det står ikke om økta blir i lista, om avhukingen kan angres, eller hvordan «Økt n/N» nummereres når økter legges til eller slettes.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Legg til to setninger i FR-56, eller vis til EXPERIENCE.md → KI-planlegging.</div>
           </article>
           <article class="finding">
             <header>
-              <span class="badge badge-sev-medium">middels</span>
-              <h3 class="finding-title">Import er uklar på to punkter</h3>
-              <span class="finding-location">§ FR-43, FR-35</span>
+              <span class="badge badge-sev-low">lav</span>
+              <h3 class="finding-title">Nedre grense på én økt kan ikke alltid holdes</h3>
+              <span class="finding-location">§ FR-49, FR-14</span>
             </header>
-            <div class="finding-note">«KI-valget må besvares på nytt» sier ikke hvordan: vises førstegangsoppsettet, eller er KI av til hun slår det på? FR-43 sier «alle data», men lister ikke innstillingene (FR-39, FR-58), tema og prosjekter slik FR-40 gjør.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv «KI er av etter import, og samtykketeksten vises neste gang KI slås på» (eller tilsvarende). List innholdet i fila som i FR-40.</div>
+            <div class="finding-note">«1–5 økter» krever minst én, men en oppgave med frist i dag kl. 22:30 har ingen lovlig tid. FR-14 sier ikke hva som vises når alle øktforslag forkastes, bare FR-12 gjør det for passert tid.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Skriv «0–5 økter», og at bare «+ Legg til økt» vises når ingen forslag er gyldige, uansett grunn.</div>
+          </article>
+          <article class="finding">
+            <header>
+              <span class="badge badge-sev-low">lav</span>
+              <h3 class="finding-title">«Nærmeste frist først» er tvetydig i Forfalt</h3>
+              <span class="finding-location">§ FR-24</span>
+            </header>
+            <div class="finding-note">I Forfalt kan det bety eldste eller nyeste forfalte først.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Skriv det eksplisitt for Forfalt, for eksempel «eldste frist først».</div>
+          </article>
+          <article class="finding">
+            <header>
+              <span class="badge badge-sev-low">lav</span>
+              <h3 class="finding-title">Tidsgrense for «KI svarer ikke» mangler</h3>
+              <span class="finding-location">§ FR-16, FR-53, FR-54</span>
+            </header>
+            <div class="finding-note">Flere krav bygger på at KI «ikke svarer», men ingen sier hvor lenge appen venter.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Sett en grense (for eksempel 15 sekunder) eller legg den inn som et åpent spørsmål for arkitekturen.</div>
+          </article>
+          <article class="finding">
+            <header>
+              <span class="badge badge-sev-low">lav</span>
+              <h3 class="finding-title">Import er uklar på to punkter</h3>
+              <span class="finding-location">§ FR-43</span>
+            </header>
+            <div class="finding-note">«KI-valget må besvares på nytt» sier ikke om førstegangsoppsettet vises, eller om KI er av til hun slår det på. Fila lister ikke innstillinger, tema og prosjekter slik FR-40 gjør. Kravet er Bør, så det haster mindre.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Skriv «KI er av etter import, og samtykketeksten vises neste gang KI slås på». List innholdet som i FR-40.</div>
           </article>
           <article class="finding">
             <header>
@@ -432,7 +397,7 @@
               <h3 class="finding-title">Hendelse over midnatt mangler regel for «I dag»</h3>
               <span class="finding-location">§ FR-45, FR-48</span>
             </header>
-            <div class="finding-note">En nattevakt 21:00–07:30 (+1 dag): står den i «I dag» begge dagene til 07:30?</div>
+            <div class="finding-note">Står en nattevakt 21:00–07:30 (+1 dag) i «I dag» også dag to, til 07:30?</div>
             <div class="finding-fix"><strong>Tiltak:</strong> Én setning i FR-48.</div>
           </article>
           <article class="finding">
@@ -443,15 +408,6 @@
             </header>
             <div class="finding-note">Det står ikke om sluttdato er påkrevd, eller hvor langt fram den kan settes.</div>
             <div class="finding-fix"><strong>Tiltak:</strong> Skriv om sluttdato er påkrevd, og en øvre grense (for eksempel ett år).</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-low">lav</span>
-              <h3 class="finding-title">«Først» er tvetydig</h3>
-              <span class="finding-location">§ FR-50</span>
-            </header>
-            <div class="finding-note">«vises først i lister og Kalender når …» kan leses som «øverst».</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv «vises ikke i lister og Kalender før studenten har godtatt dem».</div>
           </article>
         </div>
       </details>
@@ -464,18 +420,18 @@
         </summary>
         <div class="dim-body">
           <div class="dim-judgment">
-            <p>«Utenfor scope» er tydelig og oppdatert. Skillet mellom kalendervisning (med) og kalenderintegrasjon (ute) er godt. Antall åpne punkter er lavt (fire åpne Å, én [ASSUMPTION]) og passer et emneprosjekt. Problemet er at det nye omfanget ikke er prioritert.</p>
+            <p>Prioriteringen er nå gjort for hele PRD-en: «Krav uten merke er <strong>Må</strong> … Krav merket <strong>(Bør)</strong> tas med hvis det er tid.» Bør-kravene (FR-42, FR-43, FR-46, FR-47, FR-53, FR-61, FR-63) sier selv hva som gjelder uten dem, for eksempel «Uten FR-46 legges alle hendelser inn én og én». Det er god praksis. «Utenfor scope» er tydelig, og antall åpne punkter er lavt. Splittingen har likevel gitt ett hull.</p>
           </div>
         </div>
         <div class="findings-list">
           <article class="finding">
             <header>
               <span class="badge badge-sev-high">høy</span>
-              <h3 class="finding-title">Omfanget er nesten doblet uten prioritering</h3>
-              <span class="finding-location">§ F1 Hendelser, F2 Økter, F4 FR-55, F7</span>
+              <h3 class="finding-title">Endre og slette hendelser og enkeltøkter er ikke et Må-krav</h3>
+              <span class="finding-location">§ F1 innledning, FR-44, FR-47, FR-21, FR-52</span>
             </header>
-            <div class="finding-note">Oppdateringen la til 18 nye FR-er: gjentakende hendelser, KI-planlegging, månedskalender, seks fargetemaer og prosjektliste. Bare F6 har «Må» og «Bør». For en gruppe på fire er det ikke sagt hva som kuttes hvis tiden ikke strekker til.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Merk FR-44–FR-61 med Må/Bør, som i F6. Kandidater til Bør: FR-46 (gjentakelse), FR-53 («Foreslå ny tid»), FR-60 (seks tema), FR-61 (prosjektliste).</div>
+            <div class="finding-note">Den eneste setningen om å endre eller slette en hendelse står i FR-47, som er Bør og bare gjelder gjentakende hendelser. F1 sier bare at studenten «legger inn hendelser». Kuttes FR-46 og FR-47, kan studenten ikke rette en feil tid på en vakt, og bekreftelsen ved sletting forsvinner. For økter nevner FR-21 at en økt kan «flyttes eller slettes», og FR-52 har «Endre tid», men ingen krav sier at studenten kan endre eller slette en enkelt økt.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Legg til ett Må-krav: «Studenten kan endre og slette en hendelse og en enkelt økt. Sletting må bekreftes.» La FR-47 bare gjelde valget «Bare denne / Denne og alle senere».</div>
           </article>
           <article class="finding">
             <header>
@@ -483,8 +439,17 @@
               <h3 class="finding-title">Advarselen om navn og helse forsvinner når FR-42 bygges</h3>
               <span class="finding-location">§ FR-42</span>
             </header>
-            <div class="finding-note">FR-42 sier at teksten «byttes ut» når maskeringen er bygget. Den nye teksten i EXPERIENCE.md nevner bare telefonnumre og e-post. Navn og helseopplysninger maskeres fortsatt ikke, men advarselen om dem forsvinner.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv i FR-42 at advarselen om navn og helseopplysninger blir stående, og be UX legge den til i den nye teksten.</div>
+            <div class="finding-note">Teksten «byttes ut» når maskeringen er bygget, men navn og helseopplysninger maskeres fortsatt ikke.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Skriv i FR-42 at advarselen om navn og helseopplysninger blir stående.</div>
+          </article>
+          <article class="finding">
+            <header>
+              <span class="badge badge-sev-low">lav</span>
+              <h3 class="finding-title">Må-krav viser til Bør-krav</h3>
+              <span class="finding-location">§ FR-54</span>
+            </header>
+            <div class="finding-note">FR-54 er Må, men beskriver knappen «Foreslå ny tid» og meldingen i FR-53, som er Bør.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Skriv «Når FR-53 er bygget, vises …».</div>
           </article>
           <article class="finding">
             <header>
@@ -506,7 +471,7 @@
         </summary>
         <div class="dim-body">
           <div class="dim-judgment">
-            <p>PRD-en er lett å hente krav fra. ID-ene er stabile og unike. Begrepslista finnes, og de fastsatte tekstene er lagt i EXPERIENCE.md med lenke, slik at de ikke finnes to steder. Det som mangler, er en regel for hva som gjelder når de to dokumentene sier ulikt.</p>
+            <p>Krav er lette å hente ut. ID-ene er stabile og unike, begrepslista dekker nå «foreslått økt» og «godtatt økt», og «Smart liste» er oppdatert med økter og hendelser. De fastsatte tekstene ligger i EXPERIENCE.md med lenke. Det mangler fortsatt en regel for hva som gjelder ved konflikt.</p>
           </div>
         </div>
         <div class="findings-list">
@@ -514,19 +479,10 @@
             <header>
               <span class="badge badge-sev-medium">middels</span>
               <h3 class="finding-title">Det står ikke hvilket dokument som gjelder ved konflikt</h3>
-              <span class="finding-location">§ innledningen, F2</span>
+              <span class="finding-location">§ innledningen</span>
             </header>
-            <div class="finding-note">Memloggen sier at DESIGN.md og EXPERIENCE.md gjelder foran PRD-en. Det står ikke i PRD-en. EXPERIENCE.md sier i tillegg at seksjonen KI-planlegging «eier reglene for økter», mens PRD-en har FR-49–FR-57. Story-skrivere vet da ikke hvilket dokument de skal følge.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv én linje øverst: «Ved konflikt gjelder PRD-en for hva appen skal gjøre, og EXPERIENCE.md for hvordan og ordrette tekster» (eller omvendt, men si det).</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-low">lav</span>
-              <h3 class="finding-title">Begrepslista mangler nye begreper</h3>
-              <span class="finding-location">§ Begreper</span>
-            </header>
-            <div class="finding-note">«Foreslått økt» og «godtatt økt» er bærende i FR-15, FR-21, FR-50 og FR-52, men er ikke definert. «Arkiv», «Førstegangsoppsett» og «Personvern og data» brukes som stedsnavn uten definisjon.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Legg dem til.</div>
+            <div class="finding-note">Memloggen sier at DESIGN.md og EXPERIENCE.md gjelder foran PRD-en, men det står ikke i PRD-en. EXPERIENCE.md sier at seksjonen KI-planlegging eier reglene for økter, mens PRD-en har FR-49–FR-57.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Skriv én linje øverst om hvilket dokument som gjelder for hva.</div>
           </article>
         </div>
       </details>
@@ -539,7 +495,7 @@
         </summary>
         <div class="dim-body">
           <div class="dim-judgment">
-            <p>Visjon + funksjoner uten brukerreiser passer her. Produktet har én brukerrolle, og brukerreisene finnes allerede i EXPERIENCE.md → Key Flows, med navngitte personer (Ida og Sara) og konkrete situasjoner. Å skrive dem på nytt i PRD-en ville bare gitt dobbelt vedlikehold. PRD-en peker likevel ikke til dem.</p>
+            <p>Visjon + funksjoner uten brukerreiser passer. Produktet har én brukerrolle, og brukerreisene finnes i EXPERIENCE.md → Key Flows med navngitte personer. Å skrive dem på nytt her ville gitt dobbelt vedlikehold. PRD-en peker likevel ikke til dem.</p>
           </div>
         </div>
         <div class="findings-list">
@@ -549,180 +505,29 @@
               <h3 class="finding-title">Ingen peker fra PRD-en til brukerreisene</h3>
               <span class="finding-location">§ innledningen</span>
             </header>
-            <div class="finding-note">Den som lager epics, finner ikke flytene uten å lete i EXPERIENCE.md.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Legg til en linje: «Brukerreiser: EXPERIENCE.md → Key Flows (Flyt 1–7)», gjerne med hvilke FR-er hver flyt dekker.</div>
+            <div class="finding-note">Den som lager epics, må lete i EXPERIENCE.md for å finne flytene.</div>
+            <div class="finding-fix"><strong>Tiltak:</strong> Legg til «Brukerreiser: EXPERIENCE.md → Key Flows», gjerne med hvilke FR-er hver flyt dekker.</div>
           </article>
         </div>
       </details>
     </section>
-    <section class="reviewer-section">
-      <details>
-        <summary>
-          <h2>Samsvar med UX-spec</h2>
-          <span class="reviewer-source">review-ux-samsvar.md</span>
-        </summary>
-        <div class="dim-body">
-          <div class="dim-judgment">
-            <p>PRD-en følger UX-spesifikasjonen godt. Alle 24 avvik er tatt inn, og de fastsatte tekstene som PRD-en siterer, stemmer ordrett. Det som gjenstår, er hull som finnes i begge dokumentene, især rundt økter. De bør avklares før stories skrives, men ingen av dem gjør at arkitekturen bygger feil ting.</p>
-            <p><strong>Avvik #2 – delvis:</strong> Innholdet er med (FR-49–54, FR-19, FR-5). Men FR-54 sier at «Foreslå ny tid» bare finnes når KI «er på og svarer». Det kan appen ikke vite før kallet er gjort, og FR-53 viser en feilmelding når KI ikke svarer. Se funn under.</p><p><strong>Avvik #20 – delvis:</strong> Import, advarsel og «sender ingenting til KI før teksten endres» er med (FR-43). Det er uklart hva import gjør med et samtykke som allerede er gitt på samme enhet. Se funn under.</p>
-            <p>De andre 22 avvikene er dekket fullt ut i PRD-en.</p>
-            <p><strong>Lagt til i PRD uten støtte i UX:</strong></p><ul><li><strong>FR-44:</strong> «Alle fire er påkrevd» (tittel, dato, start, slutt). EXPERIENCE.md sier ikke dette direkte, men det er en rimelig slutning. Det er heller ikke sagt om sluttdato for gjentakelse (FR-46) er påkrevd.</li><li><strong>FR-41:</strong> «og lenger hvis loven krever det». Står ikke i EXPERIENCE.md, men kommer fra research-fila og er ikke nytt i denne oppdateringen.</li><li><strong>Suksesskriterier → Øktforslag:</strong> minst 5 planleggingscaser i KI-testsettet er merket [ASSUMPTION]. Støttet av prd-avvik #2, men ikke av EXPERIENCE.md. Greit så lenge merket blir stående til testsettet er utvidet.</li><li><strong>NFR-7:</strong> gjentakende hendelser og økter i Forfalt er lagt til som tidsavhengige regler. Dette følger av UX-kravene og er ikke et nytt krav.</li></ul>
-          </div>
-        </div>
-        <div class="findings-list">
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-medium">middels</span>
-              <h3 class="finding-title">Når vises «Foreslå ny tid» hvis KI er utilgjengelig?</h3>
-              <span class="finding-location">PRD FR-53, FR-54 / EXPERIENCE.md § KI-planlegging</span>
-            </header>
-            <div class="finding-note">prd-avvik #2 sier at knappen ikke finnes når KI er utilgjengelig. FR-54 sier «KI er på og svarer». EXPERIENCE.md sier at knappen vises når KI er på og oppgaven ikke er 🔒, og at «KI svarte ikke …» vises ved feil. Uten API-nøkkel (sensor) er det uklart om knappen skal vises.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv i FR-54 at knappen vises når KI er på og oppgaven ikke er 🔒, men skjules når serveren melder at API-nøkkel mangler. Ved andre feil vises meldingen i FR-53.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-medium">middels</span>
-              <h3 class="finding-title">Frist lagt til senere gir ingen øktforslag</h3>
-              <span class="finding-location">PRD FR-13, FR-8 / EXPERIENCE.md § KI-planlegging, punkt 1 og 6</span>
-            </header>
-            <div class="finding-note">FR-13 sier at endret frist ikke gir nye forslag. En oppgave som lagres uten frist og får frist senere, får da aldri øktforslag, med mindre teksten endres.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Avgjør om første frist på en oppgave uten økter skal utløse øktforslag, og skriv det i FR-13 og EXPERIENCE.md.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-medium">middels</span>
-              <h3 class="finding-title">Når regnes en økt som passert?</h3>
-              <span class="finding-location">PRD FR-21 / EXPERIENCE.md § Økters livssyklus #2 og Component Patterns → Avkrysningsring</span>
-            </header>
-            <div class="finding-note">En økt kl. 08–10 i dag: ligger den i «I dag» eller i «Forfalt» kl. 12? Forfalt for oppgaver regnes per dag, og en avhuket økt blir værende «til dagen er slutt».</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Fastsett at en økt er passert når dagen er over (eller når sluttiden er passert), og skriv det i FR-21.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-medium">middels</span>
-              <h3 class="finding-title">Hvor økter sorteres i en liste</h3>
-              <span class="finding-location">PRD FR-24, FR-25 / EXPERIENCE.md § Økters livssyklus #1</span>
-            </header>
-            <div class="finding-note">Økter vises i smartlistene, men sorteringsreglene gjelder bare oppgaver (frist, prioritet, opprettet).</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Si i FR-24 hvordan økter sorteres, for eksempel etter starttid, og om de følger prioritet og sortering for oppgaven.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-medium">middels</span>
-              <h3 class="finding-title">Endre og slette en godtatt økt utenom varsler</h3>
-              <span class="finding-location">PRD FR-21, FR-52 / EXPERIENCE.md § Økters livssyklus #2</span>
-            </header>
-            <div class="finding-note">Begge dokumentene sier at en passert økt kan «flyttes eller slettes». Ingen FR og ingen komponent beskriver hvordan studenten sletter én økt, eller endrer tiden på en økt uten varsel.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Legg til en FR om at studenten kan endre tid på og slette en enkelt godtatt økt fra oppgavedetaljen, og beskriv det i EXPERIENCE.md.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-medium">middels</span>
-              <h3 class="finding-title">Import og samtykke på samme enhet</h3>
-              <span class="finding-location">PRD FR-43 / EXPERIENCE.md § Import og Flyt 7, steg 4</span>
-            </header>
-            <div class="finding-note">I Flyt 7 svarer Sara på KI-valget i førstegangsoppsettet og importerer etterpå. FR-43 sier at KI-valget må besvares på nytt etter import. Det er uklart om importen nullstiller samtykket som nettopp ble gitt, og om importert fornavn erstatter det hun skrev i oppsettet.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv at import beholder samtykket på enheten (eller nullstiller det), og at fornavnet fra fila erstatter det lokale.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-medium">middels</span>
-              <h3 class="finding-title">Lagring som feiler mangler krav</h3>
-              <span class="finding-location">PRD NFR-4 / EXPERIENCE.md § State Patterns → Lagring feiler</span>
-            </header>
-            <div class="finding-note">EXPERIENCE.md krever et banner som ikke kan lukkes når nettleseren ikke lar appen lagre. Det påvirker valget i Å-5 og feilhåndteringen, men står ikke i PRD-en.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Legg til en setning i NFR-4 om at appen skal oppdage og vise at lagring feiler, med henvisning til EXPERIENCE.md.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-medium">middels</span>
-              <h3 class="finding-title">Etikettfilter og hendelser i Kalender</h3>
-              <span class="finding-location">PRD FR-26, FR-55 / EXPERIENCE.md § Component Patterns → Filterknapper</span>
-            </header>
-            <div class="finding-note">Etikettfilteret gjelder også Kalender, men hendelser har ingen etikett. Det er uklart om hendelser og økter vises når «Skole» er valgt.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Fastsett at hendelser alltid vises, og at økter følger etiketten til oppgaven.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-low">lav</span>
-              <h3 class="finding-title">Avhuket økt</h3>
-              <span class="finding-location">PRD FR-56 / EXPERIENCE.md § Component Patterns → Avkrysningsring</span>
-            </header>
-            <div class="finding-note">«Avhuket økt blir værende med strek over til dagen er slutt» står ikke i PRD-en. Det er heller ikke sagt om avhukingen kan angres.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Legg setningen inn i FR-56.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-low">lav</span>
-              <h3 class="finding-title">Redigering av hendelser</h3>
-              <span class="finding-location">PRD FR-44, FR-47 / EXPERIENCE.md § Hendelsesdetalj</span>
-            </header>
-            <div class="finding-note">FR-47 forutsetter at hendelser kan endres, men ingen FR sier det rett ut.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Legg til «og endre» i FR-44.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-low">lav</span>
-              <h3 class="finding-title">Gruppeantall og hendelser</h3>
-              <span class="finding-location">PRD FR-21, FR-48 / EXPERIENCE.md § Component Patterns → Gruppeoverskrift</span>
-            </header>
-            <div class="finding-note">Antallet i «I dag» teller oppgaver og økter. Det er ikke sagt om dagens hendelser teller med.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Avgjør og skriv det i EXPERIENCE.md.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-low">lav</span>
-              <h3 class="finding-title">Standardtema</h3>
-              <span class="finding-location">PRD FR-60 / DESIGN.md § Temaer</span>
-            </header>
-            <div class="finding-note">DESIGN.md sier at Pastellblå er standard. FR-60 nevner bare at Følg systemet er standard for modus.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Legg til «Pastellblå er standard» i FR-60.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-low">lav</span>
-              <h3 class="finding-title">Økter mangler i F6-innledningen</h3>
-              <span class="finding-location">PRD F6 / EXPERIENCE.md § Hva KI får</span>
-            </header>
-            <div class="finding-note">Innledningen sier «Oppgaver og hendelser sendes». Tidspunkt for økter sendes også.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv «Oppgaver, hendelser og tidspunkt for økter».</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-low">lav</span>
-              <h3 class="finding-title">«Ett klikk unna» på mobil</h3>
-              <span class="finding-location">PRD FR-41 / EXPERIENCE.md § Information Architecture</span>
-            </header>
-            <div class="finding-note">På mobil står lenken nederst på siden, så studenten må rulle først.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Skriv «tilgjengelig fra alle skjermbilder» eller godta formuleringen bevisst.</div>
-          </article>
-          <article class="finding">
-            <header>
-              <span class="badge badge-sev-low">lav</span>
-              <h3 class="finding-title">Manglende FR-henvisninger i EXPERIENCE.md</h3>
-              <span class="finding-location">EXPERIENCE.md § Hendelsesfelt, Kalender, Profil, Utseende, Prosjekter, Send hendelsestitler til KI</span>
-            </header>
-            <div class="finding-note">De nye kravene FR-44–48, FR-55, FR-58 og FR-59–61 er ikke nevnt i EXPERIENCE.md. Henvisningene som finnes, peker riktig.</div>
-            <div class="finding-fix"><strong>Tiltak:</strong> Legg inn henvisninger ved neste oppdatering av EXPERIENCE.md.</div>
-          </article>
-        </div>
-      </details>
-    </section>
+
     <div class="mechanical">
       <h3>Mekaniske merknader</h3>
       <ul>
-        <li>FR-1 til FR-61, NFR-1 til NFR-10 og Å-1 til Å-8 er alle med, én gang hver. Rekkefølgen inne i funksjonsgruppene er bevisst. Alle FR-henvisninger i teksten (FR-15, FR-38, FR-55, FR-59, FR-61 osv.) peker på krav som finnes.</li>
-        <li>Lenkene til brief, tilbakemelding, prd-avvik.md, DESIGN.md, EXPERIENCE.md (med ankeret <code>#personvern-og-data--fastsatte-tekster</code>), KI-testsettet og research-filene peker på filer som finnes.</li>
-        <li>Det er én <code>[ASSUMPTION]</code> (planleggingscaser i KI-testsettet, § Suksesskriterier), men ingen oversikt over antakelser. <em>Tiltak:</em> Flytt den til Åpne spørsmål, eller lag en kort oversikt nederst.</li>
-        <li>«Påminnelse» brukes i to betydninger: KI-påminnelsen i skjemaet (FR-37) og varsler som er utenfor scope («varsler og påminnelser»). Skriv «KI-påminnelse» i FR-37.</li>
-        <li>FR-40 lister «prosjekter» som egne data, mens FR-61 og begrepslista sier at prosjekt er fritekst på oppgaven. Små ord, men det kan få arkitekturen til å lage et eget prosjektobjekt.</li>
-        <li>Den forrige gjennomgangen (2026-11-02) nevnte bare FR-1–FR-43 og NFR-1–NFR-8. Den er erstattet av denne.</li>
+        <li>FR-1 til FR-63, NFR-1 til NFR-10 og Å-1 til Å-8 er alle med, én gang hver. FR-62 og FR-63 står ved kravene de hører til, og det er greit. Alle FR-henvisninger peker på krav som finnes.</li>
+        <li>F6 har fortsatt «(Må)» på FR-35–FR-41 og FR-58. Med den nye regelen («Krav uten merke er Må») er merket overflødig. Fjern det, slik at F6 ser ut som resten.</li>
+        <li>Det er én <code>[ASSUMPTION]</code> (planleggingscaser i KI-testsettet, § Suksesskriterier), men ingen oversikt over antakelser. Flytt den til Åpne spørsmål, eller lag en kort oversikt.</li>
+        <li>«Påminnelse» brukes i to betydninger: KI-påminnelsen i skjemaet (FR-37) og varsler som er utenfor scope. Skriv «KI-påminnelse» i FR-37.</li>
+        <li>FR-40 lister «prosjekter» som egne data, mens begrepslista og FR-61 sier at prosjekt er fritekst på oppgaven. Det kan få arkitekturen til å lage et eget prosjektobjekt.</li>
+        <li>«Førstegangsoppsett» og «Personvern og data» brukes som stedsnavn uten å stå i begrepslista.</li>
+        <li>Tabellen i F4 har kolonnen «Frist», men økter plasseres etter dato (FR-21). Skriv «Frist / øktdato».</li>
       </ul>
     </div>
     <footer class="report-footer">
       <div class="meta">
         <span>Rubrikk: .claude/skills/bmad-prd/assets/prd-validation-checklist.md</span>
-        <span>Laget: 2026-11-11T17:02:21+01:00</span>
+        <span>Laget: 2026-11-11T17:23:56+01:00</span>
       </div>
     </footer>
   </div>
