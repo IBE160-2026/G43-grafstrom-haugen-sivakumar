@@ -31,6 +31,7 @@
 - [x] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — rett utdaterte henvisninger i EXPERIENCE.md («Økter … står ikke i PRD-en», Prioritetsvelger → FR-4) (løst 2026-11-11)
 - [x] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — vurder rubrikk- eller bmad-review-gjennomgang av den oppdaterte PRD-en før arkitekturen (løst 2026-11-11)
 - [x] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — ta stilling til de 6 høye funnene i `validation-report.md` (økter/hendelser i smartlister, øktfelt og -grenser, frist lagt til senere, utdaterte øktforslag, standard for hendelsestitler, Må/Bør for FR-44–61) før epics og stories (løst 2026-11-11)
-- [ ] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — gå gjennom de resterende middels og lave funnene i `validation-report.md` (lagringsbanner, import og samtykke, avhuket økt, NFR-10, hvilket dokument som gjelder)
+- [x] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — gå gjennom de resterende middels og lave funnene i `validation-report.md` (lagringsbanner, import og samtykke, avhuket økt, NFR-10, hvilket dokument som gjelder) (delvis løst 2026-11-11, resten flyttet til punktet under)
 - [x] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — legg til Må-krav for å endre og slette én hendelse og én godtatt økt (høyt funn i ny validering) (løst 2026-11-11)
 - [x] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — beskriv i EXPERIENCE.md hvordan én økt endres og slettes (FR-64) (løst 2026-11-11)
+- [ ] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — 4 middels valideringsfunn står igjen (brukertest for planlegging, regel for øktforslag samlet, øktmerker som tilstand, advarsel i FR-42). Kan tas i stories
