@@ -1,6 +1,6 @@
 ---
 name: dueNext – avvik fra PRD
-status: draft
+status: applied
 created: 2026-11-11
 sources:
   - docs/prds/prd-G43-grafstrom-haugen-sivakumar-2026-11-02/prd.md
@@ -10,7 +10,7 @@ sources:
 
 # dueNext – avvik fra PRD
 
-Denne fila samler valgene fra UX-arbeidet ([DESIGN.md](DESIGN.md) og [EXPERIENCE.md](EXPERIENCE.md)) som avviker fra PRD-en. PRD-en må oppdateres med disse valgene før arkitekturen lages (med `bmad-prd` i oppdateringsmodus).
+Denne fila samler valgene fra UX-arbeidet ([DESIGN.md](DESIGN.md) og [EXPERIENCE.md](EXPERIENCE.md)) som avviker fra PRD-en. Alle avvikene ble innarbeidet i PRD-en 2026-11-11.
 
 | # | Endring | Berørt i PRD |
 |---|---|---|

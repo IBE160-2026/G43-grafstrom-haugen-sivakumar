@@ -23,7 +23,7 @@ Prosjektet er et skoleprosjekt i IBE160, men tilgjengeligheten skal følge **WCA
 
 **Mockups.** Visuelle referanser ligger i `mockups/` og er lenket der de hører hjemme. Ved uenighet gjelder `DESIGN.md` og `EXPERIENCE.md` foran mockupene og skissen.
 
-Valg som avviker fra PRD-en, står i [prd-avvik.md](prd-avvik.md).
+Valgene som avvek fra PRD-en, står i [prd-avvik.md](prd-avvik.md), og ble innarbeidet i PRD-en 2026-11-11.
 
 ## Information Architecture
 
@@ -91,7 +91,7 @@ Her beskrives oppførselen. Navnene er de samme som i `DESIGN.md` → Components
 | Skjema Ny/Endre | – | Egen side (mobil og nettbrett), panel (PC) | Bare oppgavetekst er påkrevd, med hjelpeteksten «Bare oppgaveteksten er påkrevd. Resten kan stå tomt.» **Lagre** lagrer straks (FR-2). KI-forslag kommer *etter* lagring, på detaljen. Tilbakepil eller Esc spør «Forkaste endringene?» bare når noe er endret. |
 | Skjemafelt | `text-field` | Skjema, Innstillinger | Ledetekst over, hjelpetekst og feil under. Innholdet beholdes ved feil. |
 | Velger [Oppgave \| Hendelse] | `segmented-toggle` | Øverst i skjemaet | Bytter feltene uten å miste oppgaveteksten/tittelen. Vises bare ved Ny, ikke ved Endre. |
-| Prioritetsvelger | `priority-selector` | Skjema (Oppgave) | Lav / Middels / Høy. Standard er Middels (FR-12). Piltaster flytter valget. |
+| Prioritetsvelger | `priority-selector` | Skjema (Oppgave) | Lav / Middels / Høy. Standard er Middels (FR-4). Piltaster flytter valget. |
 | Hendelsesfelt | `text-field` | Skjema (Hendelse) | Tittel, dato, start, slutt, Gjenta: Ingen / Hver uke / Annenhver uke, med sluttdato. Er slutt før start, regnes slutt som neste dag, og tiden vises som «21:00 – 07:30 (+1 dag)». Uregelmessig turnus legges inn én og én. |
 | Personvernbryter | `privacy-switch` | Nederst i skjemaet | Holder en oppgave helt utenfor KI, eller skjuler tittelen på en hendelse for KI. Se [Personvernbryter](#personvernbryter). |
 | Låsikon | `lock-icon` | Oppgavekort, hendelsesrad, oppgavedetalj, hendelsesdetalj | Vises når 🔒 er på. Skjermlesertekst «Skjult for KI». |
@@ -220,7 +220,7 @@ Samme komponenter og tokens brukes på alle bredder. Designet skal oppleves som 
 
 ## KI-planlegging (økter)
 
-Økter er en ny funksjon som ikke står i PRD-en. Her beskrives en enkel variant. Denne seksjonen eier reglene for økter. Komponentradene henviser hit.
+Kravene til økter står i PRD-en (FR-49–54, FR-56 og FR-57). Her beskrives oppførselen i en enkel variant. Denne seksjonen eier reglene for økter. Komponentradene henviser hit.
 
 **Forslag**
 1. Når en oppgave **med frist** lagres og KI er på, kommer forslag til etikett, prioritet og sammendrag, og i tillegg **foreslåtte økter** i KI-boksen.
@@ -329,7 +329,7 @@ Knapper: *Avbryt* / *Importer*. Importerte oppgaver sender ingenting til KI før
 
 Knapper: *Avbryt* / *Slett alt* (varselfarge). *Avbryt* har standardfokus.
 
-**Personvernerklæringen** (FR-41). I tillegg til PRD-kravene skal erklæringen si:
+**Personvernerklæringen** (FR-41). Erklæringen skal blant annet si:
 
 - at formålet også er planlegging av økter
 - at ingen automatiske avgjørelser tas (studenten godtar alt)
