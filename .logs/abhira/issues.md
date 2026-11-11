@@ -29,4 +29,5 @@
 - [ ] 2026-11-11 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — avgjør i arkitekturen hvor mange dager med hendelser/økter som sendes til KI
 - [ ] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — utvid KI-testsettet med minst 5 planleggingscaser (frist + hendelser) for suksesskriteriet for øktforslag
 - [x] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — rett utdaterte henvisninger i EXPERIENCE.md («Økter … står ikke i PRD-en», Prioritetsvelger → FR-4) (løst 2026-11-11)
-- [ ] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — vurder rubrikk- eller bmad-review-gjennomgang av den oppdaterte PRD-en før arkitekturen
+- [x] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — vurder rubrikk- eller bmad-review-gjennomgang av den oppdaterte PRD-en før arkitekturen (løst 2026-11-11)
+- [ ] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — ta stilling til de 6 høye funnene i `validation-report.md` (økter/hendelser i smartlister, øktfelt og -grenser, frist lagt til senere, utdaterte øktforslag, standard for hendelsestitler, Må/Bør for FR-44–61) før epics og stories
