@@ -29,7 +29,7 @@ Studenten starter dueNext lokalt, legger inn fornavn, oppretter og redigerer opp
 
 ## Technical Decisions
 
-- Stack: Next 16.3.5 (App Router), React 19.2.8, TypeScript 5, Tailwind 4, Zustand 5.1.0, zod 4.6.7, Vitest 5.1.2, Playwright 1.65.1 med @axe-core/playwright 4.14.1, Node ≥ 22. Prisma brukes ikke. Les `node_modules/next/dist/docs/` før Next-kode skrives — versjonen avviker fra treningsdata.
+- Stack: Next 16.4.6 (App Router), React 19.2.8, TypeScript 5, Tailwind 4, Zustand 5.1.0, zod 4.6.7, Vitest 5.1.2, Playwright 1.65.1 med @axe-core/playwright 4.14.1, Node ≥ 22.12. Prisma brukes ikke. Les `node_modules/next/dist/docs/` før Next-kode skrives — versjonen avviker fra treningsdata.
 - Lag og importregler: `kjerne/` (rene funksjoner, importerer bare `kjerne/` og `zod`, aldri klokke/nettleser/nettverk) ← `lib/store/` (én Zustand-butikk med navngitte kommandoer) → adaptere `lib/storage/` (eneste som rører localStorage), `lib/klokke.ts` (eneste klokke). UI i `app/` og `components/`.
 - Lagring: ett versjonert JSON-dokument under én localStorage-nøkkel; `kjerne/migrering.ts: migrer(rå)` gir dokument, `for-ny` eller `ugyldig` og kaster aldri; ved `for-ny`/`ugyldig` overskrives aldri det lagrede. Skjemaet i `kjerne/skjema.ts` (zod, typer via `z.infer`) har fra versjon 1 samlingene `oppgaver`, `økter`, `hendelser` og objektene `innstillinger`, `profil`, `samtykke`.
 - Avledede verdier (smarte lister o.l.) regnes av kjernen og lagres aldri.

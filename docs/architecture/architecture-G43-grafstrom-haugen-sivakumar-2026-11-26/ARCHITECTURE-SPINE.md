@@ -191,8 +191,8 @@ Pilene viser hvem som får importere hvem. Ingen piler går inn mot UI eller but
 
 | Name | Version |
 | --- | --- |
-| Node.js | 26.7.0 (lokalt, `engines` ≥ 22) |
-| Next.js (App Router, Turbopack) | 16.3.5 |
+| Node.js | 26.7.0 (lokalt, `engines` ≥ 22.12, fordi Vitest og vite krever det) |
+| Next.js (App Router, Turbopack) | 16.4.6 (oppgradert fra 16.3.5 2026-11-26 på grunn av kritiske sikkerhetshull) |
 | React | 19.2.8 |
 | TypeScript | 5.x |
 | Tailwind CSS | 4.x |
@@ -208,7 +208,7 @@ Pilene viser hvem som får importere hvem. Ingen piler går inn mot UI eller but
 
 Endringer i `package.json`:
 - **legges til:** `zustand`, `zod`, `server-only`, `vitest`, `vite`, `@playwright/test` og `@axe-core/playwright`
-- **oppgraderes:** `@anthropic-ai/sdk` fra 0.126 til 1.14, og `@types/node` fra ^20 til ^24
+- **oppgraderes:** `@anthropic-ai/sdk` fra 0.126 til 1.14, `@types/node` fra ^20 til ^24, og `next` og `eslint-config-next` fra 16.3.5 til 16.4.6 (`npm audit` fant kritiske hull i 16.3.5)
 - **fjernes:** `prisma` og `@prisma/client`
 
 v1 blir på disse versjonene, selv om nyere versjoner av Next, React og TypeScript finnes. Startfilene fra create-next-app (`app/page.tsx`, bildene i `public/`) erstattes i første story.
