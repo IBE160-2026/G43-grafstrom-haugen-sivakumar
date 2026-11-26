@@ -3,7 +3,7 @@
 - [x] 2026-10-29 [product-brief-revisjon](996-2026-10-29-19-05-00-product-brief-revisjon.md) — lag testsett med 20 oppgavetekster og forventet etikett og prioritet (løst 2026-10-29)
 - [x] 2026-10-29 [product-brief-revisjon](996-2026-10-29-19-05-00-product-brief-revisjon.md) — opprett `.env.example` med variabelen for Claude API-nøkkelen (løst 2026-10-29)
 - [x] 2026-10-29 [product-brief-revisjon](996-2026-10-29-19-05-00-product-brief-revisjon.md) — bestem hvilke smarte lister som skal finnes i v1 (løst 2026-10-29)
-- [ ] 2026-10-29 [product-brief-revisjon](996-2026-10-29-19-05-00-product-brief-revisjon.md) — velg Claude-modell og lagringsløsning i arkitekturdokumentet
+- [x] 2026-10-29 [product-brief-revisjon](996-2026-10-29-19-05-00-product-brief-revisjon.md) — velg Claude-modell og lagringsløsning i arkitekturdokumentet (løst 2026-11-26)
 - [x] 2026-10-29 [product-brief-revisjon](996-2026-10-29-19-05-00-product-brief-revisjon.md) — bestem arkiveringsregler for fullførte oppgaver (løst 2026-11-02)
 - [x] 2026-10-29 [product-brief-revisjon](996-2026-10-29-19-05-00-product-brief-revisjon.md) — vurder å fjerne sekundærmålgruppen «små team» (løst 2026-11-02)
 - [x] 2026-10-29 [ki-testsett](995-2026-10-29-19-20-00-ki-testsett.md) — gå gjennom forventet etikett og prioritet i testsettet sammen i gruppa (løst 2026-10-29)
@@ -20,13 +20,13 @@
 - [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — gå gjennom forventede svar i det oppdaterte KI-testsettet
 - [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — sjekk tallene i forskningsnotatet mot fulltekst før de siteres
 - [x] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — lagre promptene fra PRD-økta som dokumentasjon av KI-styringen (løst 2026-11-02)
-- [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — lag arkitektur med `bmad-architecture` (lagring, Sonnet-versjon, navnemaskering, nøkkelord)
+- [x] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — lag arkitektur med `bmad-architecture` (lagring, Sonnet-versjon, navnemaskering, nøkkelord) (løst 2026-11-26)
 - [x] 2026-11-09 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — svar på spørsmålene om økters livssyklus (smartliste, passert økt, ny frist, fullfør/gjenopprett, sletting, «opptatt» til KI, når «Foreslå ny tid» skjules) (løst 2026-11-11)
 - [x] 2026-11-09 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — skriv beslutningene og funnene fra gjennomgangen inn i DESIGN.md og EXPERIENCE.md (kontrast, kalenderregler, flyt for Arkiv og søk, samtykketekst, FR-37 for hendelser) (løst 2026-11-11)
 - [x] 2026-11-09 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — fullfør bmad-ux: flytt .working til mockups/, kjør bmad-review (structure, prose), sett status: final (løst 2026-11-11)
 - [x] 2026-11-09 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — oppdater PRD-en med UX-avvikene (11 i EXPERIENCE og 13 fra personverngjennomgangen) med bmad-prd før arkitekturen — kilde nå `prd-avvik.md` i UX-mappa (løst 2026-11-11)
 - [x] 2026-11-11 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — se gjennom `mockups/key-personvern.html` i nettleser (ikke visuelt sjekket) (løst 2026-11-11)
-- [ ] 2026-11-11 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — avgjør i arkitekturen hvor mange dager med hendelser/økter som sendes til KI
+- [x] 2026-11-11 [ux-design](987-2026-11-09-21-35-13-ux-design.md) — avgjør i arkitekturen hvor mange dager med hendelser/økter som sendes til KI (løst 2026-11-26: 14 dager)
 - [ ] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — utvid KI-testsettet med minst 5 planleggingscaser (frist + hendelser) for suksesskriteriet for øktforslag — nå et krav før skive 3 testes (2026-11-26)
 - [x] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — rett utdaterte henvisninger i EXPERIENCE.md («Økter … står ikke i PRD-en», Prioritetsvelger → FR-4) (løst 2026-11-11)
 - [x] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — vurder rubrikk- eller bmad-review-gjennomgang av den oppdaterte PRD-en før arkitekturen (løst 2026-11-11)
@@ -38,3 +38,6 @@
 - [ ] 2026-11-26 [prd](988-2026-11-02-19-34-52-prd.md) — vurder å validere den oppdaterte PRD-en (demo-avgrensning, FR-65, NFR-11) med `bmad-prd` før arkitekturen
 - [ ] 2026-11-26 [prd](988-2026-11-02-19-34-52-prd.md) — gruppa bekrefter at v1 bare brukes med fiktive data, og sier eventuelt fra til faglærer at spørsmålene om behandlingsansvarlig og TIA er trukket
 - [ ] 2026-11-26 [prd](988-2026-11-02-19-34-52-prd.md) — svar på refleksjonsspørsmålene i `tilbakemelding-prd.md` (FR-58-avveiningen, hvem tok initiativet til utvidelsen)
+- [ ] 2026-11-26 [arkitektur](986-2026-11-26-17-25-25-arkitektur.md) — oppdater `package.json` etter arkitekturen (fjern Prisma, legg til zustand/zod/server-only/vitest/vite/playwright/axe, SDK 1.x, @types/node ^24, `-H 127.0.0.1`)
+- [ ] 2026-11-26 [arkitektur](986-2026-11-26-17-25-25-arkitektur.md) — legg `KI_MOCK` til i `.env.example` (AD-14)
+- [ ] 2026-11-26 [arkitektur](986-2026-11-26-17-25-25-arkitektur.md) — del faglærer-oversikten (https://claude.ai/artifact/D9GSk4vhdT4AfE4gFJwGQz) når den skal vurderes
