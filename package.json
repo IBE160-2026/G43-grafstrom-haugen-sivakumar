@@ -1,29 +1,40 @@
 {
-  "name": "studieliste",
+  "name": "duenext",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.12"
+  },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 127.0.0.1",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "next start -H 127.0.0.1",
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:e2e": "playwright test --pass-with-no-tests",
+    "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.126.0",
-    "@prisma/client": "^7.10.0",
+    "@anthropic-ai/sdk": "1.14.0",
     "next": "16.3.5",
-    "prisma": "^8.0.0-rc.15",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "server-only": "0.0.1",
+    "zod": "4.6.7",
+    "zustand": "5.1.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.1",
+    "@playwright/test": "1.65.1",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite": "8.4.0",
+    "vitest": "5.1.2"
   }
 }

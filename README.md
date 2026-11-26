@@ -13,7 +13,7 @@ Repoet inneholder gruppens applikasjon, dueNext, og dokumentasjon av utvikling, 
 
 ## Kom i gang
 
-Du trenger [Node.js](https://nodejs.org) (LTS-versjon) og Git.
+Du trenger [Node.js](https://nodejs.org) 22.12 eller nyere og Git. Versjon 24 eller 26 anbefales. Oddetallsversjonene 23 og 25 virker ikke med testene.
 
 ### 1. Installer pakkene
 
@@ -54,13 +54,42 @@ Appen bruker Claude API fra Anthropic til KI-forslagene. **Appen fungerer også 
 npm run dev
 ```
 
-Åpne [http://localhost:3000](http://localhost:3000) i nettleseren.
+Åpne [http://127.0.0.1:3000](http://127.0.0.1:3000) i nettleseren. Appen virker uten API-nøkkel, og den kan bare nås fra din egen maskin.
+
+## Tester
+
+Enhetstester for kjernen (Vitest):
+
+```bash
+npm test
+```
+
+Typesjekk (genererer først rutetypene til Next):
+
+```bash
+npm run typecheck
+```
+
+Ende-til-ende-tester (Playwright). Installer nettleseren én gang først:
+
+```bash
+npx playwright install chromium
+npm run test:e2e
+```
+
+Playwright starter selv en egen utviklingsserver på port 3001 med falsk KI (`KI_MOCK=1`), så testene bruker aldri ekte Claude.
 
 ## Struktur
 
 | Mappe | Innhold |
 |---|---|
-| `app/` | Next.js-applikasjonen |
+| `app/` | Next.js-applikasjonen (sider og ruter) |
+| `components/` | Felles React-komponenter |
+| `kjerne/` | Rene funksjoner for domenet, uten klokke, nettleser eller nettverk |
+| `lib/` | Butikk, lagring og klokke |
+| `server/` | Kode som bare kjører på serveren |
 | `docs/` | Planleggingsdokumenter, blant annet product brief |
+| `tests/kjerne/` | Vitest-tester for kjernen |
+| `tests/e2e/` | Playwright-tester for hele appen |
 | `tests/ki-testsett/` | Fast testsett med 20 oppgaver for å måle KI-forslagene |
 | `.logs/` | Sesjonslogger og åpne punkter per gruppemedlem |
