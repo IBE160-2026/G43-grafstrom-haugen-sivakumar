@@ -56,7 +56,6 @@
 - [x] 2026-11-26 [story-1-2-lagringsformat](982-2026-11-26-19-40-00-story-1-2-lagringsformat.md) — i story 1.3: valider dokumentet før `skriv()`, så en kommandofeil ikke låser appen på feilsiden (løst 2026-11-26, story 1.3)
 - [ ] 2026-11-26 [story-1-2-lagringsformat](982-2026-11-26-19-40-00-story-1-2-lagringsformat.md) — ved første migrering: hindre at en gammel fane skriver over et dokument fra nyere versjon
 - [ ] 2026-11-26 [story-1-2-lagringsformat](982-2026-11-26-19-40-00-story-1-2-lagringsformat.md) — si fra til Sabrina: `tests/kjerne/tekster.test.ts` («deltekst står to ganger») feiler på Windows fordi `EXPERIENCE.md` sjekkes ut med CRLF; normaliser med `.replace(/
-
 /g, "
 ")` eller legg `*.md text eol=lf` i `.gitattributes`
 - [ ] 2026-11-26 [story-1-3-butikk-og-klokke](981-2026-11-26-21-30-00-story-1-3-butikk-og-klokke.md) — Lena går gjennom story 1.3 før den settes til `done`
