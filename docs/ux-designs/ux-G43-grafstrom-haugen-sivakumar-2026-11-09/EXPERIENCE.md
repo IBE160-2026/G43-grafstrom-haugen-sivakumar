@@ -165,7 +165,8 @@ Her beskrives oppførselen. Navnene er de samme som i `DESIGN.md` → Components
 | Skjemafeil | Skjema | Tom oppgavetekst gir «Skriv inn hva du skal gjøre» ved feltet. Lik start og slutt gir «Slutt må være etter start». Slutt før start er lov og betyr neste dag. |
 | Fokus | Alle | Synlig fokusring, `{components.focus-ring}` (2 px i `{colors.accent-ink}`). |
 | Ingen prosjekter | Innstillinger → Prosjekter | «Prosjekter dukker opp her når du skriver dem på en oppgave.» |
-| Lagring feiler | Alle | Banner: «Nettleseren lar ikke appen lagre. Det du skriver nå, forsvinner når du lukker fanen.» Appen virker ellers. |
+| Lagring feiler | Alle | Banner: «Nettleseren lar ikke appen lagre. Det du skriver nå, forsvinner når du lukker fanen.» Appen virker ellers. Teksten står under Lagringsbanner i Personvern og data – fastsatte tekster. |
+| Data kan ikke leses | Feilside | Lagret av en nyere versjon, eller skadet: feilside med *Last ned data* og *Slett alle data*. Det lagrede endres ikke. Tekstene står under Feilside (data kan ikke leses) i Personvern og data – fastsatte tekster. |
 | Samtykke gitt | Personvern og data | «Godkjent 9.11.2026 (tekst v2)» – dato og versjon av samtykketeksten som ble godkjent. Ny tekstversjon gir nytt samtykke. |
 | Import fullført | Personvern og data | «Importen er fullført.» |
 | Import feiler | Personvern og data | «Fila kunne ikke leses. Ingen data er endret.» |
@@ -335,6 +336,22 @@ Knapper: *Avbryt* / *Importer*. Importerte oppgaver sender ingenting til KI før
 > **Slette alle data?** Alle oppgaver, hendelser, økter, navnet ditt og innstillingene slettes fra denne nettleseren, og appen starter på nytt. Det kan ikke angres. Tekst som allerede er sendt til KI, kan ikke slettes herfra – Anthropic sletter den normalt innen 30 dager.
 
 Knapper: *Avbryt* / *Slett alt* (varselfarge). *Avbryt* har standardfokus.
+
+**Lagringsbanner**
+
+Står øverst på alle sider når nettleseren ikke lar appen lagre. Det kan ikke lukkes og vises så lenge feilen varer.
+
+> Nettleseren lar ikke appen lagre. Det du skriver nå, forsvinner når du lukker fanen.
+
+**Feilside (data kan ikke leses)**
+
+Vises i stedet for appen når de lagrede dataene er lagret av en nyere versjon, eller er skadet. Det lagrede endres ikke. Første tittel og tekst gjelder nyere versjon, andre gjelder skadede data. *Last ned data* lagrer rådataene ordrett som `duenext-data.json`. *Slett alle data* åpner dialogen Slett alle data.
+
+> **Dataene er lagret av en nyere versjon av dueNext** Denne versjonen kan ikke lese dem, og ingenting er endret. Last ned dataene som fil, eller slett alt og start på nytt.
+>
+> **Appen kan ikke lese dataene dine** De lagrede dataene er skadet, og ingenting er endret. Last ned dataene som fil før du eventuelt sletter alt.
+>
+> **[ Last ned data ]**  **[ Slett alle data ]**
 
 **Personvernerklæringen** (FR-41). Erklæringen skal blant annet si:
 

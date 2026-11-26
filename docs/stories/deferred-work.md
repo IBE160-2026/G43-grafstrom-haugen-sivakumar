@@ -16,7 +16,7 @@
   summary: Bygg resten av story 3.1: `kjerne/samtykke.ts` med `kiErPå(dokument)` og `kanSendes(oppgave, dokument)`, som importerer `GJELDENDE_SAMTYKKEVERSJON` fra `kjerne/tekster.ts`, med Vitest for ja, nei, `null` og gammel tekstversjon.
   evidence: Specen dekket bare tekstdelen fordi dokumentskjemaet fra story 1.2 ikke fantes ennå. Story 3.1 står derfor fortsatt som `in-progress` i sprint-status.
 - source_spec: `docs/stories/spec-1-2-lagringsformat-som-taler-nye-versjoner.md`
-  summary: La butikken i 1.3 (eller `skriv()`) validere dokumentet før lagring, så en feil i en kommando ikke gjør neste `les()` `ugyldig`.
+  summary: (Løst i story 1.3: abonnementet validerer med `dokumentSkjema` før `skriv`.) La butikken i 1.3 (eller `skriv()`) validere dokumentet før lagring, så en feil i en kommando ikke gjør neste `les()` `ugyldig`.
   evidence: `skriv()` lagrer det den får; lesingen er streng, så et ugyldig dokument sender appen til feilsiden.
 - source_spec: `docs/stories/spec-1-2-lagringsformat-som-taler-nye-versjoner.md`
   summary: Når første migrering legges til: hindre at en fane med gammel versjon skriver over et dokument fra nyere versjon.
@@ -24,3 +24,6 @@
 - source_spec: `docs/stories/spec-1-2-lagringsformat-som-taler-nye-versjoner.md`
   summary: Vurder ESLint-regler som hindrer `localStorage` utenfor `lib/storage/` og klokke/nettleser i `kjerne/`.
   evidence: AD-1 og AD-3 sjekkes i dag bare med manuell `git grep`.
+- source_spec: `docs/stories/spec-1-3-appen-husker-og-folger-klokka.md`
+  summary: Story 1.4 (Lena) gir feilsiden, dialogen og lagringsbanneret farger, fokusring og varselfarge på *Slett alt*, og kjører axe på banner- og dialogtilstanden.
+  evidence: 1.3 la bevisst ingen stil (tokens kommer i 1.4); EXPERIENCE.md krever varselfarge og synlig fokusring.

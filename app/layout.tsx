@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AppTilstand } from "@/components/app-tilstand";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="nb" suppressHydrationWarning>
-      <body>{children}</body>
+      <body><AppTilstand>{children}</AppTilstand></body>
     </html>
   );
 }

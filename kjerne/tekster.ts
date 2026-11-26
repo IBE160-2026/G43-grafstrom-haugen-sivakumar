@@ -167,3 +167,26 @@ export const SLETT_ALLE_DATA_DIALOG = {
     slettAlt: "Slett alt",
   },
 } as const;
+
+/** Lagringsbanneret. Står øverst, kan ikke lukkes og vises så lenge feilen varer. */
+export const LAGRINGSBANNER = {
+  tekst: "Nettleseren lar ikke appen lagre. Det du skriver nå, forsvinner når du lukker fanen.",
+} as const;
+
+/** Feilsiden når de lagrede dataene ikke kan leses. Det lagrede endres ikke. */
+export const FEILSIDE = {
+  forNy: {
+    tittel: "Dataene er lagret av en nyere versjon av dueNext",
+    tekst:
+      "Denne versjonen kan ikke lese dem, og ingenting er endret. Last ned dataene som fil, eller slett alt og start på nytt.",
+  },
+  ugyldig: {
+    tittel: "Appen kan ikke lese dataene dine",
+    tekst:
+      "De lagrede dataene er skadet, og ingenting er endret. Last ned dataene som fil før du eventuelt sletter alt.",
+  },
+  knapper: {
+    lastNed: "Last ned data",
+    slettAlleData: PERSONVERN_VALG.slettAlleData,
+  },
+} as const;

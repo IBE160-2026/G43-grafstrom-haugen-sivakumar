@@ -1,43 +1,9 @@
 // @vitest-environment node
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { nyttDokument } from "@/kjerne/skjema";
-import { LAGRINGSNØKKEL, lagLagring, lagring } from "@/lib/storage";
+import { LAGRINGSNØKKEL, lagLagring, lagring, type Vindu } from "@/lib/storage";
 import { fulltDokument } from "../kjerne/fikstur";
-
-type FalskStorage = Storage & {
-  data: Map<string, string>;
-  skrivinger: [string, string][];
-  kastVedLes: boolean;
-  kastVedSkriv: boolean;
-};
-
-function falskStorage(start: Record<string, string> = {}): FalskStorage {
-  const data = new Map(Object.entries(start));
-  const storage: FalskStorage = {
-    data,
-    skrivinger: [],
-    kastVedLes: false,
-    kastVedSkriv: false,
-    get length() {
-      return data.size;
-    },
-    clear: () => data.clear(),
-    key: (i) => [...data.keys()][i] ?? null,
-    getItem(nøkkel) {
-      if (storage.kastVedLes) throw new Error("SecurityError");
-      return data.get(nøkkel) ?? null;
-    },
-    setItem(nøkkel, verdi) {
-      if (storage.kastVedSkriv) throw new Error("QuotaExceededError");
-      storage.skrivinger.push([nøkkel, verdi]);
-      data.set(nøkkel, verdi);
-    },
-    removeItem: (nøkkel) => {
-      data.delete(nøkkel);
-    },
-  };
-  return storage;
-}
+import { falskStorage } from "./falsk-storage";
 
 describe("lagLagring().les", () => {
   it("bruker nøkkelen duenext", () => {
@@ -133,10 +99,74 @@ describe("lagLagring().skriv", () => {
   });
 });
 
+describe("lagLagring().slettAlt", () => {
+  it("fjerner nøkkelen og lar andre nøkler stå", () => {
+    const s = falskStorage({ [LAGRINGSNØKKEL]: "{ikke json", annen: "x" });
+    expect(lagLagring(() => s).slettAlt()).toEqual({ ok: true });
+    expect(s.data.has(LAGRINGSNØKKEL)).toBe(false);
+    expect(s.data.get("annen")).toBe("x");
+  });
+
+  it("removeItem som kaster gir sletting-feilet", () => {
+    const s = falskStorage({ [LAGRINGSNØKKEL]: "{ikke json" });
+    s.kastVedSlett = true;
+    expect(lagLagring(() => s).slettAlt()).toEqual({ ok: false, feil: "sletting-feilet" });
+    expect(s.data.get(LAGRINGSNØKKEL)).toBe("{ikke json");
+  });
+});
+
+/** Lager en `storage`-hendelse. Node har ikke `StorageEvent`. */
+function storageHendelse(key: string | null, storageArea: Storage): Event {
+  return Object.assign(new Event("storage"), { key, storageArea });
+}
+
+describe("lagLagring().lyttEtterEndringer", () => {
+  function oppsett() {
+    const s = falskStorage();
+    const vindu = new EventTarget();
+    const cb = vi.fn();
+    const avmeld = lagLagring(
+      () => s,
+      () => vindu as unknown as Vindu,
+    ).lyttEtterEndringer(cb);
+    return { s, vindu, cb, avmeld };
+  }
+
+  it("kaller tilbake for nøkkelen og for tømt lager", () => {
+    const { s, vindu, cb } = oppsett();
+    vindu.dispatchEvent(storageHendelse(LAGRINGSNØKKEL, s));
+    vindu.dispatchEvent(storageHendelse(null, s));
+    expect(cb).toHaveBeenCalledTimes(2);
+  });
+
+  it("overser andre nøkler og andre lagre", () => {
+    const { s, vindu, cb } = oppsett();
+    vindu.dispatchEvent(storageHendelse("annen", s));
+    vindu.dispatchEvent(storageHendelse(LAGRINGSNØKKEL, falskStorage()));
+    expect(cb).not.toHaveBeenCalled();
+  });
+
+  it("avmelding stopper lyttingen", () => {
+    const { s, vindu, cb, avmeld } = oppsett();
+    avmeld();
+    vindu.dispatchEvent(storageHendelse(LAGRINGSNØKKEL, s));
+    expect(cb).not.toHaveBeenCalled();
+  });
+
+  it("blokkert lager gir en avmelding som ikke kaster", () => {
+    const avmeld = lagLagring(() => {
+      throw new Error("blokkert");
+    }).lyttEtterEndringer(() => {});
+    expect(() => avmeld()).not.toThrow();
+  });
+});
+
 describe("standardinstansen", () => {
   it("kan importeres uten window og gir navngitte feil i stedet for å kaste", () => {
     expect(typeof window).toBe("undefined");
     expect(lagring.les()).toEqual({ type: "lesefeil" });
     expect(lagring.skriv(nyttDokument())).toEqual({ ok: false, feil: "lagring-feilet" });
+    expect(lagring.slettAlt()).toEqual({ ok: false, feil: "sletting-feilet" });
+    expect(() => lagring.lyttEtterEndringer(() => {})()).not.toThrow();
   });
 });

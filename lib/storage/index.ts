@@ -12,17 +12,32 @@ export type LesResultat =
 
 export type SkrivResultat = { ok: true } | { ok: false; feil: "lagring-feilet" };
 
+export type SlettResultat = { ok: true } | { ok: false; feil: "sletting-feilet" };
+
 export type Lagring = {
   les(): LesResultat;
   skriv(dokument: Dokument): SkrivResultat;
+  /** Fjerner dokumentet fra lageret. */
+  slettAlt(): SlettResultat;
+  /**
+   * Kaller `cb` når en annen fane har endret dokumentet eller tømt lageret.
+   * Returnerer en avmeldingsfunksjon.
+   */
+  lyttEtterEndringer(cb: () => void): () => void;
 };
+
+/** Det `lyttEtterEndringer` trenger av `window`. */
+export type Vindu = Pick<Window, "addEventListener" | "removeEventListener">;
 
 /**
  * Lager en lagringsadapter rundt en `Storage`. `hentStorage` kalles først ved
  * bruk og inni try/catch, så blokkert eller manglende lagring gir navngitte
  * feil i stedet for unntak. Ved `for-ny`, `ugyldig` og `lesefeil` skrives aldri noe.
  */
-export function lagLagring(hentStorage: () => Storage): Lagring {
+export function lagLagring(
+  hentStorage: () => Storage,
+  hentVindu: () => Vindu = () => window,
+): Lagring {
   function skriv(dokument: Dokument): SkrivResultat {
     try {
       hentStorage().setItem(LAGRINGSNØKKEL, JSON.stringify(dokument));
@@ -49,7 +64,34 @@ export function lagLagring(hentStorage: () => Storage): Lagring {
     return { type: "ok", dokument: resultat.dokument, lagringFeilet };
   }
 
-  return { les, skriv };
+  function slettAlt(): SlettResultat {
+    try {
+      hentStorage().removeItem(LAGRINGSNØKKEL);
+      return { ok: true };
+    } catch {
+      return { ok: false, feil: "sletting-feilet" };
+    }
+  }
+
+  function lyttEtterEndringer(cb: () => void): () => void {
+    try {
+      const storage = hentStorage();
+      const vindu = hentVindu();
+      // `storage`-hendelsen kommer bare fra andre faner. `key === null` betyr
+      // at hele lageret er tømt (`clear()`).
+      const lytter = (hendelse: StorageEvent) => {
+        if (hendelse.storageArea !== storage) return;
+        if (hendelse.key !== null && hendelse.key !== LAGRINGSNØKKEL) return;
+        cb();
+      };
+      vindu.addEventListener("storage", lytter);
+      return () => vindu.removeEventListener("storage", lytter);
+    } catch {
+      return () => {};
+    }
+  }
+
+  return { les, skriv, slettAlt, lyttEtterEndringer };
 }
 
 /** Standardinstansen. Slår opp `window.localStorage` først ved bruk. */

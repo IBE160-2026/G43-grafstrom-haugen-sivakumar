@@ -50,6 +50,8 @@ const BLOKKER: Record<string, string> = {
   EKSPORT_ADVARSEL: "Eksport (advarsel før lagring av fila)",
   IMPORT_DIALOG: "Import (dialog)",
   SLETT_ALLE_DATA_DIALOG: "Slett alle data (dialog)",
+  LAGRINGSBANNER: "Lagringsbanner",
+  FEILSIDE: "Feilside (data kan ikke leses)",
 };
 
 /** Hvilken segmenttype et blokkfelt skal ha i markdown. */
@@ -343,16 +345,18 @@ describe("fastsatte tekster", () => {
     expect(finnAvvik(EXPERIENCE)).toEqual([]);
   });
 
-  it("dekker alle tekstene story 3.1 nevner", () => {
+  it("dekker alle tekstene story 3.1 og 1.3 nevner", () => {
     expect(Object.keys(tekster).sort()).toEqual(
       [
         "DEMO_ADVARSEL",
         "EKSPORT_ADVARSEL",
+        "FEILSIDE",
         "GJELDENDE_SAMTYKKEVERSJON",
         "HVA_SENDES_TIL_KI",
         "IMPORT_DIALOG",
         "KI_PÅMINNELSER",
         "LAGRING",
+        "LAGRINGSBANNER",
         "LÅS_VALG",
         "PERSONVERN_VALG",
         "SAMTYKKETEKST",
