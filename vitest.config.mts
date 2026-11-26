@@ -9,6 +9,6 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["tests/kjerne/**/*.test.ts"],
+    include: ["tests/**/*.test.ts"],
   },
 });
