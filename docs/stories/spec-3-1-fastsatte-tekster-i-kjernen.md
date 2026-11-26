@@ -136,3 +136,17 @@ export const DEMO_ADVARSEL = {
 - `npm test` -- forventet: tekstene stemmer, alle tester grønne
 - `npm run lint` -- forventet: ingen feil
 - `npm run typecheck` -- forventet: ingen feil
+
+## Til kodegjennomgang (Stine)
+
+Dette er del 1 av story 3.1. Del 2 (`kjerne/samtykke.ts` med `kiErPå` og `kanSendes`) avventer story 1.2 og er ikke med her.
+
+Kjør `npm test`, `npm run lint` og `npm run typecheck`. Har du Playwright-nettlesere installert, kjør også `npm run test:e2e`, siden `--pass-with-no-tests` er fjernet. **E2e-testene er ikke kjørt** av Sabrina, fordi Playwright-nettleserne ikke var installert. Endringen i `test:e2e` er derfor ikke verifisert ved kjøring.
+
+Sjekk særlig:
+- Tekstene i `kjerne/tekster.ts` mot «Personvern og data – fastsatte tekster» i EXPERIENCE.md. Les samtykketeksten og demo-advarselen med egne øyne, ikke bare testen.
+- At feltnavnene er greie å bruke for spor B (3.2–3.6), særlig `SAMTYKKETEKST.duBestemmer.deler` med `{ uthevet }`, `LÅS_VALG` og `PERSONVERN_VALG`.
+- At `GJELDENDE_SAMTYKKEVERSJON` ligger i `tekster.ts` (som i arkitekturen) og ikke i `samtykke.ts` (som i epics.md). `samtykke.ts` skal importere den derfra.
+- At testen feiler når den skal: endre ett ord i en konstant, eller bytt om `IMPORT_DIALOG.suksess` og `feil`, og se at `npm test` blir rød og navngir stien. Sett tilbake etterpå.
+- Kjent hull: en ny «…»-tekst lagt til i KI-påminnelser eller dialoglinjene i EXPERIENCE.md oppdages ikke (utsatt i `deferred-work.md`).
+- At fjerningen av `passWithNoTests` i `vitest.config.mts` og `--pass-with-no-tests` i `package.json` er greit for spor A og B.

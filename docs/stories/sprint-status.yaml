@@ -58,7 +58,7 @@ development_status:
   epic-2-retrospective: optional
 
   epic-3: in-progress
-  3-1-samtykke-og-fastsatte-tekster-i-kjernen: in-progress
+  3-1-samtykke-og-fastsatte-tekster-i-kjernen: in-progress  # del 1 (kjerne/tekster.ts) ferdig, til gjennomgang hos Stine. Del 2 (kjerne/samtykke.ts) avventer story 1.2
   3-2-personvernerklæring-ett-klikk-unna: backlog
   3-3-førstegangsoppsett-med-fornavn-og-ki-valg: backlog
   3-4-personvern-og-data: backlog
