@@ -255,17 +255,17 @@ Studenten legger inn økter selv eller godtar øktforslag fra KI rundt hendelsen
 
 ## Arbeidsdeling og tidsplan
 
-Alle fire koder. Arbeidet går i fire spor som kan gå parallelt når grunnmuren (1.1–1.3) er ferdig. Hvem som har hvilket spor, avgjør gruppa. Linjen under hver storytittel viser spor og avhengigheter. En story kan startes når storyene den avhenger av, er ferdige.
+Alle fire koder. Arbeidet går i fire spor som kan gå parallelt når grunnmuren (1.1–1.3) er ferdig. Sporene ble fordelt 2026-11-26. Linjen under hver storytittel viser spor og avhengigheter. En story kan startes når storyene den avhenger av, er ferdige.
 
-| Spor | Ansvar | Stories i rekkefølge |
-|---|---|---|
-| A Oppgaver | Grunnmur og oppgavelista | 1.1, 1.2, 1.3, 1.5, 1.6, 1.7, 2.2, 2.3, 2.4 |
-| B Utseende og personvern | Ramme, design og samtykke | 1.4, 1.8, 3.2, 3.3, 3.4, 3.5, 3.6, 2.7 (Bør), 2.8 (Bør), 3.7 (Bør) |
-| C KI | Hele KI-veien | 3.1, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.10 (Bør), deretter 6.5, 6.6, 6.9 (Bør) |
-| D Regler og planlegging | Rene kjerneregler først, så filter, søk og skive 3 | 2.1, 5.1, 5.2, 6.4, 2.5, 2.6, deretter 5.3–5.7 og 6.1–6.3, 6.8 (Bør) |
-| Alle | Brukertester | 4.9, 6.7 |
+| Spor | Ansvarlig | Ansvar | Stories i rekkefølge |
+|---|---|---|---|
+| A Oppgaver | Abhira | Grunnmur og oppgavelista | 1.1, 1.2, 1.3, 1.5, 1.6, 1.7, 2.2, 2.3, 2.4 |
+| B Utseende og personvern | Lena | Ramme, design og samtykke | 1.4, 1.8, 3.2, 3.3, 3.4, 3.5, 3.6, 2.7 (Bør), 2.8 (Bør), 3.7 (Bør) |
+| C KI | Sabrina | Hele KI-veien | 3.1, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.10 (Bør), deretter 6.5, 6.6, 6.9 (Bør) |
+| D Regler og planlegging | Stine | Rene kjerneregler først, så filter, søk og skive 3 | 2.1, 5.1, 5.2, 6.4, 2.5, 2.6, deretter 5.3–5.7 og 6.1–6.3, 6.8 (Bør) |
+| Alle | Alle | Brukertester | 4.9, 6.7 |
 
-**Slik går hver story:** Koderen bygger med `bmad-build`, inkludert testene i akseptansekriteriene. En annen i gruppa går gjennom med `bmad-code-review` eller `bmad-walkthrough` og tester i nettleseren på mobil og PC (A og B går gjennom hverandres, C og D hverandres). Storyen er ferdig når den er godkjent og committet. Alle skriver sesjonslogg.
+**Slik går hver story:** Koderen bygger med `bmad-build`, inkludert testene i akseptansekriteriene. En annen i gruppa går gjennom med `bmad-code-review` eller `bmad-walkthrough` og tester i nettleseren på mobil og PC (A og B går gjennom hverandres – Abhira og Lena; C og D hverandres – Sabrina og Stine). Storyen er ferdig når den er godkjent og committet. Alle skriver sesjonslogg.
 
 **Tidsplan (frist 15.12.2026):**
 
