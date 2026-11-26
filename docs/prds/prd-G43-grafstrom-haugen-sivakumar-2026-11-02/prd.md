@@ -133,7 +133,7 @@ KI foreslår etikett, prioritet og sammendrag, og for oppgaver med frist også �
   - andre godtatte økter i samme periode, bare som «opptatt» med tidspunkt og uten oppgavetekst
   - aldri fornavnet (FR-59), og ingenting fra oppgaver merket «🔒 Ikke send til KI»
 
-  Hendelser og økter sendes bare ved øktforslag og «Foreslå ny tid». Hvor lang perioden er, avgjøres i arkitekturen (Å-8).
+  Hendelser og økter sendes bare ved øktforslag og «Foreslå ny tid», for 14 dager fra i dag, men aldri etter fristdagen (Å-8).
 
 **Økter**
 
@@ -300,11 +300,11 @@ Realiserer Flyt 3.
 
 | # | Spørsmål | Avgjøres i |
 |---|---|---|
-| Å-1 | ~~Hvilken Claude-modell skal brukes?~~ Avgjort: Claude Sonnet. Eksakt versjon og modell-ID settes i arkitekturen. | Arkitektur |
+| Å-1 | ~~Hvilken Claude-modell skal brukes?~~ Avgjort 2026-11-26: Claude Sonnet 5.5 (`claude-sonnet-5-5`), se [arkitekturen](../../architecture/architecture-G43-grafstrom-haugen-sivakumar-2026-11-26/ARCHITECTURE-SPINE.md) AD-7. | – |
 | Å-2 | ~~Hvor lenge lagrer Anthropic API-data, og er Anthropic sertifisert under EU-US Data Privacy Framework?~~ Avklart 2026-11-02: inntil 30 dager, ikke DPF-sertifisert, overføring med SCC. Lagringstiden står i FR-35 og FR-41. Overføringsgrunnlaget er ikke relevant så lenge v1 bare bruker fiktive data (NFR-11). | – |
 | Å-3 | ~~Hvem i gruppen er formelt behandlingsansvarlig i personvernerklæringen?~~ Lukket 2026-11-26: ikke relevant for v1, som bare bruker fiktive data. Avgjøres i vurderingen i NFR-11. | – |
 | Å-4 | ~~Hvordan skal navn finnes til maskeringen (FR-42)?~~ Avgjort 2026-11-11: navn maskeres ikke. FR-42 gjelder telefonnumre og e-post. | – |
-| Å-5 | Lagring i nettleseren: localStorage eller IndexedDB? | Arkitektur |
+| Å-5 | ~~Lagring i nettleseren: localStorage eller IndexedDB?~~ Avgjort 2026-11-26: localStorage, ett versjonert dokument (arkitekturen AD-3). | – |
 | Å-6 | ~~Skal gruppen skrive en kort overføringsvurdering (TIA)?~~ Lukket 2026-11-26: ikke relevant for v1, fordi ingen personopplysninger sendes når bare fiktive data brukes. TIA, DPIA og helseopplysninger i hendelser (art. 9) vurderes i NFR-11 før ekte data. | – |
-| Å-7 | Hvilke nøkkelord bruker reserveløsningen (FR-16)? | Arkitektur eller story, testes mot KI-testsettet |
-| Å-8 | Hvor mange dager fram til fristen sendes hendelser og økter for (for eksempel 14) (FR-15)? | Arkitektur |
+| Å-7 | Hvilke nøkkelord bruker reserveløsningen (FR-16)? Arkitekturen har utsatt valget (reglene ligger i `kjerne/reserve.ts`). | Story for F3, testes mot KI-testsettet |
+| Å-8 | ~~Hvor mange dager fram til fristen sendes hendelser og økter for (FR-15)?~~ Avgjort 2026-11-26: 14 dager fra i dag, aldri etter fristdagen (arkitekturen AD-9). | – |
