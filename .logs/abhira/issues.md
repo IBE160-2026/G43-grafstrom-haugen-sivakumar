@@ -50,5 +50,8 @@
 - [ ] 2026-11-26 [sprint-planning](984-2026-11-26-18-18-45-sprint-planning.md) — vurder om storynøkler/-filnavn med æøå i `docs/stories/` skaper trøbbel i git
 - [ ] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — Lena går gjennom story 1.1 før den settes til `done`
 - [x] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — gruppa avgjør om Next 16.3.5 skal oppgraderes (kritisk `npm audit`-funn) og ser på `sharp` (løst 2026-11-26: oppgradert til 16.4.6, npm audit 0 funn)
-- [ ] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — fjern `passWithNoTests`/`--pass-with-no-tests` når første test finnes i hver mappe
+- [x] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — fjern `passWithNoTests`/`--pass-with-no-tests` når første test finnes i hver mappe (løst 2026-11-26, story 1.2)
 - [ ] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — i story 4.2/4.3: mock-KI sjekkes før nøkkelen brukes
+- [ ] 2026-11-26 [story-1-2-lagringsformat](982-2026-11-26-19-40-00-story-1-2-lagringsformat.md) — Lena går gjennom story 1.2 før den settes til `done`
+- [ ] 2026-11-26 [story-1-2-lagringsformat](982-2026-11-26-19-40-00-story-1-2-lagringsformat.md) — i story 1.3: valider dokumentet før `skriv()`, så en kommandofeil ikke låser appen på feilsiden
+- [ ] 2026-11-26 [story-1-2-lagringsformat](982-2026-11-26-19-40-00-story-1-2-lagringsformat.md) — ved første migrering: hindre at en gammel fane skriver over et dokument fra nyere versjon
