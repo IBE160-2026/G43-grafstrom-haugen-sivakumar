@@ -12,7 +12,7 @@ Bygge story 1.1 «Gjør prosjektet klart etter arkitekturen» med `bmad-build`, 
 - Bygget av en subagent, deretter tre uavhengige gjennomganger (blind, grensetilfeller, verifiseringshull). 19 funn er vurdert i specens Review Triage Log; 4 rettet, 3 utsatt til `docs/stories/deferred-work.md`.
 
 ### Resultat
-- Commit `c9c1b94` (lokal): Prisma fjernet; zustand 5.1.0, zod 4.6.7, server-only, SDK 1.14.0, vitest 5.1.2, vite 8.4.0, Playwright 1.65.1, axe 4.14.1, @types/node ^24; `dev`/`start` med `-H 127.0.0.1`; skript `test`, `test:e2e`, `typecheck`; `vitest.config.mts`, `playwright.config.ts` (mobil + PC, port 3001); `KI_MOCK=` i `.env.example`; norsk plassholderside med `lang="nb"`; mappene fra Structural Seed; README oppdatert; første e2e-test `tests/e2e/forside.spec.ts`.
+- Commit `c9c1b94` (pushet til `origin/main` sammen med loggen): Prisma fjernet; zustand 5.1.0, zod 4.6.7, server-only, SDK 1.14.0, vitest 5.1.2, vite 8.4.0, Playwright 1.65.1, axe 4.14.1, @types/node ^24; `dev`/`start` med `-H 127.0.0.1`; skript `test`, `test:e2e`, `typecheck`; `vitest.config.mts`, `playwright.config.ts` (mobil + PC, port 3001); `KI_MOCK=` i `.env.example`; norsk plassholderside med `lang="nb"`; mappene fra Structural Seed; README oppdatert; første e2e-test `tests/e2e/forside.spec.ts`.
 - Verifisert: `npm ls` (ingen Prisma, bare vitest 5.1.2/vite 8.4.0), `npm test`, `npm run lint`, `npm run build`, `npm run typecheck` og `npm run test:e2e` (2/2) grønt. `npm start` svarte på 127.0.0.1 og ikke på LAN-IP.
 - Sprint-status: story 1.1 står på `review`, Epic 1 på `in-progress`.
 - Løser de åpne punktene om `package.json` og `KI_MOCK` fra arkitektur-økta.
