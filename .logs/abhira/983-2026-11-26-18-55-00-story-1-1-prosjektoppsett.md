@@ -16,9 +16,10 @@ Bygge story 1.1 «Gjør prosjektet klart etter arkitekturen» med `bmad-build`, 
 - Verifisert: `npm ls` (ingen Prisma, bare vitest 5.1.2/vite 8.4.0), `npm test`, `npm run lint`, `npm run build`, `npm run typecheck` og `npm run test:e2e` (2/2) grønt. `npm start` svarte på 127.0.0.1 og ikke på LAN-IP.
 - Sprint-status: story 1.1 står på `review`, Epic 1 på `in-progress`.
 - Løser de åpne punktene om `package.json` og `KI_MOCK` fra arkitektur-økta.
+- Sikkerhet (etter 1.1, besluttet av Abhira): `next` og `eslint-config-next` oppgradert fra 16.3.5 til 16.4.6 (kritiske hull, blant annet fjernkjøring av kode), som gir `sharp` 0.35.5; `npm audit fix` for ESLint-verktøyene. `npm audit`: 0 funn. Stack-tabellen i arkitekturen og epic-1-context oppdatert. Alle kontroller grønne på nytt. Commits `39a8bc7` og `0472795` (Next-blokken i `AGENTS.md`).
 
 ### Åpne punkter
 - Lena går gjennom story 1.1 (`bmad-code-review` eller `bmad-walkthrough`) før den settes til `done`.
-- `npm audit`: kritisk sårbarhet i `next` 16.0.0–16.4.4 (gjelder 16.3.5 fra arkitekturen) og høy i `sharp`. Gruppa må avgjøre om Next skal oppgraderes; appen kjører bare lokalt (AD-11).
+- Gruppa må vite at Next nå er 16.4.6 (ikke 16.3.5 som i arkitekturen før), og alle må kjøre `npm install` etter `git pull`.
 - Bare én `next dev` kan kjøre per prosjekt: stopp egen dev-server før `npm run test:e2e`. Hver må kjøre `npx playwright install chromium` én gang.
 - Utsatt fra gjennomgangen (se `docs/stories/deferred-work.md`): fjern «pass with no tests»-flaggene når første test finnes; sørg i 4.2/4.3 for at mock-KI sjekkes før nøkkelen; vurder automatisk sjekk av 127.0.0.1-bindingen.
