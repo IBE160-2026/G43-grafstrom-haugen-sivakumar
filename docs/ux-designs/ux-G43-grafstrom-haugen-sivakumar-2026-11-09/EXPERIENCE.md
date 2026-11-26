@@ -408,6 +408,7 @@ Foreleseren flytter fristen for «Innlevering i markedsføring» fra fredag til 
 Avvik:
 - **Ny tekst (FR-13):** Endrer hun i steg 2 også teksten til «Innlevering i markedsføring – gruppeoppgave», kommer nye forslag i KI-boksen. Hver rad viser forslaget og nåværende verdi, for eksempel «Prioritet: Høy (nå: Middels)». De gamle verdiene gjelder til hun godtar.
 - **Uten KI eller 🔒:** I steg 4 vises bare *Endre tid*, og hun flytter økta selv.
+- **Uten FR-52 (Bør):** Fredagsøkta får ikke noe merke. Ida ser i Kalender at økta ligger etter fristen, og flytter den med *Endre tid* i …-menyen på økta (FR-64). Det samme gjelder kollisjonen i Flyt 2 steg 5.
 
 ### Flyt 5 – Ida huker av og angrer (mobil)
 

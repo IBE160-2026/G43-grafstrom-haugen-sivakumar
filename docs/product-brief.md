@@ -73,7 +73,7 @@
  - **Strukturert svar:** Claude skal svare i et fast format med etikett, prioritet og sammendrag. Svaret valideres før det vises. Ugyldige verdier forkastes.
  - **Reserveløsning:** Mangler API-nøkkelen, svarer ikke Claude, eller er svaret ugyldig, bruker appen en enkel regelbasert reserveløsning med nøkkelord og forfallsdato. Brukeren ser at forslaget ikke kommer fra KI. Dermed kan sensor og andre kjøre appen lokalt uten gruppens nøkkel.
  - **Testmodus:** Automatiske tester bruker faste mock-svar i stedet for ekte kall til Claude, slik at de er gratis, raske og gir samme resultat hver gang.
- - **Kostnad:** Hvert forslag er ett kort kall. Gruppen bruker en rimelig Claude-modell og egen nøkkel under utvikling. Hvilken modell, avgjøres i arkitekturdokumentet.
+ - **Kostnad:** Hvert forslag er ett kort kall. Gruppen bruker en rimelig Claude-modell og egen nøkkel under utvikling. Hvilken modell, avgjøres i arkitekturdokumentet. Første versjon kjøres bare lokalt og publiseres ikke, slik at ingen andre kan bruke nøkkelen. Et kall avbrytes etter 15 sekunder, og appen sender høyst 10 kall per minutt. Da brukes reserveløsningen.
  - **Personvern:** Bare oppgavetekst og notater sendes til Claude. Brukeren får beskjed om dette i appen. Første versjon er en demo som bare brukes med test- eller fiktive data. Da sendes ingen personopplysninger til Anthropic, og det trengs ikke en egen overføringsvurdering (TIA). Skal appen brukes med ekte data, må personvernet vurderes på nytt først.
 
  ## Målgruppe
@@ -119,6 +119,16 @@
  - lokal lagring uten innlogging, slik at oppgaver er tilgjengelige når brukeren kommer tilbake på samme maskin. Data lagres bare i nettleseren på enheten, ikke i Supabase eller en annen ekstern database
  - demonstrasjon med test- eller fiktive data
  - regelbasert reserveløsning når KI ikke er tilgjengelig
+
+ ### Utvidelse i PRD-en og leveranseskiver
+
+ Under arbeidet med PRD og UX ble første versjon utvidet med hendelser (for eksempel jobbvakter), økter der studenten jobber med en oppgave, og en kalendervisning i appen. KI foreslår økter rundt hendelsene. For at omfanget skal være realistisk på ett semester, bygges første versjon i tre skiver:
+
+ 1. **Oppgaveapp:** oppgaver, reserveløsning, smarte lister, filter, sortering, søk og arkiv
+ 2. **KI og personvern:** KI-forslag til etikett, prioritet og sammendrag, KI-valg og personvernkontroller
+ 3. **Planlegging:** hendelser, økter og kalender
+
+ Skive 3 kuttes først hvis tiden blir knapp. Uten den er dueNext fortsatt en fungerende oppgaveapp med KI-forslag, slik denne briefen beskriver. Detaljene står i PRD-en.
 
  ### Utenfor MVP
 

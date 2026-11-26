@@ -7,10 +7,20 @@ updated: 2026-11-26
 
 # PRD – dueNext
 
-Gruppe G43: grafstrom-haugen-olsen-sivakumar
-Grunnlag: [product brief](../../product-brief.md), [tilbakemelding fra faglærer](../../../tilbakemelding-product-brief.md)
+Gruppe G43: grafstrom-haugen-olsen-sivakumar (repoet heter kortere: G43-grafstrom-haugen-sivakumar)
+Grunnlag: [product brief](../../product-brief.md), [tilbakemelding fra faglærer på briefen](../../../tilbakemelding-product-brief.md) og [på PRD-en](tilbakemelding-prd.md)
 UX: [DESIGN.md](../../ux-designs/ux-G43-grafstrom-haugen-sivakumar-2026-11-09/DESIGN.md) (utseende) og [EXPERIENCE.md](../../ux-designs/ux-G43-grafstrom-haugen-sivakumar-2026-11-09/EXPERIENCE.md) (oppførsel og fastsatte tekster). Oppdatert 2026-11-11 med [avvikene fra UX-arbeidet](../../ux-designs/ux-G43-grafstrom-haugen-sivakumar-2026-11-09/prd-avvik.md).
-Brukerreiser: EXPERIENCE.md → Key Flows (Flyt 1–7).
+Brukerreiser: EXPERIENCE.md → Key Flows (Flyt 1–7). Tabellen viser hvilke krav hver flyt bygger på.
+
+| Flyt | Kort | Krav |
+|---|---|---|
+| 1 Ida planlegger uka | Legger inn hendelser og en oppgave med frist, godtar KI-forslag og økter, ser uka i Kalender | FR-1–2, FR-8–11, FR-44, FR-49–50, FR-55, FR-37 |
+| 2 Sara får turnus og eksamen til å gå opp | Gjentakende vakter og nattevakt, økter rundt vaktene, kollisjon med ny hendelse og ny tid | FR-44–47, FR-49, FR-52–53, FR-58, FR-38 |
+| 3 Første oppstart | Fornavn, demo-advarsel og KI-valg | FR-35, FR-59, FR-65, FR-60 |
+| 4 Tidligere frist | Endrer fristen, oppgaven bytter liste, en økt havner etter fristen og flyttes | FR-6, FR-23, FR-62, FR-52–53, FR-64 |
+| 5 Huker av og angrer | Fullfører, angrer og ser Arkiv | FR-7, FR-29–32, FR-56–57 |
+| 6 Leter etter statistikkprøven | Søker i aktive og fullførte oppgaver | FR-27–28 |
+| 7 Bytter PC og rydder opp | Personvernvalg, eksport, import og «Slett alle data» | FR-36, FR-39–40, FR-43, FR-58 |
 
 **Ved konflikt** gjelder PRD-en for *hva* appen skal gjøre: krav, regler og grenser. EXPERIENCE.md gjelder for *hvordan* det virker på skjermen, og for de fastsatte tekstene.
 
@@ -46,9 +56,23 @@ Norske studenter som har oppgaver spredt på flere fag, gruppearbeid, deltidsjob
 
 Prioritet: Krav uten merke er **Må** og er med i v1. Krav merket **(Bør)** tas med hvis det er tid.
 
+Krav-ID-ene er stabile og står ikke alltid i rekkefølge, fordi nye krav har fått neste ledige nummer der de hører hjemme. EXPERIENCE.md og loggene viser til ID-ene, så de nummereres ikke om.
+
+### Leveranseskiver
+
+v1 bygges i tre skiver, i denne rekkefølgen. Epics og stories følger skivene.
+
+| Skive | Innhold | Krav |
+|---|---|---|
+| 1 Oppgaveapp | Oppgaver, reserveløsning, smarte lister, filter, sortering, søk, Arkiv, profil og utseende | F1 oppgaver (FR-1–7), F3, F4 unntatt FR-55, F5 unntatt FR-56–57, F7, NFR-1–10 |
+| 2 KI og personvern | KI-forslag til felt, samtykke og personvernkontroller | F2 «Forslag til felt» (FR-8–15, FR-62 bare for felt), F6, NFR-11–12 |
+| 3 Planlegging | Hendelser, økter og Kalender | F1 hendelser (FR-44–48, FR-64), F2 «Økter» (FR-49–54), FR-55–57 |
+
+**Skive 3 kuttes først.** Uten den er dueNext fortsatt en fungerende oppgaveapp med KI-forslag. Blir tiden knapp innenfor skive 3, kuttes Bør-kravene først (FR-46–47, FR-52–53). Krav i skive 1 og 2 som nevner hendelser eller økter, gjelder fra skive 3 er bygget.
+
 ### F1 Oppgaver og hendelser
 
-Studenten oppretter, redigerer og fullfører oppgaver, og legger inn hendelser. Arkiv og sletting står under F5. Når studenten lager noe nytt, velger hun Oppgave eller Hendelse øverst i skjemaet.
+Studenten oppretter, redigerer og fullfører oppgaver, og legger inn hendelser. Arkiv og sletting står under F5. Når studenten lager noe nytt, velger hun Oppgave eller Hendelse øverst i skjemaet. Realiserer Flyt 1, 2 og 4.
 
 **Oppgavefelt**
 
@@ -84,17 +108,24 @@ Studenten oppretter, redigerer og fullfører oppgaver, og legger inn hendelser. 
 
 ### F2 KI-forslag og økter
 
-KI foreslår etikett, prioritet og sammendrag, og for oppgaver med frist også økter. Studenten bestemmer alltid selv. KI foreslår aldri frist (FR-5), og flytter aldri noe på egen hånd.
+KI foreslår etikett, prioritet og sammendrag, og for oppgaver med frist også økter. Studenten bestemmer alltid selv. KI foreslår aldri frist (FR-5), og flytter aldri noe på egen hånd. Realiserer Flyt 1, 2 og 4.
 
 **Forslag til felt**
 
 - **FR-8** Når en oppgave er lagret, henter appen forslag til etikett, prioritet og sammendrag. Har oppgaven frist, hentes også forslag til økter (FR-49). Dette skjer bare hvis studenten har sagt ja til KI (F6) og oppgaven ikke er merket 🔒 (FR-38). Lagringen venter ikke på forslagene (FR-2).
 - **FR-9** Forslagene vises på den lagrede oppgaven, ett per felt og én rad per økt, med knappene «Godta» og «Endre». «Godta alle» godtar alle forslagene på oppgaven.
 - **FR-10** «Godta» setter den foreslåtte verdien i feltet. «Endre» lar studenten velge eller skrive en annen verdi.
-- **FR-11** Forslagene er tydelig merket som KI-forslag.
+- **FR-11** Hvert forslag har teksten «KI-forslag» og en annen stil enn godtatte verdier, slik EXPERIENCE.md (KI-forslagsboks) beskriver. En godtatt verdi har ikke merket.
 - **FR-12** Svarer ikke studenten på forslagene, beholder oppgaven standardverdiene: tom etikett, prioritet «Middels», tomt sammendrag og ingen økter. Forslagene vises igjen neste gang studenten åpner appen, til hun har svart på dem. Unntak: Foreslåtte økter med en tid som har passert, forkastes uten melding. Er alle øktforslagene forkastet, vises bare «+ Legg til økt».
 - **FR-13** Endrer studenten teksten på en lagret oppgave, kommer nye forslag til etikett, prioritet og sammendrag på samme måte. De gamle verdiene beholdes til studenten godtar de nye. Er det allerede godtatte økter, kommer det ikke nye øktforslag.
-- **FR-62** Endres bare fristen, kommer det ingen nye forslag til etikett, prioritet og sammendrag. Får en oppgave uten frist og uten godtatte økter en frist, kommer det øktforslag (FR-49). Endres eller fjernes fristen mens oppgaven har ubesvarte øktforslag, forkastes forslagene, og det hentes ikke nye. Studenten kan da legge inn økter selv (FR-51). Har oppgaven godtatte økter, gjelder FR-52.
+- **FR-62** Når studenten endrer bare fristen på en lagret oppgave:
+
+  | Tilstand før endringen | Resultat |
+  |---|---|
+  | Alle tilfeller | Ingen nye forslag til etikett, prioritet og sammendrag |
+  | Oppgaven hadde ingen frist og ingen godtatte økter, og får frist | Appen henter øktforslag (FR-49) |
+  | Oppgaven har ubesvarte øktforslag, og fristen endres eller fjernes | Forslagene forkastes, og nye hentes ikke. Studenten kan legge inn økter selv (FR-51) |
+  | Oppgaven har godtatte økter | Øktene endres ikke. FR-52 gjelder |
 - **FR-14** Svaret fra KI kontrolleres før det vises. Ugyldige verdier forkastes, og reserveløsningen brukes i stedet (F3). Et øktforslag som bryter grensene i FR-49, forkastes for seg. De andre forslagene vises som vanlig.
 - **FR-15** KI får bare det den trenger:
   - oppgavetekst, notater (ikke når FR-39 er på) og frist
@@ -114,24 +145,24 @@ KI foreslår etikett, prioritet og sammendrag, og for oppgaver med frist også �
   - ingen økt de første 8 timene etter en hendelse som slutter neste dag (for eksempel en nattevakt). Regelen bruker bare klokkeslett, så den virker også når titlene ikke sendes (FR-58).
 
   Økter studenten legger inn selv (FR-51), har ikke disse grensene.
-- **FR-50** Foreslåtte økter vises ikke i lister og Kalender før studenten har godtatt dem. Når studenten godtar et forslag, sjekkes det på nytt mot hendelser og godtatte økter. Kolliderer det, godtas det likevel, men med merket i FR-52.
+- **FR-50** Foreslåtte økter vises ikke i lister og Kalender før studenten har godtatt dem. Når studenten godtar et forslag, sjekkes det på nytt mot hendelser og godtatte økter. Kolliderer det, godtas det likevel, med merket i FR-52 når det kravet er bygget.
 - **FR-51** Studenten kan alltid legge til økter selv med «+ Legg til økt» på oppgaven. Uten KI er dette eneste måte å få økter på.
-- **FR-52** Appen endrer aldri en godtatt økt automatisk. Kolliderer en hendelse med økta, får den merket «⚠ Kolliderer med <tittel>». Får oppgaven en tidligere frist, får økter etter fristen merket «⚠ Etter fristen». Begge merkene har knappen «Endre tid».
+- **FR-52 (Bør)** Appen endrer aldri en godtatt økt automatisk, heller ikke uten FR-52. Kolliderer en hendelse med økta, får den merket «⚠ Kolliderer med <tittel>». Får oppgaven en tidligere frist, får økter etter fristen merket «⚠ Etter fristen». Begge merkene har knappen «Endre tid». Uten FR-52 vises ingen merker. Studenten ser kollisjoner i Kalender og flytter økta med «Endre tid» (FR-64).
 - **FR-53 (Bør)** «Foreslå ny tid» er et eget KI-kall på en økt med merke (FR-52). KI foreslår én ny tid innenfor grensene i FR-49, og studenten godtar eller endrer den. Svarer ikke KI, vises «KI svarte ikke. Flytt økta selv med Endre tid.» Uten FR-53 flytter studenten økter med «Endre tid».
 - **FR-54** Øktforslag og knappen «Foreslå ny tid» vises bare når KI er på og oppgaven ikke er merket 🔒. Ellers vises bare «Endre tid» og «+ Legg til økt». Svarer ikke KI, kommer det ingen øktforslag (FR-17), og «Foreslå ny tid» gir meldingen i FR-53.
 
 ### F3 Reserveløsning
 
-Appen skal fungere uten KI, slik at sensor og andre kan kjøre den uten gruppens API-nøkkel.
+Appen skal fungere uten KI, slik at sensor og andre kan kjøre den uten gruppens API-nøkkel. Avvik i Flyt 1–4.
 
-- **FR-16** Hvis studenten har sagt ja til KI, men API-nøkkelen mangler, Claude ikke svarer eller svaret er ugyldig, foreslår en regelbasert reserveløsning etikett og prioritet ut fra nøkkelord i oppgaveteksten.
+- **FR-16** Hvis studenten har sagt ja til KI, men API-nøkkelen mangler, Claude ikke svarer innen tidsgrensen i NFR-12, svaret er tomt eller svaret er ugyldig, foreslår en regelbasert reserveløsning etikett og prioritet ut fra nøkkelord i oppgaveteksten.
 - **FR-17** Reserveløsningen foreslår ikke sammendrag eller økter. Sammendraget står tomt til studenten skriver det selv, og økter legges inn med «+ Legg til økt» (FR-51).
 - **FR-18** Forslag fra reserveløsningen vises på samme måte som KI-forslag (FR-9, FR-10). Forslagene har linjen «Forslag basert på nøkkelord – KI var ikke tilgjengelig», ordrett, og hver forslagsrad er i tillegg merket «regelbasert».
 - **FR-19** Har studenten sagt nei til KI (F6), får hun ingen forslag, ingen øktforslag og ingen «Foreslå ny tid». Hun fyller ut feltene og legger inn økter selv.
 
 ### F4 Smarte lister, kalender, filter, sortering og søk
 
-Listene beregnes av regler, ikke av KI.
+Listene beregnes av regler, ikke av KI. Realiserer Flyt 1, 4 og 6.
 
 | Liste | Frist |
 |---|---|
@@ -142,7 +173,17 @@ Listene beregnes av regler, ikke av KI.
 | Ingen frist | ingen frist |
 
 - **FR-20** Appen har fem smarte lister, vist i rekkefølgen i tabellen over, med «Forfalt» øverst.
-- **FR-21** Hver aktive oppgave ligger i nøyaktig én liste, bestemt av fristen. En godtatt økt vises i lista for øktas dato som «Økt n/N – <oppgave>», og teller med i antallet i gruppeoverskriften. En økt som ikke er huket av, er passert når dagen den gjelder, er over. Da ligger den i «Forfalt» til den hukes av, flyttes eller slettes (FR-64). Fullførte oppgaver og deres økter vises ikke i smarte lister. Antallet i gruppeoverskriften teller oppgaver og økter, ikke hendelser (FR-48).
+- **FR-21** Hva som vises i hvilken smart liste:
+
+  | Element | Liste |
+  |---|---|
+  | Aktiv oppgave | Nøyaktig én liste, bestemt av fristen. Regelen gjelder oppgaven, ikke øktene, som kan ligge i andre lister. |
+  | Godtatt økt, ikke passert | Lista for øktas dato, som «Økt n/N – <oppgave>» |
+  | Økt som ikke er huket av, når dagen den gjelder, er over | «Forfalt», til den hukes av, flyttes eller slettes (FR-64) |
+  | Fullført oppgave og øktene dens | Ingen liste (Arkiv, F5) |
+  | Hendelse | Bare «I dag» (FR-48) |
+
+  Antallet i gruppeoverskriften teller oppgaver og økter, ikke hendelser.
 - **FR-22** Uka regnes fra mandag til søndag. Er det søndag i dag, er «Denne uken» tom.
 - **FR-23** Endrer studenten fristen, flyttes oppgaven straks til riktig liste.
 - **FR-24** Standard rekkefølge i en liste er: nærmeste frist først, deretter prioritet (Høy først), deretter opprettelsestidspunkt (eldste først). I «Ingen frist» sorteres oppgavene etter prioritet og deretter opprettelsestidspunkt. Økter sorteres sammen med oppgavene etter dato. På samme dato står øktene først, etter starttid. Dagens hendelser står alltid øverst i «I dag» (FR-48).
@@ -154,7 +195,7 @@ Listene beregnes av regler, ikke av KI.
 
 ### F5 Arkiv og sletting
 
-Fullført betyr at oppgaven er ferdig eller ikke lenger skal gjøres, for eksempel en prøve studenten var syk på. Ved kontinuasjon eller ny frist legger studenten inn en ny oppgave.
+Fullført betyr at oppgaven er ferdig eller ikke lenger skal gjøres, for eksempel en prøve studenten var syk på. Ved kontinuasjon eller ny frist legger studenten inn en ny oppgave. Realiserer Flyt 5.
 
 - **FR-29** Fullførte oppgaver ligger i **Arkiv**, som er en egen fane ved siden av Oppgaver og Kalender.
 - **FR-30** En fullført oppgave slettes automatisk 7 dager etter at den ble fullført. Blir oppgaven gjenåpnet og fullført på nytt, regnes de 7 dagene fra siste fullføring. Øktene til oppgaven slettes samtidig.
@@ -171,7 +212,7 @@ Alle data lagres bare i studentens nettleser. Oppgaver og hendelser sendes via s
 
 v1 er en demo med test- eller fiktive data (se toppen). Da sendes ingen personopplysninger til Anthropic, og det er ingen overføring som må sikres med EUs standardavtaler (SCC) eller vurderes i en overføringsvurdering (TIA). Kravene i denne delen gir likevel studenten kontroll og åpenhet om hva som sendes, og forbereder en senere versjon med ekte data. Før det skjer, gjelder NFR-11. Grunnlag: [research-gdpr-regelverk.md](research-gdpr-regelverk.md) og [research-gdpr-forskning.md](research-gdpr-forskning.md). Dette er ikke juridisk rådgivning.
 
-Alle tekster i denne delen er fastsatt i [EXPERIENCE.md → Personvern og data – fastsatte tekster](../../ux-designs/ux-G43-grafstrom-haugen-sivakumar-2026-11-09/EXPERIENCE.md#personvern-og-data--fastsatte-tekster) og skal brukes ordrett. Personvern og data ligger i Innstillinger, og på PC også i sidemenyen.
+Alle tekster i denne delen er fastsatt i [EXPERIENCE.md → Personvern og data – fastsatte tekster](../../ux-designs/ux-G43-grafstrom-haugen-sivakumar-2026-11-09/EXPERIENCE.md#personvern-og-data--fastsatte-tekster) og skal brukes ordrett. Personvern og data ligger i Innstillinger, og på PC også i sidemenyen. Realiserer Flyt 3 og 7.
 
 - **FR-35 (Må)** Ved første oppstart spør appen først om fornavn (FR-59), og deretter om studenten vil bruke KI. KI er av til hun har sagt ja. Samtykketeksten sier:
   - at appen er en demo, med demo-advarselen i FR-65
@@ -183,7 +224,7 @@ Alle tekster i denne delen er fastsatt i [EXPERIENCE.md → Personvern og data �
 
   «Nei» er like lett å velge som «Ja», og ingen av dem er forhåndsvalgt. Samtykket lagres i nettleseren med dato og versjon av teksten. En ny versjon av teksten krever nytt samtykke.
 - **FR-36 (Må)** Studenten kan endre KI-valget når som helst i Personvern og data, der samtykkestatusen også vises (for eksempel «Godkjent 9.11.2026 (tekst v2)»). Slår hun på KI etter et «Nei», vises samtykketeksten først. Slår hun av KI, gjelder FR-19.
-- **FR-37 (Må)** Når KI er på, viser skjemaet en kort påminnelse om hva som sendes til KI: under oppgaveteksten, under skrivefeltet på PC og under tittelen på en hendelse. Teksten tilpasses innstillingene (FR-39, FR-58) og 🔒.
+- **FR-37 (Må)** Når KI er på, viser skjemaet en påminnelse om hva som sendes til KI: under oppgaveteksten, under skrivefeltet på PC og under tittelen på en hendelse. Påminnelsen bruker de fastsatte tekstene i EXPERIENCE.md (KI-påminnelser) og velger variant etter innstillingene (FR-39, FR-58) og 🔒. Når KI er av, vises ingen påminnelse.
 - **FR-38 (Må)** Studenten kan slå på «🔒 Ikke send til KI» på en oppgave. Da sendes ingenting fra oppgaven til KI, og hun får ingen forslag, ingen øktforslag og ingen «Foreslå ny tid» på den. Godtatte økter på oppgaven kan likevel sendes som «opptatt» når andre oppgaver planlegges (FR-15). På en hendelse heter bryteren «🔒 Skjul tittel for KI». Da sendes bare tidspunktet, som «opptatt». 🔒 vises med et låsikon på oppgaven eller hendelsen.
 - **FR-39 (Må)** Studenten kan velge at notater aldri sendes til KI.
 - **FR-58 (Må)** Studenten kan velge om hendelsestitler sendes til KI. Standard er på. Er det av, får KI bare vite når hun er opptatt. Standard er på fordi titlene gir bedre økter: KI ser forskjell på en forelesning og en jobbvakt. Med ekte data kunne titler som «Legetime» være helseopplysninger. Derfor sier samtykketeksten (FR-35) at titlene sendes som standard, og studenten kan skjule én tittel med 🔒 (FR-38) eller alle med denne bryteren. Standarden vurderes på nytt i personvernvurderingen i NFR-11.
@@ -205,6 +246,8 @@ Alle tekster i denne delen er fastsatt i [EXPERIENCE.md → Personvern og data �
 
 ### F7 Profil, utseende og prosjekter
 
+Realiserer Flyt 3.
+
 - **FR-59** Studenten kan legge inn fornavnet sitt i førstegangsoppsettet eller i Innstillinger → Profil. Fornavnet brukes bare i hilsenen («Hei, Ida 👋»), lagres bare i nettleseren og sendes aldri til KI eller serveren. Uten fornavn er hilsenen «Hei 👋».
 - **FR-60** Studenten kan velge Lys, Mørk eller Følg systemet (standard). Endringen vises med én gang.
 - **FR-63 (Bør)** Studenten kan velge ett av seks fargetemaer. Endringen vises med én gang. Til FR-63 er bygget, brukes standardtemaet fra DESIGN.md.
@@ -212,17 +255,18 @@ Alle tekster i denne delen er fastsatt i [EXPERIENCE.md → Personvern og data �
 
 ## Ikke-funksjonelle krav
 
-- **NFR-1 Kjørbar for sensor.** Appen kan startes lokalt etter README uten gruppens API-nøkkel, betalte kontoer eller eksterne tjenester. Uten nøkkel brukes reserveløsningen (F3).
+- **NFR-1 Kjørbar for sensor, bare lokalt.** Appen kan startes lokalt etter README uten gruppens API-nøkkel, betalte kontoer eller eksterne tjenester. Uten nøkkel brukes reserveløsningen (F3). v1 kjøres bare lokalt og publiseres ikke på en offentlig adresse, slik at ingen andre kan bruke API-nøkkelen.
 - **NFR-2 Nøkkelen er hemmelig.** Kallet til Claude gjøres fra serveren, aldri fra nettleseren. API-nøkkelen ligger bare i `.env.local`, som ikke er i Git. `.env.example` viser hvilke variabler som trengs.
 - **NFR-3 Ingen sporing.** Appen har ingen analyseverktøy eller tredjepartsskript. Serveren logger ikke innholdet i oppgaver, hendelser eller økter.
 - **NFR-4 Lokal lagring.** Alle data, også fornavn, tema og samtykke, lagres bare i studentens nettleser og er der neste gang hun åpner appen på samme maskin. Gruppen lagrer ingen brukerdata. Det er ingen innlogging, og ingen data lagres i Supabase eller en annen ekstern database. Lar ikke nettleseren appen lagre, viser appen et varsel øverst på alle sider så lenge feilen varer (EXPERIENCE.md → State Patterns, «Lagring feiler»). Appen virker ellers som før.
-- **NFR-5 Rask lagring.** Lagring av en oppgave venter aldri på KI (FR-2).
-- **NFR-6 Testbar uten KI.** Automatiske tester bruker faste mock-svar i stedet for ekte kall til Claude.
+- **NFR-5 Rask lagring.** Lagring av en oppgave venter aldri på KI (FR-2). Med en mock-KI som svarer etter 10 sekunder vises oppgaven i lista innen 1 sekund etter «Lagre».
+- **NFR-6 Testbar uten KI.** Automatiske tester bruker faste mock-svar i stedet for ekte kall til Claude. Mock-svarene dekker minst fire tilfeller: gyldig svar, ugyldig verdi (FR-14), tomt svar og tidsavbrudd (NFR-12). De tre siste skal gi reserveløsningen (FR-16).
 - **NFR-7 Testbar tid.** Regler som avhenger av dato og klokkeslett (smarte lister, økter i Forfalt, gjentakende hendelser, sletting etter 7 dager) kan testes med en fast «nå»-tid.
 - **NFR-8 Norsk.** All tekst i appen, KI-forslagene og personvernerklæringen er på norsk.
 - **NFR-9 Tilgjengelighet.** Alle flater følger WCAG 2.1 AA. Detaljene står i EXPERIENCE.md → Accessibility Floor.
 - **NFR-10 Web på mobil og PC.** dueNext er en web-app som fungerer like godt på telefon, nettbrett og PC. Det lages ingen egen app for iOS eller Android.
 - **NFR-11 Ny personvernvurdering før ekte data.** v1 brukes bare med test- eller fiktive data, også i demonstrasjonen. Skal appen brukes med ekte data, eller få innlogging eller ekstern lagring (for eksempel Supabase Auth i v2), må personvernet vurderes på nytt før det tas i bruk. Vurderingen må minst avgjøre hvem som er behandlingsansvarlig, overføringsgrunnlaget for Anthropic (SCC) og en eventuell overføringsvurdering (TIA), om en DPIA trengs, og hvordan helseopplysninger i hendelser skal håndteres (FR-58). Samtykketeksten (FR-35) og personvernerklæringen (FR-41) oppdateres etter vurderingen.
+- **NFR-12 Grenser for KI-kall.** Et KI-kall avbrytes etter 15 sekunder, og da gjelder FR-16. Appen sender høyst ett forslagskall per lagring, og høyst 10 KI-kall per minutt per nettleser. Kall over grensen sendes ikke, og oppgaven får reserveløsningen. Grensene holder kostnaden lav. Skal appen publiseres offentlig, må det i tillegg være en grense på serveren og et kostnadstak på nøkkelen.
 
 ## Suksesskriterier
 
@@ -231,13 +275,13 @@ Alle tekster i denne delen er fastsatt i [EXPERIENCE.md → Personvern og data �
 | KI-etikett | Minst 16 av 20 riktige etiketter i [KI-testsettet](../../../tests/ki-testsett/testsett.json) |
 | KI-prioritet | Minst 14 av 20 riktige prioriteringer i KI-testsettet |
 | Smarte lister | 20 av 20 riktige lister i KI-testsettet |
-| Øktforslag | Alle foreslåtte økter holder grensene i FR-49, og hvert planleggingscase i KI-testsettet får minst én økt. Sjekkes med regler, ikke for hånd. [ASSUMPTION] KI-testsettet utvides med minst 5 planleggingscaser med frist og hendelser, hvorav minst én med nattevakt. |
-| Brukervennlighet | Minst 4 av 5 testbrukere oppretter en oppgave og endrer et KI-forslag uten veiledning |
+| Øktforslag | Alle foreslåtte økter holder grensene i FR-49, og hvert planleggingscase i KI-testsettet får minst én økt. Sjekkes med regler, ikke for hånd. Før skive 3 testes, utvides KI-testsettet med minst 5 planleggingscaser med frist og hendelser, hvorav minst én med nattevakt. |
+| Brukervennlighet | Minst 4 av 5 testbrukere oppretter en oppgave og endrer et KI-forslag uten veiledning. Når skive 3 er bygget: minst 4 av 5 legger inn en hendelse og godtar en økt uten veiledning. *Uten veiledning* betyr ingen hjelp fra gruppen i løpet av 5 minutter. |
 | Reserveløsning | Alle funksjoner unntatt KI-forslag, øktforslag og «Foreslå ny tid» virker uten API-nøkkel |
 
 **Motmål:**
 - Et høyt treff i testsettet må ikke oppnås ved å sende mer data enn nødvendig til KI (FR-15, FR-38, FR-39, FR-58). Hendelser og økter sendes bare for perioden fram til fristen, og bare ved planlegging.
-- Testbrukerne skal forstå samtykkedialogen (FR-35) uten å trykke «Ja» bare for å komme videre.
+- Testbrukerne skal forstå samtykkedialogen (FR-35) uten å trykke «Ja» bare for å komme videre. Det måles slik: Etter dialogen svarer testbrukeren riktig på to spørsmål: «Hva sendes til KI?» og «Kan det som er sendt, slettes fra appen?». Minst 4 av 5 svarer riktig på begge.
 
 ## Utenfor scope
 
