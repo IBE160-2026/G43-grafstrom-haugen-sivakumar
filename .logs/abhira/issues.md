@@ -15,8 +15,8 @@
 - [ ] 2026-10-29 [readme-oppsett](990-2026-10-29-20-45-00-readme-oppsett.md) — bygg regelbasert reserveløsning, slik at README stemmer når den sier at appen virker uten nøkkel
 - [x] 2026-11-02 [bmad-installasjon](989-2026-11-02-17-15-35-bmad-installasjon.md) — lag PRD med `bmad-prd` fra product brief og tilbakemelding, og lagre promptene (løst 2026-11-02)
 - [ ] 2026-11-02 [bmad-installasjon](989-2026-11-02-17-15-35-bmad-installasjon.md) — gruppemedlemmene kjører `npx bmad-method install` for egen `config.user.toml`
-- [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — bestem hvem i gruppen som er behandlingsansvarlig i personvernerklæringen (Å-3) — venter på svar fra faglærer (spurt 2026-11-11)
-- [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — avgjør om gruppen skal skrive en overføringsvurdering (TIA) for Anthropic (Å-6) — venter på svar fra faglærer (spurt 2026-11-11)
+- [x] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — bestem hvem i gruppen som er behandlingsansvarlig i personvernerklæringen (Å-3) — venter på svar fra faglærer (spurt 2026-11-11) (løst 2026-11-26: ikke relevant for v1 med fiktive data, se NFR-11)
+- [x] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — avgjør om gruppen skal skrive en overføringsvurdering (TIA) for Anthropic (Å-6) — venter på svar fra faglærer (spurt 2026-11-11) (løst 2026-11-26: ikke relevant for v1 med fiktive data, se NFR-11)
 - [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — gå gjennom forventede svar i det oppdaterte KI-testsettet
 - [ ] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — sjekk tallene i forskningsnotatet mot fulltekst før de siteres
 - [x] 2026-11-02 [prd](988-2026-11-02-19-34-52-prd.md) — lagre promptene fra PRD-økta som dokumentasjon av KI-styringen (løst 2026-11-02)
@@ -35,3 +35,5 @@
 - [x] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — legg til Må-krav for å endre og slette én hendelse og én godtatt økt (høyt funn i ny validering) (løst 2026-11-11)
 - [x] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — beskriv i EXPERIENCE.md hvordan én økt endres og slettes (FR-64) (løst 2026-11-11)
 - [ ] 2026-11-11 [prd](988-2026-11-02-19-34-52-prd.md) — 4 middels valideringsfunn står igjen (brukertest for planlegging, regel for øktforslag samlet, øktmerker som tilstand, advarsel i FR-42). Kan tas i stories
+- [ ] 2026-11-26 [prd](988-2026-11-02-19-34-52-prd.md) — vurder å validere den oppdaterte PRD-en (demo-avgrensning, FR-65, NFR-11) med `bmad-prd` før arkitekturen
+- [ ] 2026-11-26 [prd](988-2026-11-02-19-34-52-prd.md) — gruppa bekrefter at v1 bare brukes med fiktive data, og sier eventuelt fra til faglærer at spørsmålene om behandlingsansvarlig og TIA er trukket
