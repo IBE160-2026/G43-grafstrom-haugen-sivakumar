@@ -10,6 +10,5 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["tests/kjerne/**/*.test.ts"],
-    passWithNoTests: true,
   },
 });

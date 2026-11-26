@@ -9,3 +9,9 @@
 - source_spec: `docs/stories/spec-1-1-gjor-prosjektet-klart-etter-arkitekturen.md`
   summary: Vurder en automatisk sjekk av at `dev` og `start` bare lytter på 127.0.0.1.
   evidence: Fjernes `-H 127.0.0.1`, går alle tester fortsatt grønt; i dag sjekkes det bare med manuell curl.
+- source_spec: `docs/stories/spec-3-1-fastsatte-tekster-i-kjernen.md`
+  summary: Sjekk i `tests/kjerne/tekster.test.ts` at hver «…»-, *…*- og **…**-enhet i KI-påminnelser, Innhold i Personvern og data og dialoglinjene har en konstant i `kjerne/tekster.ts`.
+  evidence: I dag går sjekken bare fra kode til EXPERIENCE.md for disse deltekstene; en ny påminnelse lagt til i EXPERIENCE.md gir fortsatt grønn test. Trenger en liste over sitater som ikke er UI-tekst («Nei», «opptatt», «Godkjent 9.11.2026 (tekst v2)»).
+- source_spec: `docs/stories/spec-3-1-fastsatte-tekster-i-kjernen.md`
+  summary: Bygg resten av story 3.1: `kjerne/samtykke.ts` med `kiErPå(dokument)` og `kanSendes(oppgave, dokument)`, som importerer `GJELDENDE_SAMTYKKEVERSJON` fra `kjerne/tekster.ts`, med Vitest for ja, nei, `null` og gammel tekstversjon.
+  evidence: Specen dekket bare tekstdelen fordi dokumentskjemaet fra story 1.2 ikke fantes ennå. Story 3.1 står derfor fortsatt som `in-progress` i sprint-status.
