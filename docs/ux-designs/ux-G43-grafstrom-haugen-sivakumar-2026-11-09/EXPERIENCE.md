@@ -2,7 +2,7 @@
 name: dueNext
 status: final
 created: 2026-11-09
-updated: 2026-11-11
+updated: 2026-11-26
 sources:
   - docs/product-brief.md
   - docs/prds/prd-G43-grafstrom-haugen-sivakumar-2026-11-02/prd.md
@@ -144,7 +144,7 @@ Her beskrives oppførselen. Navnene er de samme som i `DESIGN.md` → Components
 
 | Tilstand | Flate | Behandling |
 |---|---|---|
-| Første oppstart | Førstegangsoppsett | (1) «Hei! Hva heter du?» med fornavn, som kan hoppes over. (2) KI-valg med fastsatt samtykketekst (se Personvern og data – fastsatte tekster). «Ja» og «Nei» er like synlige, og ingen er forhåndsvalgt (FR-35). |
+| Første oppstart | Førstegangsoppsett | (1) «Hei! Hva heter du?» med fornavn, som kan hoppes over. (2) KI-valg med demo-advarsel (FR-65) og fastsatt samtykketekst (se Personvern og data – fastsatte tekster). «Ja» og «Nei» er like synlige, og ingen er forhåndsvalgt (FR-35). |
 | Uten fornavn | Oppgaver | Hilsenen er «Hei 👋». |
 | Tom «I dag» | Oppgaver | «Alt unna i dag 🎉 Nyt kvelden!» Gruppa vises fortsatt. |
 | Tom gruppe | Oppgaver | Tomme grupper utenom «I dag» skjules, også «Denne uken» på søndag (FR-22). «I dag» vises alltid. |
@@ -253,9 +253,15 @@ Kravene til økter står i PRD-en (FR-49–54, FR-56, FR-57, FR-62 og FR-64), og
 
 Tekstene under er fastsatt og skal brukes ordrett. Tonen er saklig, uten emoji.
 
+**Demo-advarsel (FR-65)**
+
+Vises øverst i KI-valget i førstegangsoppsettet (Flyt 3) og øverst i Personvern og data, også når KI er av. Den vises som en nøytral infoboks, ikke i varselfarge.
+
+> **Dette er en demo.** Bruk bare test- eller fiktive data, og skriv ikke inn ekte personopplysninger. Når KI er på, kan teksten du skriver, sendes til Claude (Anthropic) i USA.
+
 **Fastsatt samtykketekst (FR-35)**
 
-Vises i førstegangsoppsettet (Flyt 3) og når KI slås på etter et «Nei».
+Vises i førstegangsoppsettet (Flyt 3) og når KI slås på etter et «Nei». Demo-advarselen står over teksten.
 
 > **Vil du bruke KI?**
 >
@@ -268,11 +274,11 @@ Vises i førstegangsoppsettet (Flyt 3) og når KI slås på etter et «Nei».
 >
 > Navnet ditt sendes aldri.
 >
-> **Hvem får det:** Anthropic, selskapet bak Claude. Avtalen er med Anthropic Ireland, men dataene behandles i USA. Overføringen er sikret med EUs standardavtaler (SCC).
+> **Hvem får det:** Anthropic, selskapet bak Claude. Dataene behandles i USA.
 >
 > **Hvor lenge:** Anthropic bruker ikke dataene til å trene KI-modeller. De slettes normalt innen 30 dager, men kan lagres i inntil 2 år hvis en forespørsel flagges for brudd på bruksreglene. Det som er sendt, kan ikke slettes fra appen.
 >
-> **Vær forsiktig:** Skriv helst ikke helseopplysninger eller navn på andre, heller ikke i hendelser som «Legetime». Bruk 🔒 eller en nøytral tittel som «Avtale». Velger du *Ja*, samtykker du også til at slike opplysninger sendes hvis du likevel skriver dem. Med **🔒 Ikke send til KI** holder du en oppgave helt utenfor. Med **🔒 Skjul tittel for KI** på en hendelse sendes bare at du er opptatt. Titlene på hendelsene sendes som standard. Du kan slå det av i Innstillinger → Personvern og data.
+> **Du bestemmer:** Med **🔒 Ikke send til KI** holder du en oppgave helt utenfor. Med **🔒 Skjul tittel for KI** på en hendelse sendes bare at du er opptatt. Titlene på hendelsene sendes som standard. Du kan slå det av i Innstillinger → Personvern og data.
 >
 > Appen virker fullt ut uten KI. Da fyller du ut feltene og legger inn økter selv. Du kan ombestemme deg når som helst i Innstillinger → Personvern og data.
 >
@@ -296,7 +302,7 @@ Vises i førstegangsoppsettet (Flyt 3) og når KI slås på etter et «Nei».
 - **Eksporter / Importer / Slett alle data** (se Flyt 7).
 - Lenken «Personvernerklæring» til hele erklæringen.
 
-Rekkefølge på siden: KI-forslag → Send aldri notater til KI → Send hendelsestitler til KI → Hva sendes til KI → Lagring → Eksporter / Importer → Slett alle data → Personvernerklæring. På PC vises siden med tilbakepil i to kolonner, uten detaljpanel. Se [mockups/key-personvern.html](mockups/key-personvern.html).
+Rekkefølge på siden: Demo-advarsel → KI-forslag → Send aldri notater til KI → Send hendelsestitler til KI → Hva sendes til KI → Lagring → Eksporter / Importer → Slett alle data → Personvernerklæring. På PC vises siden med tilbakepil i to kolonner, uten detaljpanel. Se [mockups/key-personvern.html](mockups/key-personvern.html).
 
 **Hva sendes til KI**
 
@@ -332,6 +338,8 @@ Knapper: *Avbryt* / *Slett alt* (varselfarge). *Avbryt* har standardfokus.
 
 **Personvernerklæringen** (FR-41). Erklæringen skal blant annet si:
 
+- at appen er en demo som bare skal brukes med test- eller fiktive data, og at gruppen ikke lagrer noen data
+- at Anthropic behandler det som sendes, i USA, og hvor lenge det lagres (som i Lagring over)
 - at formålet også er planlegging av økter
 - at ingen automatiske avgjørelser tas (studenten godtar alt)
 - at reserveløsningen ikke sender noe
@@ -339,7 +347,7 @@ Knapper: *Avbryt* / *Slett alt* (varselfarge). *Avbryt* har standardfokus.
 - at fornavn, tema og samtykkevalg lagres lokalt
 - hvilke data som sendes (som over)
 
-Behandlingsansvarlig står som plassholder til PRD Å-3 er avklart.
+Erklæringen nevner ikke behandlingsansvarlig eller overføringsgrunnlag (SCC), fordi v1 ikke skal behandle personopplysninger. Begge legges til etter personvernvurderingen i PRD NFR-11, før appen tas i bruk med ekte data.
 
 ## Key Flows
 
@@ -379,7 +387,7 @@ Avvik:
 ### Flyt 3 – Ida starter appen for første gang (mobil)
 
 1. Første skjerm viser «Hei! Hva heter du?» med et felt for fornavn og hjelpeteksten «Bare for hilsenen. Lagres på denne enheten.» Ida skriver «Ida» og trykker *Fortsett*.
-2. Deretter kommer KI-valget med den fastsatte samtykketeksten (se [Personvern og data – fastsatte tekster](#personvern-og-data--fastsatte-tekster)). *Ja* og *Nei* er like store og står side om side, og ingen er forhåndsvalgt. Lenken «Les hele personvernerklæringen» åpner erklæringen uten at oppsettet mistes.
+2. Deretter kommer KI-valget med demo-advarselen øverst og den fastsatte samtykketeksten under (se [Personvern og data – fastsatte tekster](#personvern-og-data--fastsatte-tekster)). *Ja* og *Nei* er like store og står side om side, og ingen er forhåndsvalgt. Lenken «Les hele personvernerklæringen» åpner erklæringen uten at oppsettet mistes.
 3. Ida leser og trykker *Ja, bruk KI*. Samtykket lagres med dato og tekstversjon.
 4. **Klimaks:** Ida havner på **Oppgaver** med «Hei, Ida 👋», pastellblått tema og lys eller mørk modus etter systemet. Hun vet hva hun har sagt ja til, og kan begynne med én gang: «Skriv inn det første du må huske – KI hjelper deg å sortere.»
 

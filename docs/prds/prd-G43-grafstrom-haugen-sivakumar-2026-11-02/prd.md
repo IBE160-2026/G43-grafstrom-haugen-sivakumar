@@ -2,7 +2,7 @@
 title: PRD – dueNext
 status: final
 created: 2026-11-02
-updated: 2026-11-11
+updated: 2026-11-26
 ---
 
 # PRD – dueNext
@@ -13,6 +13,8 @@ UX: [DESIGN.md](../../ux-designs/ux-G43-grafstrom-haugen-sivakumar-2026-11-09/DE
 Brukerreiser: EXPERIENCE.md → Key Flows (Flyt 1–7).
 
 **Ved konflikt** gjelder PRD-en for *hva* appen skal gjøre: krav, regler og grenser. EXPERIENCE.md gjelder for *hvordan* det virker på skjermen, og for de fastsatte tekstene.
+
+**v1 er en demo.** Appen kjøres lokalt og vises fram med test- eller fiktive data. Den tilbys ikke til ekte brukere. Det er ingen innlogging, og all data lagres bare i nettleseren på enheten. Ingenting lagres i Supabase eller en annen ekstern database. Den eneste tjenesten utenfor enheten er KI-kallet til Claude (F2, F6). Skal appen brukes med ekte data, gjelder NFR-11.
 
 ## Visjon
 
@@ -165,28 +167,30 @@ Fullført betyr at oppgaven er ferdig eller ikke lenger skal gjøres, for eksemp
 
 ### F6 Personvern og egne data
 
-Alle data lagres bare i studentens nettleser. Oppgaver og hendelser sendes via serveren til Claude (Anthropic, USA) bare når studenten har sagt ja til KI, og bare det FR-15 tillater. Gruppen er da behandlingsansvarlig, og Anthropic er databehandler. Hvem i gruppen som står som behandlingsansvarlig, er ikke avgjort (Å-3). Grunnlag: [research-gdpr-regelverk.md](research-gdpr-regelverk.md) og [research-gdpr-forskning.md](research-gdpr-forskning.md). Dette er ikke juridisk rådgivning.
+Alle data lagres bare i studentens nettleser. Oppgaver og hendelser sendes via serveren til Claude (Anthropic, USA) bare når studenten har sagt ja til KI, og bare det FR-15 tillater.
+
+v1 er en demo med test- eller fiktive data (se toppen). Da sendes ingen personopplysninger til Anthropic, og det er ingen overføring som må sikres med EUs standardavtaler (SCC) eller vurderes i en overføringsvurdering (TIA). Kravene i denne delen gir likevel studenten kontroll og åpenhet om hva som sendes, og forbereder en senere versjon med ekte data. Før det skjer, gjelder NFR-11. Grunnlag: [research-gdpr-regelverk.md](research-gdpr-regelverk.md) og [research-gdpr-forskning.md](research-gdpr-forskning.md). Dette er ikke juridisk rådgivning.
 
 Alle tekster i denne delen er fastsatt i [EXPERIENCE.md → Personvern og data – fastsatte tekster](../../ux-designs/ux-G43-grafstrom-haugen-sivakumar-2026-11-09/EXPERIENCE.md#personvern-og-data--fastsatte-tekster) og skal brukes ordrett. Personvern og data ligger i Innstillinger, og på PC også i sidemenyen.
 
 - **FR-35 (Må)** Ved første oppstart spør appen først om fornavn (FR-59), og deretter om studenten vil bruke KI. KI er av til hun har sagt ja. Samtykketeksten sier:
+  - at appen er en demo, med demo-advarselen i FR-65
   - hva som sendes (FR-15), og at fornavnet aldri sendes
-  - hvem som får det: Anthropic, med Anthropic Ireland som avtalepart, behandling i USA og overføring sikret med EUs standardavtaler (SCC)
+  - hvem som får det: Anthropic, selskapet bak Claude, i USA
   - hvor lenge: ingen trening av KI-modeller, normalt slettet innen 30 dager, inntil 2 år hvis en forespørsel flagges for brudd på bruksreglene, og at det som er sendt, ikke kan slettes fra appen
-  - at hun helst ikke skal skrive helseopplysninger eller navn på andre, heller ikke i hendelser, og at et «Ja» også er et uttrykkelig samtykke til at slike opplysninger sendes hvis hun likevel skriver dem
   - hvordan 🔒 virker, at hendelsestitler sendes som standard, og at det kan slås av
-  - at appen virker fullt ut uten KI, at samtykket er frivillig og kan trekkes tilbake når som helst, og en lenke til personvernerklæringen
+  - at appen virker fullt ut uten KI, at valget er frivillig og kan endres når som helst, og en lenke til personvernerklæringen
 
   «Nei» er like lett å velge som «Ja», og ingen av dem er forhåndsvalgt. Samtykket lagres i nettleseren med dato og versjon av teksten. En ny versjon av teksten krever nytt samtykke.
 - **FR-36 (Må)** Studenten kan endre KI-valget når som helst i Personvern og data, der samtykkestatusen også vises (for eksempel «Godkjent 9.11.2026 (tekst v2)»). Slår hun på KI etter et «Nei», vises samtykketeksten først. Slår hun av KI, gjelder FR-19.
 - **FR-37 (Må)** Når KI er på, viser skjemaet en kort påminnelse om hva som sendes til KI: under oppgaveteksten, under skrivefeltet på PC og under tittelen på en hendelse. Teksten tilpasses innstillingene (FR-39, FR-58) og 🔒.
 - **FR-38 (Må)** Studenten kan slå på «🔒 Ikke send til KI» på en oppgave. Da sendes ingenting fra oppgaven til KI, og hun får ingen forslag, ingen øktforslag og ingen «Foreslå ny tid» på den. Godtatte økter på oppgaven kan likevel sendes som «opptatt» når andre oppgaver planlegges (FR-15). På en hendelse heter bryteren «🔒 Skjul tittel for KI». Da sendes bare tidspunktet, som «opptatt». 🔒 vises med et låsikon på oppgaven eller hendelsen.
 - **FR-39 (Må)** Studenten kan velge at notater aldri sendes til KI.
-- **FR-58 (Må)** Studenten kan velge om hendelsestitler sendes til KI. Standard er på. Er det av, får KI bare vite når hun er opptatt. Standard er på fordi titlene gir bedre økter: KI ser forskjell på en forelesning og en jobbvakt. Det koster at titler som «Legetime» kan være helseopplysninger. Derfor sier samtykketeksten (FR-35) at titlene sendes som standard, og studenten kan skjule én tittel med 🔒 (FR-38) eller alle med denne bryteren. Svarer faglærer i Å-6 at en DPIA trengs, vurderes standarden på nytt.
+- **FR-58 (Må)** Studenten kan velge om hendelsestitler sendes til KI. Standard er på. Er det av, får KI bare vite når hun er opptatt. Standard er på fordi titlene gir bedre økter: KI ser forskjell på en forelesning og en jobbvakt. Med ekte data kunne titler som «Legetime» være helseopplysninger. Derfor sier samtykketeksten (FR-35) at titlene sendes som standard, og studenten kan skjule én tittel med 🔒 (FR-38) eller alle med denne bryteren. Standarden vurderes på nytt i personvernvurderingen i NFR-11.
 - **FR-40 (Må)** «Slett alle data» i Personvern og data sletter alt fra nettleseren etter en bekreftelse: oppgaver, hendelser, økter, fornavn, prosjekter, innstillinger, tema og samtykke. Appen starter deretter på førstegangsoppsettet.
-- **FR-41 (Må)** En personvernerklæring på norsk ligger ett klikk unna fra alle skjermbilder. Lenken står nederst på hver side på mobil og nederst i sidemenyen på PC. Erklæringen dekker kravene i GDPR art. 13, og sier ærlig at tekst som allerede er sendt til Anthropic, ikke kan slettes fra appen. Den forteller også:
-  - at Anthropic normalt sletter dataene innen 30 dager, men kan lagre samtaler som flagges for brudd på bruksreglene i inntil 2 år, og lenger hvis loven krever det ([research-anthropic-lagringstid.md](research-anthropic-lagringstid.md))
-  - at avtaleparten er Anthropic Ireland Ltd., men at dataene behandles i USA, og at overføringen er sikret med EUs standardavtaler (SCC), fordi Anthropic ikke er med i EU-US Data Privacy Framework ([research-anthropic-dpf.md](research-anthropic-dpf.md))
+- **FR-41 (Må)** En personvernerklæring på norsk ligger ett klikk unna fra alle skjermbilder. Lenken står nederst på hver side på mobil og nederst i sidemenyen på PC. Erklæringen sier ærlig at tekst som allerede er sendt til Anthropic, ikke kan slettes fra appen. Den forteller også:
+  - at appen er en demo som bare skal brukes med test- eller fiktive data (FR-65), og at gruppen ikke lagrer noen data
+  - at Anthropic behandler dataene i USA, og normalt sletter dem innen 30 dager, men kan lagre samtaler som flagges for brudd på bruksreglene i inntil 2 år, og lenger hvis loven krever det ([research-anthropic-lagringstid.md](research-anthropic-lagringstid.md))
   - hvilke data som sendes (FR-15)
   - at formålet også er planlegging av økter
   - at det ikke tas automatiske avgjørelser, fordi studenten godtar alt selv
@@ -194,8 +198,9 @@ Alle tekster i denne delen er fastsatt i [EXPERIENCE.md → Personvern og data �
   - at aldersgrensen er 13 år
   - at fornavn, tema og samtykkevalg lagres bare i nettleseren
 
-  Behandlingsansvarlig står som plassholder til Å-3 er avklart.
+  Erklæringen er ikke en fullstendig erklæring etter GDPR art. 13, fordi v1 ikke skal behandle personopplysninger. Den må utvides før appen tas i bruk med ekte data (NFR-11).
 - **FR-42 (Bør)** Telefonnumre og e-postadresser i oppgavetekst, notater og hendelsestitler erstattes med plassholdere før teksten sendes til KI. Dette er pseudonymisering, ikke anonymisering. Navn maskeres ikke, fordi de er vanskelige å finne sikkert. Til FR-42 er bygget, sier appen «Skriv ikke navn, telefonnummer eller helseopplysninger – appen fjerner dem ikke automatisk.» Når den er bygget, byttes teksten ut (se EXPERIENCE.md).
+- **FR-65 (Må)** Appen viser en fast demo-advarsel i førstegangsoppsettet, før KI-valget, og øverst i Personvern og data: at appen er en demo, at den bare skal brukes med test- eller fiktive data, at studenten ikke skal skrive inn ekte personopplysninger, og at tekst kan sendes til Claude (Anthropic) i USA når KI er på. Teksten står ordrett i EXPERIENCE.md. Advarselen vises også når KI er av.
 - **FR-43 (Bør)** Studenten kan eksportere alle data til en fil, også hendelser, økter og fornavn, og importere dem igjen. Før fila lagres, advarer appen om at den inneholder alt hun har skrevet. Import erstatter alle data i appen etter en bekreftelse. Samtykket følger ikke med, så KI-valget må besvares på nytt etter import. Importerte oppgaver sender ingenting til KI før teksten endres.
 
 ### F7 Profil, utseende og prosjekter
@@ -210,13 +215,14 @@ Alle tekster i denne delen er fastsatt i [EXPERIENCE.md → Personvern og data �
 - **NFR-1 Kjørbar for sensor.** Appen kan startes lokalt etter README uten gruppens API-nøkkel, betalte kontoer eller eksterne tjenester. Uten nøkkel brukes reserveløsningen (F3).
 - **NFR-2 Nøkkelen er hemmelig.** Kallet til Claude gjøres fra serveren, aldri fra nettleseren. API-nøkkelen ligger bare i `.env.local`, som ikke er i Git. `.env.example` viser hvilke variabler som trengs.
 - **NFR-3 Ingen sporing.** Appen har ingen analyseverktøy eller tredjepartsskript. Serveren logger ikke innholdet i oppgaver, hendelser eller økter.
-- **NFR-4 Lokal lagring.** Alle data, også fornavn, tema og samtykke, lagres bare i studentens nettleser og er der neste gang hun åpner appen på samme maskin. Gruppen lagrer ingen brukerdata. Lar ikke nettleseren appen lagre, viser appen et varsel øverst på alle sider så lenge feilen varer (EXPERIENCE.md → State Patterns, «Lagring feiler»). Appen virker ellers som før.
+- **NFR-4 Lokal lagring.** Alle data, også fornavn, tema og samtykke, lagres bare i studentens nettleser og er der neste gang hun åpner appen på samme maskin. Gruppen lagrer ingen brukerdata. Det er ingen innlogging, og ingen data lagres i Supabase eller en annen ekstern database. Lar ikke nettleseren appen lagre, viser appen et varsel øverst på alle sider så lenge feilen varer (EXPERIENCE.md → State Patterns, «Lagring feiler»). Appen virker ellers som før.
 - **NFR-5 Rask lagring.** Lagring av en oppgave venter aldri på KI (FR-2).
 - **NFR-6 Testbar uten KI.** Automatiske tester bruker faste mock-svar i stedet for ekte kall til Claude.
 - **NFR-7 Testbar tid.** Regler som avhenger av dato og klokkeslett (smarte lister, økter i Forfalt, gjentakende hendelser, sletting etter 7 dager) kan testes med en fast «nå»-tid.
 - **NFR-8 Norsk.** All tekst i appen, KI-forslagene og personvernerklæringen er på norsk.
 - **NFR-9 Tilgjengelighet.** Alle flater følger WCAG 2.1 AA. Detaljene står i EXPERIENCE.md → Accessibility Floor.
 - **NFR-10 Web på mobil og PC.** dueNext er en web-app som fungerer like godt på telefon, nettbrett og PC. Det lages ingen egen app for iOS eller Android.
+- **NFR-11 Ny personvernvurdering før ekte data.** v1 brukes bare med test- eller fiktive data, også i demonstrasjonen. Skal appen brukes med ekte data, eller få innlogging eller ekstern lagring (for eksempel Supabase Auth i v2), må personvernet vurderes på nytt før det tas i bruk. Vurderingen må minst avgjøre hvem som er behandlingsansvarlig, overføringsgrunnlaget for Anthropic (SCC) og en eventuell overføringsvurdering (TIA), om en DPIA trengs, og hvordan helseopplysninger i hendelser skal håndteres (FR-58). Samtykketeksten (FR-35) og personvernerklæringen (FR-41) oppdateres etter vurderingen.
 
 ## Suksesskriterier
 
@@ -236,7 +242,8 @@ Alle tekster i denne delen er fastsatt i [EXPERIENCE.md → Personvern og data �
 ## Utenfor scope
 
 - Sekundærmålgruppen (enkeltpersoner og små team). Kan bli en utvidelse senere.
-- Innlogging, brukerkontoer og synkronisering mellom enheter
+- Innlogging, brukerkontoer og synkronisering mellom enheter. Supabase Auth eller annen ekstern lagring kan bli aktuelt i v2, etter NFR-11.
+- Ekte brukerdata. v1 brukes og demonstreres bare med test- eller fiktive data.
 - Egne etiketter. Egne navn skrives i prosjektfeltet.
 - KI-forslag til frist
 - Automatisk omplanlegging av økter (FR-52)
@@ -250,10 +257,10 @@ Alle tekster i denne delen er fastsatt i [EXPERIENCE.md → Personvern og data �
 | # | Spørsmål | Avgjøres i |
 |---|---|---|
 | Å-1 | ~~Hvilken Claude-modell skal brukes?~~ Avgjort: Claude Sonnet. Eksakt versjon og modell-ID settes i arkitekturen. | Arkitektur |
-| Å-2 | ~~Hvor lenge lagrer Anthropic API-data, og er Anthropic sertifisert under EU-US Data Privacy Framework?~~ Avklart 2026-11-02: inntil 30 dager, ikke DPF-sertifisert, overføring med SCC. Står i FR-35 og FR-41. | – |
-| Å-3 | Hvem i gruppen er formelt behandlingsansvarlig i personvernerklæringen? Til det er avklart, står det en plassholder (FR-41). | Gruppen, etter svar fra faglærer |
+| Å-2 | ~~Hvor lenge lagrer Anthropic API-data, og er Anthropic sertifisert under EU-US Data Privacy Framework?~~ Avklart 2026-11-02: inntil 30 dager, ikke DPF-sertifisert, overføring med SCC. Lagringstiden står i FR-35 og FR-41. Overføringsgrunnlaget er ikke relevant så lenge v1 bare bruker fiktive data (NFR-11). | – |
+| Å-3 | ~~Hvem i gruppen er formelt behandlingsansvarlig i personvernerklæringen?~~ Lukket 2026-11-26: ikke relevant for v1, som bare bruker fiktive data. Avgjøres i vurderingen i NFR-11. | – |
 | Å-4 | ~~Hvordan skal navn finnes til maskeringen (FR-42)?~~ Avgjort 2026-11-11: navn maskeres ikke. FR-42 gjelder telefonnumre og e-post. | – |
 | Å-5 | Lagring i nettleseren: localStorage eller IndexedDB? | Arkitektur |
-| Å-6 | Skal gruppen skrive en kort overføringsvurdering (TIA), siden overføringen til USA bygger på SCC? Vurderingen, og en eventuell DPIA, må nå også ta med at hendelser og økter sendes, og at de kan inneholde helseopplysninger (art. 9). | Gruppen, etter svar fra faglærer |
+| Å-6 | ~~Skal gruppen skrive en kort overføringsvurdering (TIA)?~~ Lukket 2026-11-26: ikke relevant for v1, fordi ingen personopplysninger sendes når bare fiktive data brukes. TIA, DPIA og helseopplysninger i hendelser (art. 9) vurderes i NFR-11 før ekte data. | – |
 | Å-7 | Hvilke nøkkelord bruker reserveløsningen (FR-16)? | Arkitektur eller story, testes mot KI-testsettet |
 | Å-8 | Hvor mange dager fram til fristen sendes hendelser og økter for (for eksempel 14) (FR-15)? | Arkitektur |

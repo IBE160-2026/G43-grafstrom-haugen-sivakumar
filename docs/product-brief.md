@@ -74,7 +74,7 @@
  - **Reserveløsning:** Mangler API-nøkkelen, svarer ikke Claude, eller er svaret ugyldig, bruker appen en enkel regelbasert reserveløsning med nøkkelord og forfallsdato. Brukeren ser at forslaget ikke kommer fra KI. Dermed kan sensor og andre kjøre appen lokalt uten gruppens nøkkel.
  - **Testmodus:** Automatiske tester bruker faste mock-svar i stedet for ekte kall til Claude, slik at de er gratis, raske og gir samme resultat hver gang.
  - **Kostnad:** Hvert forslag er ett kort kall. Gruppen bruker en rimelig Claude-modell og egen nøkkel under utvikling. Hvilken modell, avgjøres i arkitekturdokumentet.
- - **Personvern:** Bare oppgavetekst og notater sendes til Claude. Brukeren får beskjed om dette i appen.
+ - **Personvern:** Bare oppgavetekst og notater sendes til Claude. Brukeren får beskjed om dette i appen. Første versjon er en demo som bare brukes med test- eller fiktive data. Da sendes ingen personopplysninger til Anthropic, og det trengs ikke en egen overføringsvurdering (TIA). Skal appen brukes med ekte data, må personvernet vurderes på nytt først.
 
  ## Målgruppe
 
@@ -116,12 +116,14 @@
  - nye KI-forslag når brukeren endrer oppgaveteksten på en lagret oppgave. Forslagene vises på samme måte som ved oppretting, og de gamle verdiene beholdes til brukeren godtar de nye
  - filtrere og sortere etter etikett, prioritet og forfallsdato, med nærmeste frist først som standard
  - fem smarte lister basert på forfallsdato: I dag, Denne uken, Senere, Ingen frist og Forfalt
- - lokal lagring uten innlogging, slik at oppgaver er tilgjengelige når brukeren kommer tilbake på samme maskin
+ - lokal lagring uten innlogging, slik at oppgaver er tilgjengelige når brukeren kommer tilbake på samme maskin. Data lagres bare i nettleseren på enheten, ikke i Supabase eller en annen ekstern database
+ - demonstrasjon med test- eller fiktive data
  - regelbasert reserveløsning når KI ikke er tilgjengelig
 
  ### Utenfor MVP
 
- - innlogging, brukerkontoer og synkronisering mellom enheter (kan legges til som eget trinn hvis det blir tid)
+ - innlogging, brukerkontoer og synkronisering mellom enheter. Kan komme i v2, for eksempel med Supabase Auth, men da må personvernet vurderes på nytt først
+ - bruk med ekte personopplysninger
  - egne etiketter laget av brukeren. Første versjon har bare de faste etikettene Privat, Skole og Jobb
  - automatisk innhenting fra Canvas, Teams eller andre eksterne systemer
  - deling og samarbeid mellom flere brukere
