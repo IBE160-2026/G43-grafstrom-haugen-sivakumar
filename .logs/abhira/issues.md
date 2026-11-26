@@ -38,8 +38,8 @@
 - [ ] 2026-11-26 [prd](988-2026-11-02-19-34-52-prd.md) — vurder å validere den oppdaterte PRD-en (demo-avgrensning, FR-65, NFR-11) med `bmad-prd` før arkitekturen
 - [ ] 2026-11-26 [prd](988-2026-11-02-19-34-52-prd.md) — gruppa bekrefter at v1 bare brukes med fiktive data, og sier eventuelt fra til faglærer at spørsmålene om behandlingsansvarlig og TIA er trukket
 - [ ] 2026-11-26 [prd](988-2026-11-02-19-34-52-prd.md) — svar på refleksjonsspørsmålene i `tilbakemelding-prd.md` (FR-58-avveiningen, hvem tok initiativet til utvidelsen)
-- [ ] 2026-11-26 [arkitektur](986-2026-11-26-17-25-25-arkitektur.md) — oppdater `package.json` etter arkitekturen (fjern Prisma, legg til zustand/zod/server-only/vitest/vite/playwright/axe, SDK 1.x, @types/node ^24, `-H 127.0.0.1`)
-- [ ] 2026-11-26 [arkitektur](986-2026-11-26-17-25-25-arkitektur.md) — legg `KI_MOCK` til i `.env.example` (AD-14)
+- [x] 2026-11-26 [arkitektur](986-2026-11-26-17-25-25-arkitektur.md) — oppdater `package.json` etter arkitekturen (fjern Prisma, legg til zustand/zod/server-only/vitest/vite/playwright/axe, SDK 1.x, @types/node ^24, `-H 127.0.0.1`) (løst 2026-11-26, story 1.1)
+- [x] 2026-11-26 [arkitektur](986-2026-11-26-17-25-25-arkitektur.md) — legg `KI_MOCK` til i `.env.example` (AD-14) (løst 2026-11-26, story 1.1)
 - [ ] 2026-11-26 [arkitektur](986-2026-11-26-17-25-25-arkitektur.md) — del faglærer-oversikten (https://claude.ai/artifact/D9GSk4vhdT4AfE4gFJwGQz) når den skal vurderes
 - [x] 2026-11-26 [epics-og-stories](985-2026-11-26-18-14-06-epics-og-stories.md) — gruppa fordeler spor A–D i `docs/epics.md` mellom seg (løst 2026-11-26: A Abhira, B Lena, C Sabrina, D Stine)
 - [x] 2026-11-26 [epics-og-stories](985-2026-11-26-18-14-06-epics-og-stories.md) — kjør `bmad-sprint-planning` (sjekk at planen er klar, lag sprint-statusfila) (løst 2026-11-26)
@@ -48,3 +48,7 @@
 - [ ] 2026-11-26 [sprint-planning](984-2026-11-26-18-18-45-sprint-planning.md) — spor C (Sabrina) og D (Stine) avtaler hvem som definerer `årsak`/kalltype først (story 2.1 trenger dem før 4.1)
 - [ ] 2026-11-26 [sprint-planning](984-2026-11-26-18-18-45-sprint-planning.md) — story 1.3 lager enkel «Slett alle data» på feilsiden, som 3.6 gjenbruker
 - [ ] 2026-11-26 [sprint-planning](984-2026-11-26-18-18-45-sprint-planning.md) — vurder om storynøkler/-filnavn med æøå i `docs/stories/` skaper trøbbel i git
+- [ ] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — Lena går gjennom story 1.1 før den settes til `done`
+- [ ] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — gruppa avgjør om Next 16.3.5 skal oppgraderes (kritisk `npm audit`-funn) og ser på `sharp`
+- [ ] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — fjern `passWithNoTests`/`--pass-with-no-tests` når første test finnes i hver mappe
+- [ ] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — i story 4.2/4.3: mock-KI sjekkes før nøkkelen brukes
