@@ -41,3 +41,7 @@
 - [ ] 2026-11-26 [arkitektur](986-2026-11-26-17-25-25-arkitektur.md) — oppdater `package.json` etter arkitekturen (fjern Prisma, legg til zustand/zod/server-only/vitest/vite/playwright/axe, SDK 1.x, @types/node ^24, `-H 127.0.0.1`)
 - [ ] 2026-11-26 [arkitektur](986-2026-11-26-17-25-25-arkitektur.md) — legg `KI_MOCK` til i `.env.example` (AD-14)
 - [ ] 2026-11-26 [arkitektur](986-2026-11-26-17-25-25-arkitektur.md) — del faglærer-oversikten (https://claude.ai/artifact/D9GSk4vhdT4AfE4gFJwGQz) når den skal vurderes
+- [ ] 2026-11-26 [epics-og-stories](985-2026-11-26-18-14-06-epics-og-stories.md) — gruppa fordeler spor A–D i `docs/epics.md` mellom seg
+- [ ] 2026-11-26 [epics-og-stories](985-2026-11-26-18-14-06-epics-og-stories.md) — kjør `bmad-sprint-planning` (sjekk at planen er klar, lag sprint-statusfila)
+- [ ] 2026-11-26 [epics-og-stories](985-2026-11-26-18-14-06-epics-og-stories.md) — rekrutter 5 testbrukere tidlig (brukertest 4.9, og 6.7 hvis skive 3 blir med)
+- [ ] 2026-11-26 [epics-og-stories](985-2026-11-26-18-14-06-epics-og-stories.md) — følg med på de største storyene (4.6, 5.6, 6.5) og del dem hvis de blir for store
