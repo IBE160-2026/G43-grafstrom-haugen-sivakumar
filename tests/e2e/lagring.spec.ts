@@ -39,11 +39,11 @@ test("gyldige data leses uten å skrive", async ({ page }) => {
   const rå = JSON.stringify(fulltDokument());
   await leggInnÉnGang(page, rå);
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "dueNext" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
 
   await tellSkrivinger(page);
   await page.reload();
-  await expect(page.getByRole("heading", { name: "dueNext" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
   expect(await page.evaluate(() => (window as unknown as { __skrivinger: number }).__skrivinger)).toBe(0);
   expect(await lagret(page)).toBe(rå);
 });
@@ -93,13 +93,15 @@ test("Slett alle data fra feilsiden: Avbryt endrer ingenting, Slett alt starter 
   const dialog = page.getByRole("dialog", { name: "Slette alle data?" });
   await expect(dialog).toBeVisible();
   await expect(dialog.getByRole("button", { name: "Avbryt" })).toBeFocused();
+  const axe = await new AxeBuilder({ page }).analyze();
+  expect(axe.violations).toEqual([]);
   await dialog.getByRole("button", { name: "Avbryt" }).click();
   await expect(dialog).toBeHidden();
   expect(await lagret(page)).toBe(ØDELAGT);
 
   await page.getByRole("button", { name: "Slett alle data" }).click();
   await dialog.getByRole("button", { name: "Slett alt" }).click();
-  await expect(page.getByRole("heading", { name: "dueNext" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
   const nytt = JSON.parse((await lagret(page)) ?? "null");
   expect(nytt).toMatchObject({ schemaVersion: 1, oppgaver: [] });
 });
@@ -115,19 +117,22 @@ test("setItem som kaster gir lagringsbanneret øverst", async ({ page }) => {
   await expect(banner).toHaveText(
     "Nettleseren lar ikke appen lagre. Det du skriver nå, forsvinner når du lukker fanen.",
   );
-  const overskrift = page.getByRole("heading", { name: "dueNext" });
+  const overskrift = page.getByRole("heading", { name: "Oppgaver" });
   await expect(overskrift).toBeVisible();
   const bannerBoks = await banner.boundingBox();
   const overskriftBoks = await overskrift.boundingBox();
   expect(bannerBoks!.y).toBeLessThan(overskriftBoks!.y);
   expect(bannerBoks!.y).toBe(0);
+
+  const axe = await new AxeBuilder({ page }).analyze();
+  expect(axe.violations).toEqual([]);
 });
 
 test("to faner: den andre laster på nytt uten å skrive tilbake", async ({ context }) => {
   const a = await context.newPage();
   const b = await context.newPage();
   await a.goto("/");
-  await expect(a.getByRole("heading", { name: "dueNext" })).toBeVisible();
+  await expect(a.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
   await tellSkrivinger(b);
   await b.addInitScript(() => {
     const vindu = window as unknown as { __hendelser: number };
@@ -135,7 +140,7 @@ test("to faner: den andre laster på nytt uten å skrive tilbake", async ({ cont
     window.addEventListener("storage", () => vindu.__hendelser++);
   });
   await b.goto("/");
-  await expect(b.getByRole("heading", { name: "dueNext" })).toBeVisible();
+  await expect(b.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
   const skrivingerIB = () =>
     b.evaluate(() => (window as unknown as { __skrivinger: number }).__skrivinger);
   expect(await skrivingerIB()).toBe(0);
@@ -146,7 +151,10 @@ test("to faner: den andre laster på nytt uten å skrive tilbake", async ({ cont
     [NØKKEL, JSON.stringify(fulltDokument())] as const,
   );
   await expect.poll(() => b.evaluate(() => (window as unknown as { __hendelser: number }).__hendelser)).toBe(1);
-  await expect(b.getByRole("heading", { name: "dueNext" })).toBeVisible();
+  await expect(b.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  // TemaSynk følger det nye dokumentet (fulltDokument: grønn og mørk).
+  await expect(b.locator("html")).toHaveAttribute("data-tema", "grønn");
+  await expect(b.locator("html")).toHaveAttribute("data-modus", "mørk");
   expect(await skrivingerIB()).toBe(0);
 
   // Skriving fra nyere versjon i A: B viser feilsiden, som viser at B lastet på nytt.
