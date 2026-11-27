@@ -16,6 +16,7 @@ Bygge story 1.4 «Appens ramme, navigasjon og utseende» med `bmad-build`: desig
 - Rettet etter gjennomgang: ukjent tema gir nå begge standardverdier (blå/system); sidetitler «Oppgaver/Arkiv/Innstillinger – dueNext»; tester for tema i annen fane, temafarger, axe på `/innstillinger` i alle temaer, like mørk-blokker, fokusring og lenketelling bare i menyene.
 - Verifisert: lint, typecheck og build uten feil; e2e 75 bestått, 7 hoppet over med vilje (bredder kjøres bare i mobil- eller PC-prosjektet); `localStorage` bare i `lib/storage/`.
 - Sprint-status: 1.4 står på `review`. Løser punktene fra 1.3 om rammen inni `AppTilstand`, stil på feilside/dialog/banner, axe på banner og dialog, og temaskriptet i `<head>`.
+- Pushet til GitHub: story 1.4 og denne loggen, så Abhira kan gå gjennom.
 
 ### Åpne punkter
 - Abhira går gjennom story 1.4 før den settes til `done` (da kan 1.5 starte).
