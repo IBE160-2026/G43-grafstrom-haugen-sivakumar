@@ -34,3 +34,13 @@ Fast testsett for å måle KI-forslagene i dueNext mot suksesskriteriene i [prod
   Tidsrom skal stemme 20 av 20.
 
 Kjør testsettet på nytt hver gang prompten endres, og noter resultatet, slik at endringer kan sammenlignes.
+
+## Reserveløsningen
+
+Reserveløsningen i `kjerne/reserve.ts` foreslår etikett og prioritet ut fra nøkkelord når KI ikke svarer (FR-16–18). Nøkkelordlista er generell og ikke tilpasset testtekstene. Resultatet er en referanse for story 4.8, ikke et krav. `tests/kjerne/reserve.test.ts` kjører de 20 tekstene og skriver resultatet til konsollen.
+
+| Dato | Riktige etiketter | Riktige prioriteringer |
+|---|---|---|
+| 2026-11-27 | 19 av 20 | 15 av 20 |
+
+Bommene 2026-11-27: etiketten på oppgave 6 («kontinuasjonseksamen» starter ikke med «eksamen»), og prioriteten på oppgave 5, 8 og 11 (Middels i stedet for Lav), 6 (Høy for «fristen» i stedet for Middels) og 15 (Høy for «i kveld» i stedet for Middels).
