@@ -39,11 +39,11 @@ test("gyldige data leses uten å skrive", async ({ page }) => {
   const rå = JSON.stringify(fulltDokument());
   await leggInnÉnGang(page, rå);
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
 
   await tellSkrivinger(page);
   await page.reload();
-  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   expect(await page.evaluate(() => (window as unknown as { __skrivinger: number }).__skrivinger)).toBe(0);
   expect(await lagret(page)).toBe(rå);
 });
@@ -101,7 +101,7 @@ test("Slett alle data fra feilsiden: Avbryt endrer ingenting, Slett alt starter 
 
   await page.getByRole("button", { name: "Slett alle data" }).click();
   await dialog.getByRole("button", { name: "Slett alt" }).click();
-  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   const nytt = JSON.parse((await lagret(page)) ?? "null");
   expect(nytt).toMatchObject({ schemaVersion: 1, oppgaver: [] });
 });
@@ -117,7 +117,7 @@ test("setItem som kaster gir lagringsbanneret øverst", async ({ page }) => {
   await expect(banner).toHaveText(
     "Nettleseren lar ikke appen lagre. Det du skriver nå, forsvinner når du lukker fanen.",
   );
-  const overskrift = page.getByRole("heading", { name: "Oppgaver" });
+  const overskrift = page.getByRole("heading", { level: 1, name: /^Hei/ });
   await expect(overskrift).toBeVisible();
   const bannerBoks = await banner.boundingBox();
   const overskriftBoks = await overskrift.boundingBox();
@@ -132,7 +132,7 @@ test("to faner: den andre laster på nytt uten å skrive tilbake", async ({ cont
   const a = await context.newPage();
   const b = await context.newPage();
   await a.goto("/");
-  await expect(a.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(a.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   await tellSkrivinger(b);
   await b.addInitScript(() => {
     const vindu = window as unknown as { __hendelser: number };
@@ -140,7 +140,7 @@ test("to faner: den andre laster på nytt uten å skrive tilbake", async ({ cont
     window.addEventListener("storage", () => vindu.__hendelser++);
   });
   await b.goto("/");
-  await expect(b.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(b.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   const skrivingerIB = () =>
     b.evaluate(() => (window as unknown as { __skrivinger: number }).__skrivinger);
   expect(await skrivingerIB()).toBe(0);
@@ -151,7 +151,7 @@ test("to faner: den andre laster på nytt uten å skrive tilbake", async ({ cont
     [NØKKEL, JSON.stringify(fulltDokument())] as const,
   );
   await expect.poll(() => b.evaluate(() => (window as unknown as { __hendelser: number }).__hendelser)).toBe(1);
-  await expect(b.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(b.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   // TemaSynk følger det nye dokumentet (fulltDokument: grønn og mørk).
   await expect(b.locator("html")).toHaveAttribute("data-tema", "grønn");
   await expect(b.locator("html")).toHaveAttribute("data-modus", "mørk");

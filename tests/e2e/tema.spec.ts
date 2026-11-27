@@ -62,7 +62,7 @@ test("første start: blå og system før første tegning", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/");
   expect(await førsteTegning(page)).toEqual({ tema: "blå", modus: "system" });
-  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   await expect(html(page)).toHaveAttribute("data-tema", "blå");
   await expect(html(page)).toHaveAttribute("data-modus", "system");
   expect(await bakgrunn(page)).toBe(LYS_BAKGRUNN);
@@ -76,7 +76,7 @@ test("lagret rosa og mørk gjelder fra første tegning og etter hydrering", asyn
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/");
   expect(await førsteTegning(page)).toEqual({ tema: "rosa", modus: "mørk" });
-  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   await expect(html(page)).toHaveAttribute("data-tema", "rosa");
   await expect(html(page)).toHaveAttribute("data-modus", "mørk");
   expect(await bakgrunn(page)).toBe(MØRK_BAKGRUNN);
@@ -86,7 +86,7 @@ test("lagret rosa og mørk gjelder fra første tegning og etter hydrering", asyn
 test("system følger et mørkt operativsystem", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   await expect(html(page)).toHaveAttribute("data-modus", "system");
   expect(await bakgrunn(page)).toBe(MØRK_BAKGRUNN);
 });
@@ -95,7 +95,7 @@ test("lys modus overstyrer et mørkt operativsystem", async ({ page }) => {
   await leggInn(page, dokumentMed({ modus: "lys" }));
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   expect(await bakgrunn(page)).toBe(LYS_BAKGRUNN);
 });
 
@@ -126,7 +126,7 @@ test("blokkert lager gir standardverdiene", async ({ page }) => {
   await noterFørsteTegning(page);
   await page.goto("/");
   expect(await førsteTegning(page)).toEqual({ tema: "blå", modus: "system" });
-  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   await expect(html(page)).toHaveAttribute("data-tema", "blå");
   await expect(html(page)).toHaveAttribute("data-modus", "system");
 });
@@ -153,7 +153,7 @@ test.describe("axe i alle temaer", () => {
       test(`${tema} / ${modus}`, async ({ page }) => {
         await leggInn(page, dokumentMed({ tema, modus }));
         for (const [rute, tittel] of [
-          ["/", "Oppgaver"],
+          ["/", /^Hei/],
           ["/innstillinger", "Innstillinger"],
         ] as const) {
           await page.goto(rute);
@@ -196,7 +196,7 @@ test("mørk modus og system med mørkt operativsystem gir like verdier", async (
 
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   await page.evaluate(() => document.documentElement.setAttribute("data-modus", "mørk"));
   const mørk = await les();
 

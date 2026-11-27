@@ -1,6 +1,6 @@
 import { useStore } from "zustand";
 import { createStore, type StoreApi } from "zustand/vanilla";
-import { dokumentSkjema, nyttDokument, type Dokument } from "@/kjerne/skjema";
+import { dokumentSkjema, nyttDokument, type Dokument, type Innstillinger } from "@/kjerne/skjema";
 import { lagring as standardLagring, type Lagring, type LesResultat } from "@/lib/storage";
 
 export type Status = "laster" | "klar" | "for-ny" | "ugyldig";
@@ -23,6 +23,10 @@ export type Tilstand = {
   /** Leser dokumentet på nytt etter at en annen fane har skrevet. */
   lastPåNytt(): void;
   slettAlleData(): void;
+  /** Lagrer fornavnet trimmet. Tomt (eller bare mellomrom) gir `profil: null`. */
+  settFornavn(fornavn: string): void;
+  /** Bytter mellom lys, mørk og «følg systemet». */
+  settModus(modus: Innstillinger["modus"]): void;
 };
 
 export type Butikk = StoreApi<Tilstand>;
@@ -68,6 +72,16 @@ export function lagButikk({ lagring }: { lagring: Lagring }): Butikk {
       }
     }
 
+    /**
+     * Dokumentet en kommando kan endre, eller `null` når den ikke skal gjøre
+     * noe: før innlasting, på feilsiden og når skrivingen er sperret.
+     */
+    function redigerbart(): Dokument | null {
+      const { status, dokument, skrivingSperret } = get();
+      if (status !== "klar" || dokument === null || skrivingSperret) return null;
+      return dokument;
+    }
+
     return {
       status: "laster",
       dokument: null,
@@ -102,6 +116,20 @@ export function lagButikk({ lagring }: { lagring: Lagring }): Butikk {
         }
         // Det nye dokumentet skrives av abonnementet.
         set({ status: "klar", dokument: nyttDokument(), rå: null });
+      },
+
+      settFornavn(fornavn) {
+        const dokument = redigerbart();
+        if (!dokument) return;
+        const trimmet = fornavn.trim();
+        if ((dokument.profil?.fornavn ?? "") === trimmet) return;
+        set({ dokument: { ...dokument, profil: trimmet === "" ? null : { fornavn: trimmet } } });
+      },
+
+      settModus(modus) {
+        const dokument = redigerbart();
+        if (!dokument || dokument.innstillinger.modus === modus) return;
+        set({ dokument: { ...dokument, innstillinger: { ...dokument.innstillinger, modus } } });
       },
     };
   });

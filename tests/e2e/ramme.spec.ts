@@ -20,7 +20,7 @@ test.describe("mobil", () => {
     test(`bunnmeny og toppfelt ved ${bredde} px`, async ({ page }) => {
       await page.setViewportSize({ width: bredde, height: 800 });
       await page.goto("/");
-      await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+      await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
 
       // Bare én meny er synlig, og den ligger nederst.
       await expect(meny(page)).toHaveCount(1);
@@ -73,7 +73,7 @@ test.describe("nettbrett og PC", () => {
     test(`sidemeny på 200 px ved ${bredde} px`, async ({ page }) => {
       await page.setViewportSize({ width: bredde, height: 800 });
       await page.goto("/");
-      await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+      await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
 
       await expect(meny(page)).toHaveCount(1);
       const boks = (await meny(page).boundingBox())!;
@@ -104,7 +104,7 @@ test.describe("nettbrett og PC", () => {
 
 test("ingen Kalender-fane, lupe eller ny oppgave-knapp", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   await expect(page.getByText("Kalender")).toHaveCount(0);
   // Next sin dev-verktøyknapp ligger i en egen shadow root utenfor appen.
   const app = page.locator("main, nav, header");
@@ -114,7 +114,7 @@ test("ingen Kalender-fane, lupe eller ny oppgave-knapp", async ({ page }) => {
 });
 
 for (const [rute, tittel] of [
-  ["/", "Oppgaver"],
+  ["/", /^Hei/],
   ["/arkiv", "Arkiv"],
   ["/innstillinger", "Innstillinger"],
 ] as const) {
@@ -126,7 +126,7 @@ for (const [rute, tittel] of [
       .evaluate((el) => getComputedStyle(el.parentElement!).backgroundImage);
     expect(glød).toContain("radial-gradient");
     // Sekundærteksten i glødsonen bruker text-on-glow.
-    const farger = await page.locator("main p").first().evaluate((el) => {
+    const farger = await page.locator("main :is(p, h2)").first().evaluate((el) => {
       const prøve = document.createElement("span");
       prøve.style.color = "var(--text-on-glow)";
       document.body.append(prøve);
@@ -142,7 +142,7 @@ for (const [rute, tittel] of [
 
 test("fokusringen er 2 px accent-ink med 2 px avstand", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Oppgaver" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
   const menylenke = page.locator("nav a:focus, header a:focus");
   for (let i = 0; i < 10 && (await menylenke.count()) === 0; i++) {
     await page.keyboard.press("Tab");
