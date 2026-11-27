@@ -6,3 +6,5 @@
 - [ ] 2026-11-27 [story-2-1-reserve-nokkelord](998-2026-11-27-19-51-32-story-2-1-reserve-nokkelord.md) — Sabrina går gjennom story 2.1
 - [ ] 2026-11-27 [story-2-1-reserve-nokkelord](998-2026-11-27-19-51-32-story-2-1-reserve-nokkelord.md) — si fra til Sabrina at `Årsak`/`Feltnavn` ligger i `kjerne/reserve.ts` og at 4.1 bør importere dem
 - [ ] 2026-11-27 [story-2-1-reserve-nokkelord](998-2026-11-27-19-51-32-story-2-1-reserve-nokkelord.md) — kjente svakheter i nøkkelordlista (bøyninger, sammensetninger, «arbeidskrav») tas med i 4.8
+- [ ] 2026-11-27 [story-5-1-planleggingscaser](997-2026-11-27-20-06-50-story-5-1-planleggingscaser.md) — gruppa går gjennom de forventede svarene i planleggingscasene og mock-svarene sammen
+- [ ] 2026-11-27 [story-5-1-planleggingscaser](997-2026-11-27-20-06-50-story-5-1-planleggingscaser.md) — juster mock-filene i `tests/ki-testsett/mock/` hvis story 4.1 låser en annen svarform
