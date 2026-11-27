@@ -150,3 +150,17 @@ Sjekk særlig:
 - At testen feiler når den skal: endre ett ord i en konstant, eller bytt om `IMPORT_DIALOG.suksess` og `feil`, og se at `npm test` blir rød og navngir stien. Sett tilbake etterpå.
 - Kjent hull: en ny «…»-tekst lagt til i KI-påminnelser eller dialoglinjene i EXPERIENCE.md oppdages ikke (utsatt i `deferred-work.md`).
 - At fjerningen av `passWithNoTests` i `vitest.config.mts` og `--pass-with-no-tests` i `package.json` er greit for spor A og B.
+
+### Gjennomgang (Stine, 2026-11-27): godkjent
+
+Gått gjennom med `bmad-walkthrough` mot commit `3dd8e21`.
+
+- `npm test` 179/179, `npm run typecheck` uten feil, `npm run lint` grønt for prosjektkoden (feilene kommer bare fra den lokale, usporede mappa `studieliste/`).
+- `npm run test:e2e`: 111 grønne og 7 hoppet over på mobil og PC. Fjerningen av `--pass-with-no-tests` er dermed verifisert.
+- Testen feiler når den skal: «30» endret til «40 dager» i `SAMTYKKETEKST.hvorLenge.tekst` og ombyttet `IMPORT_DIALOG.suksess`/`feil` ga begge rødt med riktig sti (også hashtesten ved første). Fila satt tilbake etterpå.
+- Samtykketeksten og demo-advarselen er lest mot EXPERIENCE.md og stemmer ordrett.
+
+Merknader (blokkerer ikke):
+- `"Avtale"` i `KI_PÅMINNELSER.hendelse.advarsel` har rette anførselstegn, ellers brukes «». Koden følger EXPERIENCE.md ordrett; skal det endres, må EXPERIENCE.md rettes først.
+- `epics.md` sier at `GJELDENDE_SAMTYKKEVERSJON` ligger i `samtykke.ts`; den ligger i `tekster.ts` som i arkitekturen. Del 2 skal importere den herfra.
+- Nye feltnavn i `SAMTYKKETEKST` gir ny hash og krever ny samtykkeversjon. Spor B bør vite det før feltene tas i bruk.
