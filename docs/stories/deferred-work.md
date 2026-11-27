@@ -27,3 +27,6 @@
 - source_spec: `docs/stories/spec-1-3-appen-husker-og-folger-klokka.md`
   summary: Story 1.4 (Lena) gir feilsiden, dialogen og lagringsbanneret farger, fokusring og varselfarge på *Slett alt*, og kjører axe på banner- og dialogtilstanden.
   evidence: 1.3 la bevisst ingen stil (tokens kommer i 1.4); EXPERIENCE.md krever varselfarge og synlig fokusring.
+- source_spec: `docs/stories/spec-6-4-oktgrenser-i-kjernen.md`
+  summary: Godtak (6.6) og merket «⚠ Kolliderer med <tittel>» (6.8) trenger en egen kollisjonsfunksjon som finner overlapp med hendelser og godtatte økter uavhengig av de andre FR-49-reglene, og som gir tilbake hendelsen/økta det kolliderer med.
+  evidence: `sjekkØktforslag` stopper ved første brudd og gir bare en årsakskode, så en kollisjon skjules bak f.eks. `fortid` eller `utenfor-dagtid` (manuelle økter har ingen FR-49-grenser), og tittelen til merket kan ikke fylles inn. Design Notes i spesifikasjonen for 6.4 antar feilaktig at 6.6 kan bruke `sjekkØktforslag` direkte.

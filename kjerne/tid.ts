@@ -19,3 +19,14 @@ export function lokalDato(nå: Date): string {
 export function lokaltKlokkeslett(nå: Date): string {
   return `${tosifret(nå.getHours())}:${tosifret(nå.getMinutes())}`;
 }
+
+/**
+ * Veggklokkeminutter for `dato` (`YYYY-MM-DD`) og `klokkeslett` (`HH:mm`).
+ * Regner med `Date.UTC`, så dagskifter går av seg selv og tidssonen ikke
+ * spiller inn. Bare forskjeller mellom to verdier har mening.
+ */
+export function tilMinutter(dato: string, klokkeslett: string): number {
+  const [år, måned, dag] = dato.split("-").map(Number);
+  const [timer, minutter] = klokkeslett.split(":").map(Number);
+  return Date.UTC(år, måned - 1, dag, timer, minutter) / 60_000;
+}
