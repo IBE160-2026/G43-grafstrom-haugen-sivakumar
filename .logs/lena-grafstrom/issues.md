@@ -7,6 +7,8 @@
 - [ ] 2026-11-27 [gjennomgang-story-1-2](997-2026-11-27-14-07-06-gjennomgang-story-1-2.md) — nye felt i dokumentet i egne stories krever ny `schemaVersion` og et migreringstrinn
 - [x] 2026-11-27 [gjennomgang-story-1-3](996-2026-11-27-14-12-12-gjennomgang-story-1-3.md) — 1.4: rammen inni `AppTilstand` under banneret; stil, fokusring og varselfarge på feilside/dialog/banner; axe på banner- og dialogtilstanden (løst 2026-11-27, story 1.4)
 - [x] 2026-11-27 [gjennomgang-story-1-3](996-2026-11-27-14-12-12-gjennomgang-story-1-3.md) — 1.4: temaskriptet i `<head>` leser tema/modus selv via `lib/storage/`, uten å vente på butikken (løst 2026-11-27, story 1.4)
-- [ ] 2026-11-27 [gjennomgang-story-1-3](996-2026-11-27-14-12-12-gjennomgang-story-1-3.md) — 1.8/2.8: kommandoer må lage nye objekter, ikke endre `dokument` direkte
+- [ ] 2026-11-27 [gjennomgang-story-1-3](996-2026-11-27-14-12-12-gjennomgang-story-1-3.md) — 1.8/2.8: kommandoer må lage nye objekter, ikke endre `dokument` direkte (1.8 gjort 2026-11-27; gjelder fortsatt 2.8)
 - [ ] 2026-11-27 [story-1-4-ramme-og-utseende](995-2026-11-27-14-43-47-story-1-4-ramme-og-utseende.md) — Abhira går gjennom story 1.4 før den settes til `done`
 - [ ] 2026-11-27 [story-1-4-ramme-og-utseende](995-2026-11-27-14-43-47-story-1-4-ramme-og-utseende.md) — manuelle sjekker: ingen blink med rosa + mørk lagret, Tab-fokus på mobil og PC
+- [ ] 2026-11-27 [story-1-8-fornavn-og-modus](994-2026-11-27-15-06-33-story-1-8-fornavn-og-modus.md) — Abhira går gjennom story 1.8 før den settes til `done`; endringer i 1.4 kan kreve justering av 1.8
+- [ ] 2026-11-27 [story-1-8-fornavn-og-modus](994-2026-11-27-15-06-33-story-1-8-fornavn-og-modus.md) — manuell sjekk: lagre fornavn, bytt modus og last på nytt i nettleseren
