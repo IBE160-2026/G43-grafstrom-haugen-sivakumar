@@ -29,7 +29,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 # - Retrospective appends its action items to action_items; the status view surfaces open ones
 generated: 11-26-2026 18:18
-last_updated: 11-27-2026 13:57
+last_updated: 11-27-2026 14:07
 project: G43-grafstrom-haugen-sivakumar
 project_key: NOKEY
 tracking_system: file-system
@@ -37,7 +37,7 @@ story_location: docs/stories
 development_status:
   epic-1: in-progress
   1-1-gjør-prosjektet-klart-etter-arkitekturen: done
-  1-2-lagringsformat-som-tåler-nye-versjoner: review
+  1-2-lagringsformat-som-tåler-nye-versjoner: done
   1-3-appen-husker-og-følger-klokka: review
   1-4-appens-ramme-navigasjon-og-utseende: backlog
   1-5-se-oppgavene-i-de-smarte-listene: backlog
