@@ -20,6 +20,7 @@ Starte story 5.1 med `bmad-build` og implementere den etter spesifikasjonen `doc
 - Rettet etter gjennomgangen: nattevakt i case 4 (titler av + nattevakt), eksempeløkt i case 6 flyttet til 10:30–11:30 så den ikke ligger kant i kant, `referansedato` sjekkes mot `testsett.json`, dekning av frist i morgen/i dag/godtatte økter, og mindre README-rettinger.
 - Verifisert: `npx vitest run` 257/257 grønne, `npx tsc --noEmit` og `npx eslint tests/ki-testsett` uten feil.
 - Spesifikasjonen er `done`, story 5.1 står som `review` i sprint-status. Commit `5934320`.
+- Pushet til `origin/main` (`16c2ddd..e030a90`) etter `git pull --rebase` uten nye endringer fra remote.
 
 ### Åpne punkter
 - Gruppa går gjennom de forventede svarene i planleggingscasene og mock-svarene sammen.
