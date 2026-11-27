@@ -17,6 +17,7 @@ Starte story 5.2 med `bmad-build`: rene regler for hendelser i kjernen (valideri
 - `vitest.config.mts`: `process.env.TZ = "Europe/Oslo"`, så sommertid kan testes og resultatet ikke avhenger av maskinen (AD-5).
 - Verifisert: `npx vitest run` 292/292 grønne, `npx tsc --noEmit` og `npx eslint` uten feil.
 - Spesifikasjonen er `done`, story 5.2 står som `review` i sprint-status. Commit `27f12e0`.
+- Pushet til `origin/main` (`e030a90..b6b4a87`) etter `git pull --rebase` uten nye endringer fra remote.
 
 ### Åpne punkter
 - En i gruppa går gjennom story 5.2 (status `review`).
