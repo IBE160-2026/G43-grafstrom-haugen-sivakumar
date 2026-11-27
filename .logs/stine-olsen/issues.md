@@ -10,3 +10,6 @@
 - [ ] 2026-11-27 [story-5-1-planleggingscaser](997-2026-11-27-20-06-50-story-5-1-planleggingscaser.md) — juster mock-filene i `tests/ki-testsett/mock/` hvis story 4.1 låser en annen svarform
 - [ ] 2026-11-27 [story-5-1-planleggingscaser](997-2026-11-27-20-06-50-story-5-1-planleggingscaser.md) — en i gruppa går gjennom story 5.1 (status `review`)
 - [ ] 2026-11-27 [story-5-1-planleggingscaser](997-2026-11-27-20-06-50-story-5-1-planleggingscaser.md) — si fra til Abhira at punktet om planleggingscaser i hennes `issues.md` er løst
+- [ ] 2026-11-27 [story-5-2-hendelsesregler](996-2026-11-27-20-27-00-story-5-2-hendelsesregler.md) — en i gruppa går gjennom story 5.2 (status `review`)
+- [ ] 2026-11-27 [story-5-2-hendelsesregler](996-2026-11-27-20-27-00-story-5-2-hendelsesregler.md) — si fra til gruppa at `vitest.config.mts` låser tidssonen til Europe/Oslo
+- [ ] 2026-11-27 [story-5-2-hendelsesregler](996-2026-11-27-20-27-00-story-5-2-hendelsesregler.md) — story 5.3 trimmer tittelen før lagring og legger «Slutt må være etter start» i `kjerne/tekster.ts`
