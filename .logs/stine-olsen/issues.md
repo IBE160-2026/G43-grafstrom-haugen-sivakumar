@@ -13,4 +13,5 @@
 - [ ] 2026-11-27 [story-5-2-hendelsesregler](996-2026-11-27-20-27-00-story-5-2-hendelsesregler.md) — en i gruppa går gjennom story 5.2 (status `review`)
 - [ ] 2026-11-27 [story-5-2-hendelsesregler](996-2026-11-27-20-27-00-story-5-2-hendelsesregler.md) — si fra til gruppa at `vitest.config.mts` låser tidssonen til Europe/Oslo
 - [ ] 2026-11-27 [story-5-2-hendelsesregler](996-2026-11-27-20-27-00-story-5-2-hendelsesregler.md) — story 5.3 trimmer tittelen før lagring og legger «Slutt må være etter start» i `kjerne/tekster.ts`
-- [ ] 2026-11-27 [story-6-4-oktgrenser](995-2026-11-27-20-36-59-story-6-4-oktgrenser.md) — review av story 6.4, deretter oppdatere spec-status og sprint-status
+- [ ] 2026-11-27 [story-6-4-oktgrenser](995-2026-11-27-20-36-59-story-6-4-oktgrenser.md) — en i gruppa går gjennom story 6.4 (status `review`)
+- [ ] 2026-11-27 [story-6-4-oktgrenser](995-2026-11-27-20-36-59-story-6-4-oktgrenser.md) — 6.6/6.8 lager egen kollisjonsfunksjon for «⚠ Kolliderer med <tittel>» (se `deferred-work.md`)
