@@ -1,0 +1,15 @@
+{
+  "planleggingscase": 2,
+  "svar": {
+    "felt": {
+      "etikett": "Skole",
+      "prioritet": "Middels",
+      "sammendrag": "Skrive og levere rapporten i bedriftsøkonomi innen fredag"
+    },
+    "økter": [
+      { "dato": "2026-11-02", "start": "14:00", "slutt": "16:00" },
+      { "dato": "2026-11-04", "start": "09:00", "slutt": "11:00" },
+      { "dato": "2026-11-05", "start": "10:00", "slutt": "12:00" }
+    ]
+  }
+}

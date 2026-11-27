@@ -29,7 +29,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 # - Retrospective appends its action items to action_items; the status view surfaces open ones
 generated: 11-26-2026 18:18
-last_updated: 11-27-2026 19:51
+last_updated: 11-27-2026 20:11
 project: G43-grafstrom-haugen-sivakumar
 project_key: NOKEY
 tracking_system: file-system
@@ -80,8 +80,8 @@ development_status:
   4-10-bør-bytte-ut-telefonnumre-og-e-post-før-sending: backlog
   epic-4-retrospective: optional
 
-  epic-5: backlog
-  5-1-planleggingscaser-i-ki-testsettet: backlog
+  epic-5: in-progress
+  5-1-planleggingscaser-i-ki-testsettet: review
   5-2-hendelsesregler-i-kjernen: backlog
   5-3-legge-inn-en-hendelse: backlog
   5-4-dagens-hendelser-øverst-i-i-dag: backlog

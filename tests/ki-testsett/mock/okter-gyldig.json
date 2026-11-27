@@ -1,0 +1,15 @@
+{
+  "planleggingscase": 1,
+  "svar": {
+    "felt": {
+      "etikett": "Skole",
+      "prioritet": "Høy",
+      "sammendrag": "Ferdigstille og levere programmeringsoppgaven i IBE160 innen fredag"
+    },
+    "økter": [
+      { "dato": "2026-11-02", "start": "13:00", "slutt": "15:00" },
+      { "dato": "2026-11-04", "start": "09:00", "slutt": "11:30" },
+      { "dato": "2026-11-05", "start": "14:00", "slutt": "16:00" }
+    ]
+  }
+}

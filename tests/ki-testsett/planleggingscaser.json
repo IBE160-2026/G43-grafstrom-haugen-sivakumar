@@ -1,0 +1,114 @@
+{
+  "beskrivelse": "Faste planleggingscaser for KI-øktforslagene i dueNext. Se README.md.",
+  "referansedato": "2026-11-02",
+  "forventet": "Minst én økt, og alle økter holder FR-49",
+  "caser": [
+    {
+      "id": 1,
+      "beskrivelse": "Vanlig uke med forelesning, vakt, trening og én godtatt økt fra en annen oppgave",
+      "nå": "2026-11-02T08:00",
+      "oppgave": {
+        "tekst": "Levere programmeringsoppgave i IBE160 fredag",
+        "frist": "2026-11-06"
+      },
+      "hendelser": [
+        { "tittel": "Forelesning IBE160", "dato": "2026-11-02", "start": "10:15", "slutt": "12:00", "skjulTittelForKi": false },
+        { "tittel": "Forelesning IBE160", "dato": "2026-11-03", "start": "10:15", "slutt": "12:00", "skjulTittelForKi": false },
+        { "tittel": "Vakt på Rema", "dato": "2026-11-04", "start": "16:00", "slutt": "21:00", "skjulTittelForKi": false },
+        { "tittel": "Trening", "dato": "2026-11-05", "start": "18:00", "slutt": "19:30", "skjulTittelForKi": false }
+      ],
+      "godtatteØkter": [
+        { "dato": "2026-11-03", "start": "14:00", "slutt": "16:00" }
+      ],
+      "sendHendelsestitler": true
+    },
+    {
+      "id": 2,
+      "beskrivelse": "To nattevakter 21:00–07:30 over midnatt",
+      "nå": "2026-11-02T12:00",
+      "oppgave": {
+        "tekst": "Skrive rapport i bedriftsøkonomi, leveres fredag",
+        "frist": "2026-11-06"
+      },
+      "hendelser": [
+        { "tittel": "Nattevakt", "dato": "2026-11-03", "start": "21:00", "slutt": "07:30", "skjulTittelForKi": false },
+        { "tittel": "Nattevakt", "dato": "2026-11-05", "start": "21:00", "slutt": "07:30", "skjulTittelForKi": false }
+      ],
+      "godtatteØkter": [],
+      "sendHendelsestitler": true
+    },
+    {
+      "id": 3,
+      "beskrivelse": "Legetime med 🔒 (skjulTittelForKi), KI får bare vite at hun er opptatt",
+      "nå": "2026-11-03T09:00",
+      "oppgave": {
+        "tekst": "Forberede presentasjon i markedsføring til torsdag",
+        "frist": "2026-11-05"
+      },
+      "hendelser": [
+        { "tittel": "Forelesning markedsføring", "dato": "2026-11-03", "start": "12:15", "slutt": "14:00", "skjulTittelForKi": false },
+        { "tittel": "Legetime", "dato": "2026-11-04", "start": "10:00", "slutt": "10:45", "skjulTittelForKi": true },
+        { "tittel": "Jobb", "dato": "2026-11-05", "start": "08:00", "slutt": "16:00", "skjulTittelForKi": false }
+      ],
+      "godtatteØkter": [],
+      "sendHendelsestitler": true
+    },
+    {
+      "id": 4,
+      "beskrivelse": "Hendelsestitler av: ingen titler sendes, alle tider sendes",
+      "nå": "2026-11-04T07:00",
+      "oppgave": {
+        "tekst": "Lese til midtveiseksamen i statistikk",
+        "frist": "2026-11-08"
+      },
+      "hendelser": [
+        { "tittel": "Fotballtrening", "dato": "2026-11-04", "start": "18:00", "slutt": "19:30", "skjulTittelForKi": false },
+        { "tittel": "Nattevakt", "dato": "2026-11-05", "start": "21:00", "slutt": "07:30", "skjulTittelForKi": false },
+        { "tittel": "Middag hos familien", "dato": "2026-11-06", "start": "17:00", "slutt": "21:00", "skjulTittelForKi": false },
+        { "tittel": "Fotballkamp", "dato": "2026-11-07", "start": "13:00", "slutt": "15:00", "skjulTittelForKi": false },
+        { "tittel": "Jobb", "dato": "2026-11-08", "start": "10:00", "slutt": "14:00", "skjulTittelForKi": false }
+      ],
+      "godtatteØkter": [
+        { "dato": "2026-11-05", "start": "09:00", "slutt": "11:00" }
+      ],
+      "sendHendelsestitler": false
+    },
+    {
+      "id": 5,
+      "beskrivelse": "Frist i morgen: «nå» mandag 19:00, bare korte hull igjen",
+      "nå": "2026-11-02T19:00",
+      "oppgave": {
+        "tekst": "Levere refleksjonsnotat i Canvas i morgen",
+        "frist": "2026-11-03"
+      },
+      "hendelser": [
+        { "tittel": "Trening", "dato": "2026-11-02", "start": "19:15", "slutt": "20:30", "skjulTittelForKi": false },
+        { "tittel": "Styremøte i linjeforeningen", "dato": "2026-11-02", "start": "21:15", "slutt": "22:30", "skjulTittelForKi": false },
+        { "tittel": "Forelesning", "dato": "2026-11-03", "start": "08:15", "slutt": "12:00", "skjulTittelForKi": false },
+        { "tittel": "Jobb", "dato": "2026-11-03", "start": "12:30", "slutt": "17:00", "skjulTittelForKi": false },
+        { "tittel": "Gruppemøte", "dato": "2026-11-03", "start": "17:30", "slutt": "19:00", "skjulTittelForKi": false },
+        { "tittel": "Konsert", "dato": "2026-11-03", "start": "19:45", "slutt": "23:00", "skjulTittelForKi": false }
+      ],
+      "godtatteØkter": [],
+      "sendHendelsestitler": true
+    },
+    {
+      "id": 6,
+      "beskrivelse": "Frist i dag: «nå» fredag 10:00, frist fredag",
+      "nå": "2026-11-06T10:00",
+      "oppgave": {
+        "tekst": "Sende søknad om sommerjobb i dag",
+        "frist": "2026-11-06"
+      },
+      "hendelser": [
+        { "tittel": "Forelesning", "dato": "2026-11-06", "start": "08:15", "slutt": "10:00", "skjulTittelForKi": false },
+        { "tittel": "Lunsj med venner", "dato": "2026-11-06", "start": "12:00", "slutt": "13:00", "skjulTittelForKi": false },
+        { "tittel": "Vakt", "dato": "2026-11-06", "start": "16:00", "slutt": "22:00", "skjulTittelForKi": false }
+      ],
+      "godtatteØkter": [
+        { "dato": "2026-11-06", "start": "13:00", "slutt": "14:30" }
+      ],
+      "sendHendelsestitler": true
+    }
+  ]
+}
