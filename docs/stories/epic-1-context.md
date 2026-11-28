@@ -53,3 +53,4 @@ Studenten starter dueNext lokalt, legger inn fornavn, oppretter og redigerer opp
 - 1.1 → 1.2 → 1.3 er grunnmuren; spor B (1.4), C (3.1) og D (2.1, 5.2) venter på 1.2. 1.5 trenger 1.3 og 1.4; 1.6 → 1.7; 1.8 trenger 1.3 og 1.4.
 - Feilsiden i 1.3 trenger en enkel «Slett alle data» som story 3.6 senere gjenbruker.
 - Førstegangsoppsett, samtykke og omdirigering til `/oppstart` kommer i Epic 3; Kalender-fanen i story 5.6.
+- Status 2026-11-28: 1.1–1.4 er `done`; `lib/store/` (butikk, `nå`, `useButikk`), `lib/klokke.ts`, Lenas tokens i `app/globals.css` og rammen i `components/ramme.tsx` finnes. Stines `kjerne/tid.ts` har `lokalDato`.

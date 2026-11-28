@@ -35,3 +35,6 @@
 
 - Tema-skriptet (`lib/storage/tema-skript.ts`) ser ikke på `schemaVersion`; når en migrering endrer `innstillinger`, kan eldre dokumenter gi blink i standardtema til `TemaSynk` retter det.
 - axe kjøres ikke på feilsiden, «Slette alle data?»-dialogen og lagringsbanneret i mørk modus; dagens tokens består (ca. 7,5:1), men en senere endring av `--warn` i mørk modus fanges ikke.
+- source_spec: `docs/stories/spec-1-5-se-oppgavene-i-de-smarte-listene.md`
+  summary: Kjør axe på oppgavelista i mørk modus og med «Ingen frist» lukket.
+  evidence: axe kjøres i dag bare i lys modus med blått tema; `warn` og `text-muted` på `surface-base` har annen kontrast i mørk modus.
