@@ -59,3 +59,5 @@
 - [ ] 2026-11-26 [story-1-3-butikk-og-klokke](981-2026-11-26-21-30-00-story-1-3-butikk-og-klokke.md) — Lena går gjennom story 1.3 før den settes til `done`
 - [ ] 2026-11-26 [story-1-3-butikk-og-klokke](981-2026-11-26-21-30-00-story-1-3-butikk-og-klokke.md) — si fra til Lena: rammen i 1.4 skal ligge inni `AppTilstand` under banneret, og feilside/dialog/banner trenger farger, fokusring og varselfarge på *Slett alt*
 - [ ] 2026-11-26 [story-1-3-butikk-og-klokke](981-2026-11-26-21-30-00-story-1-3-butikk-og-klokke.md) — si fra til Sabrina: `LAGRINGSBANNER` og `FEILSIDE` er lagt til i `kjerne/tekster.ts` med regler i testen hennes
+- [ ] 2026-11-28 [bytte-api-nokkel](980-2026-11-28-01-11-20-bytte-api-nokkel.md) — ny `ANTHROPIC_API_KEY` utløper i slutten av desember 2026; bekreft datoen i konsollen og bytt nøkkel før den går ut
+- [ ] 2026-11-28 [bytte-api-nokkel](980-2026-11-28-01-11-20-bytte-api-nokkel.md) — bekreft at kontoen har kreditt med en ekte KI-forespørsel i appen
