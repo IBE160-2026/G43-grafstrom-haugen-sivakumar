@@ -9,9 +9,13 @@
 - [x] 2026-11-28 [story-3-1-fastsatte-tekster](999-2026-11-26-20-57-32-story-3-1-fastsatte-tekster.md) — si fra til Lena at `kiErPå` finnes i `@/kjerne/samtykke`, så 3.3 kan starte (løst 2026-11-28)
 - [ ] 2026-11-28 [story-3-1-fastsatte-tekster](999-2026-11-26-20-57-32-story-3-1-fastsatte-tekster.md) — automatisk sjekk av at bare `kjerne/samtykke.ts` sammenligner `samtykke.svar`/`tekstversjon` (AD-12), utsatt i `deferred-work.md`
 - [ ] 2026-11-28 [gjennomgang-stine-2-1-5-1-5-2-6-4](998-2026-11-28-13-40-06-gjennomgang-stine-2-1-5-1-5-2-6-4.md) — story 4.1 (Sabrina): juster `tests/ki-testsett/mock/okter-gyldig.json` og `okter-bryter-fr49.json` hvis kontrakten låser en annen svarform
-- [ ] 2026-11-28 [gjennomgang-stine-2-1-5-1-5-2-6-4](998-2026-11-28-13-40-06-gjennomgang-stine-2-1-5-1-5-2-6-4.md) — si fra til Stine at 2.1, 5.1, 5.2 og 6.4 er godkjent, med oppfølgingspunktene under
+- [x] 2026-11-28 [gjennomgang-stine-2-1-5-1-5-2-6-4](998-2026-11-28-13-40-06-gjennomgang-stine-2-1-5-1-5-2-6-4.md) — si fra til Stine at 2.1, 5.1, 5.2 og 6.4 er godkjent, med oppfølgingspunktene under (løst 2026-11-28)
 - [ ] 2026-11-28 [gjennomgang-stine-2-1-5-1-5-2-6-4](998-2026-11-28-13-40-06-gjennomgang-stine-2-1-5-1-5-2-6-4.md) — 2.1 (Stine): et kall som bare gjelder økter, gir forslag ved `ok` med felt i `forkastet` (`kjerne/reserve.ts:272–274`); test og filter, eller garanti i 4.1
 - [ ] 2026-11-28 [gjennomgang-stine-2-1-5-1-5-2-6-4](998-2026-11-28-13-40-06-gjennomgang-stine-2-1-5-1-5-2-6-4.md) — 2.1 (Stine): testen «treffer bøyde ord» (`tests/kjerne/reserve.test.ts:47`) bruker «Husleia», som ikke treffer
 - [ ] 2026-11-28 [gjennomgang-stine-2-1-5-1-5-2-6-4](998-2026-11-28-13-40-06-gjennomgang-stine-2-1-5-1-5-2-6-4.md) — 5.1 (Stine): `caseSkjema` godtar en case uten hendelser; vurder `.min(1)`
 - [ ] 2026-11-28 [gjennomgang-stine-2-1-5-1-5-2-6-4](998-2026-11-28-13-40-06-gjennomgang-stine-2-1-5-1-5-2-6-4.md) — 5.1: gruppa går gjennom de forventede svarene i planleggingscasene sammen
 - [ ] 2026-11-28 [gjennomgang-stine-2-1-5-1-5-2-6-4](998-2026-11-28-13-40-06-gjennomgang-stine-2-1-5-1-5-2-6-4.md) — 6.6: bruk en egen kollisjonsfunksjon (`deferred-work.md`), ikke `sjekkØktforslag` som Design Notes i spec 6.4 sier
+- [ ] 2026-11-28 [crlf-i-tekstsjekken](997-2026-11-28-13-58-57-crlf-i-tekstsjekken.md) — si fra til Abhira at CRLF-feilen i `tekster.test.ts` er rettet (`2f28687`), så hun kan lukke punktet og bekrefte på Windows
+- [ ] 2026-11-28 [crlf-i-tekstsjekken](997-2026-11-28-13-58-57-crlf-i-tekstsjekken.md) — avtal med gruppa om `.gitattributes` med `*.md text eol=lf`
+- [ ] 2026-11-28 [crlf-i-tekstsjekken](997-2026-11-28-13-58-57-crlf-i-tekstsjekken.md) — si fra til Abhira at 4.5 trenger story 1.7 (helst ferdig ca. 4.–5.12)
+- [ ] 2026-11-28 [crlf-i-tekstsjekken](997-2026-11-28-13-58-57-crlf-i-tekstsjekken.md) — lag `.env.local` med `ANTHROPIC_API_KEY` før 4.3 og 4.8
