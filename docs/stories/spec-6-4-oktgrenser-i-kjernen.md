@@ -134,3 +134,16 @@ context:
 - `kjerne/okter.ts` eksporterer også `Øktårsak`, `Kontrollårsak`, `Øktkontekst`, `Sjekkresultat`, `Kontrollresultat<T>` og `MAKS_ØKTER = 5`. `frist` er `string` (forslag gjelder bare oppgaver med frist).
 - Samme intervallhjelper (+1440 når slutt < start) brukes for hendelser og godtatte økter, så en manuell økt over midnatt også regnes riktig ved overlapp.
 - `kontrollerØktforslag` er generisk (`T extends Pick<ØktForslag, "dato" | "start" | "slutt">`) og gir samme objekter tilbake; `forkastet` står i rekkefølgen fra svaret.
+
+## Gjennomgang (Sabrina, 2026-11-28): godkjent
+
+Gått gjennom med `bmad-walkthrough` mot commit `5fbd0fd`.
+
+- `tests/kjerne/okter.test.ts` og `tid.test.ts` 42/42, `npm test` 375/375, og `npx eslint kjerne tests/kjerne` og `npx tsc --noEmit` uten feil.
+- Alle akseptansekriteriene i epics.md og specen er oppfylt. Alle 20 radene i tabellen over tilfeller er testet. Ingen `Date.now(` eller `new Date()` i `kjerne/okter.ts`. Importene er bare `./hendelser`, `./skjema` og `./tid`.
+- I gjennomgangen av 5.1 ble eksempeløktene og mock-svarene også kjørt gjennom `sjekkØktforslag` for seg, med samme resultat som testene.
+
+Merknader (blokkerer ikke):
+- **a:** Design Notes sier at 6.6 bruker `sjekkØktforslag` ved godtak for merket «⚠ Kolliderer med». Triagen (rad 6) og punktet i `docs/stories/deferred-work.md` sier det motsatte: kontrollen stopper ved første brudd og gir ikke tilbake hva økta kolliderer med, så 6.6/6.8 trenger en egen kollisjonsfunksjon. Den som bygger 6.6, skal følge `deferred-work.md`, ikke Design Notes. (Stine / den som tar 6.6)
+- **b:** «Mer enn 5 forslag gir bare de 5 første» er tolket som de 5 første *gyldige* (Decisions). Det stemmer med «1–5 økter per oppgave» i FR-49.
+- **c:** en hendelse som slutter kl. 00:00, sperrer 07:00–08:00 morgenen etter (FR-45, avvist i triagen, rad 8). Natta sommertiden skifter, kan 8-timersvinduet bli én time feil (godtatt i Design Notes).

@@ -109,3 +109,14 @@ context:
 - `npx tsc --noEmit` og `npx eslint kjerne tests/kjerne` -- expected: ingen feil
 
 ## Implementation Notes
+
+## Gjennomgang (Sabrina, 2026-11-28): godkjent
+
+Gått gjennom med `bmad-walkthrough` mot commit `27f12e0`. Story 1.5 og 6.4 har senere bare lagt nye funksjoner til i `kjerne/tid.ts`.
+
+- `tests/kjerne/hendelser.test.ts` og `tid.test.ts` 38/38, `npm test` 375/375, og `npx eslint kjerne tests/kjerne` og `npx tsc --noEmit` uten feil.
+- Alle akseptansekriteriene i epics.md og specen er oppfylt. Ingen `Date.now(` eller `new Date()` i `kjerne/`. Importene er bare `./skjema` og `./tid`. Tankestreken i `visTid` er det samme tegnet som i FR-45.
+
+Merknader (blokkerer ikke):
+- **a:** natta klokka stilles tilbake til vintertid, vises en hendelse som slutter mellom 02:00 og 03:00, igjen i «I dag» til den lokale sluttiden kommer for andre gang. Bekreftet ved kjøring: en vakt 2026-10-24 21:00–02:30 er borte kl. 02:30 sommertid, er med igjen kl. 02:00 vintertid og er borte kl. 02:30 vintertid. Dette bryter ikke akseptansekriteriene. «Over» er definert som lokal veggklokke på minuttnivå, og den natta er en lokal sluttid som 02:30 tvetydig. Avvist av Stine i Review Triage Log (rad 2), og jeg er enig.
+- **b:** `## Implementation Notes` er tom og står etter Verification. Ingen følger for koden.

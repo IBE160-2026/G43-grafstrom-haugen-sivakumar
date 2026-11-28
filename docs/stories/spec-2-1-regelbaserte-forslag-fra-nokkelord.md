@@ -113,3 +113,17 @@ context:
 - `npm test` -- expected: alle grønne, resultatet for testsettet skrives ut
 - `npm run lint` -- expected: ingen feil (se bort fra den lokale `studieliste/`)
 - `npm run typecheck` -- expected: ingen feil
+
+## Gjennomgang (Sabrina, 2026-11-28): godkjent
+
+Gått gjennom med `bmad-walkthrough` mot commit `777156d`.
+
+- `npm test` 375/375 (50 i `tests/kjerne/reserve.test.ts`), `npm run lint` og `npm run typecheck` uten feil.
+- Nøkkelordlista i `kjerne/reserve.ts` er lik lista i Decisions, og ordene finnes ikke i annen kode. `reserve.ts` importerer bare typer og har ingen klokke eller tilfeldighet.
+- `npx vitest run tests/kjerne/reserve.test.ts --silent=false` gir 19 av 20 etiketter og 15 av 20 prioriteringer, med de samme bommene som i README.
+- Alle akseptansekriteriene i epics.md er oppfylt for alle data appen kan få i dag.
+
+Oppfølging til Stine (blokkerer ikke):
+- **3a:** et kall som bare gjelder økter, gir likevel etikett eller prioritet hvis `ok`-svaret har feltet i `forkastet` (`kjerne/reserve.ts:272–274`, bekreftet ved kjøring). AD-8 sier at slike kall aldri gir forslag. Det kan bare skje hvis serveren legger felt i `forkastet` som kallet ikke ba om, så det avgjøres av kontrakten i 4.1. Kombinasjonen «bare økter × `ok`» har ingen test. Forslag: legg til en test, og enten filtrer `forkastet` mot `ønsker.felt` i `reserve()` eller la 4.1 garantere at `forkastet` bare har felt kallet ba om.
+- **3b:** testen «treffer bøyde ord» (`tests/kjerne/reserve.test.ts:47`) bruker «Betale Husleia», men bare «betale» treffer. «Husleia» alene gir ingen etikett (kjent svakhet). Bytt til et bøyd ord som virkelig treffer, for eksempel «husleien».
+- Merknader: Vitest skjuler bomlista i en vanlig `npm test` (vises med `--silent=false`). «Skifte dekk» → Jobb er et nytt eksempel på falskt treff fra ordstart som kan noteres til 4.8.

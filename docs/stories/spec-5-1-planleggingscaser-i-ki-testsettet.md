@@ -112,3 +112,16 @@ context:
 - `npx tsc --noEmit` -- expected: ingen typefeil
 
 ## Implementation Notes
+
+## Gjennomgang (Sabrina, 2026-11-28): godkjent
+
+Gått gjennom med `bmad-walkthrough` mot commit `5934320`.
+
+- `npx vitest run tests/ki-testsett` 28/28, `npm test` 375/375, og `npm run lint` og `npm run typecheck` uten feil.
+- Alle akseptansekriteriene i epics.md er oppfylt: 6 caser, nattevakt over midnatt (case 2 og 4), 🔒 (case 3), titler av (case 4), README med format og forventet resultat, ett gyldig mock-svar og ett med én økt som bryter FR-49, og det åpne punktet om gjennomgang i gruppa er ført i Stines `issues.md`.
+- Kontrollert mot `sjekkØktforslag` fra story 6.4 med en midlertidig testfil: alle seks eksempeløktene i README godtas, `okter-gyldig.json` gir 3/3 godtatt, og `okter-bryter-fr49.json` gir nøyaktig onsdagsøkta forkastet med `etter-nattevakt`. Håndkontrollen i README stemmer. Det er nå også låst i `tests/kjerne/okter.test.ts`.
+
+Oppfølging (blokkerer ikke):
+- **a:** `caseSkjema` i `planleggingscaser.test.ts` godtar en case uten hendelser (`z.array(hendelse)`), men kriteriet sier «hver med … hendelser». Alle casene har 2–6 hendelser i dag. Forslag: `.min(1)`. (Stine)
+- **b:** mock-formen er foreløpig. Låser kontrakten i story 4.1 (Sabrina, spor C) en annen svarform, må `tests/ki-testsett/mock/okter-gyldig.json` og `okter-bryter-fr49.json` justeres. Notert på 4.1 i sprint-status.
+- **c:** gruppa har ennå ikke gått gjennom de forventede svarene sammen (åpent punkt i Stines `issues.md`). Kontrollen mot 6.4 over kan brukes som grunnlag.
