@@ -18,6 +18,7 @@ Bygge story 3.2 «Personvernerklæring ett klikk unna» (spor B): siden `/person
 - Gjennomgang: 20 funn i specens Review Triage Log; 5 rettet (bruker `LAGRING`, formålet tar med ny tid ved kollisjon, skarpere tekstsjekker, testen for at lenken står sist), 4 utsatt i `docs/stories/deferred-work.md`, resten avvist.
 - Verifisert: lint, typecheck og build uten feil; `npx playwright test --workers=1` 150 bestått, 16 hoppet over med vilje; `npm test` 346/347 (kjent CRLF-feil i `tekster.test.ts`). Vitest kjører nå på denne maskinen.
 - Commit `3c8f1b5`. Story 3.2 står på `review` i sprint-status.
+- Pushet til GitHub (`8e8f915..630bb37`): story 3.2, loggen og logglinja fra gjennomgangen av 1.5.
 - Måtte stoppe dev-serveren fra tidligere i økta fordi Playwright starter sin egen.
 
 ### Åpne punkter
