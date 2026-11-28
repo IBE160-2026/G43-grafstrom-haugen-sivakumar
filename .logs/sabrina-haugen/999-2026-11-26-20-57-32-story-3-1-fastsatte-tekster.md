@@ -28,3 +28,26 @@ Finne ut hva spor C (KI) kan gjøre før grunnmuren er ferdig, og deretter bygge
 - Si fra til Lena at commiten endrer én linje i `package.json` og én i `vitest.config.mts`, som hun går gjennom i story 1.1.
 - Kjør `npx playwright install chromium` og deretter `npm run test:e2e`, for å bekrefte at e2e går uten `--pass-with-no-tests`.
 - Tekstsjekken oppdager ikke en ny «…»-tekst lagt til i KI-påminnelser, Innhold i Personvern og data eller dialoglinjene i EXPERIENCE.md (utsatt).
+
+## 2026-11-28 kl. 13:11 — Sabrina Haugen
+
+### Oppgave
+Fullføre story 3.1 med del 2, `kjerne/samtykke.ts` med `kiErPå` og `kanSendes`, slik at Lena kan starte story 3.3. Først skulle det sjekkes at Abhiras story 1.2 er ferdig og at avhengighetene er på plass.
+
+### Plan
+- Sjekket at 1.2 er `done` (godkjent av Lena 2026-11-27, commit `27682eb`), og at `Dokument`, `Oppgave.skjultForKi`, `samtykke` og `GJELDENDE_SAMTYKKEVERSJON` finnes. Ingen skjemaendring eller migrering trengs.
+- `bmad-build`: specen [spec-3-1-samtykke-i-kjernen.md](../../docs/stories/spec-3-1-samtykke-i-kjernen.md), godkjent av Sabrina med tre beslutninger: versjonen blir i `tekster.ts` og eksporteres videre, parameterne er smale (`Pick`), og `kanSendes` sjekker bare samtykke og 🔒.
+- Implementering, så gjennomgang med tre lag (blind, kanttilfeller, verifiseringshull), så `bmad-walkthrough` med Sabrina, som godkjente.
+
+### Resultat
+- `kjerne/samtykke.ts`: `kiErPå` er sann bare ved «ja» og akkurat gjeldende tekstversjon (`===`). `kanSendes` er `kiErPå(dokument) && !oppgave.skjultForKi`. `GJELDENDE_SAMTYKKEVERSJON` eksporteres videre fra `tekster.ts`.
+- `tests/kjerne/samtykke.test.ts`: 14 tester, som dekker alle 8 radene i specens tabell.
+- Gjennomgangen ga 13 funn: 2 rettet (doc-kommentar, merknad i `deferred-work.md`), 1 utsatt (automatisk sjekk av AD-12), 10 avvist. Begrunnelsene står i specens Review Triage Log.
+- `npm test` 375/375, `npm run lint` og `npm run typecheck` er grønne. Ingen e2e kjørt, fordi endringen ikke berører UI.
+- Commit `0c99473`. Specen er `done`, og story 3.1 står som `review` i sprint-status. Story 3.3 og `product-brief.md` er ikke endret. Ikke pushet.
+- Lukket punktene om å bygge `samtykke.ts`, Stines gjennomgang av del 1 og e2e uten `--pass-with-no-tests`. De to siste ble løst av Stine 2026-11-27 (111 grønne e2e).
+
+### Åpne punkter
+- Story 3.1 del 2 trenger gjennomgang av en annen i gruppa før den settes til `done`.
+- Si fra til Lena at `kiErPå` finnes i `@/kjerne/samtykke`, så 3.3 kan starte. Linjen for 3.3 i sprint-status sier fortsatt «venter på kiErPå», og den oppdaterer hun selv.
+- Automatisk sjekk av at bare `kjerne/samtykke.ts` sammenligner `samtykke.svar` og `tekstversjon` (AD-12), utsatt i `deferred-work.md`.
