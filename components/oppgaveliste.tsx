@@ -27,8 +27,11 @@ export function Oppgaveliste() {
     return <p className="mt-1 text-text-on-glow">Skriv inn det første du må huske.</p>;
   }
 
+  // Overgangen (`before:`) fyller mellomrommet over flaten og toner gløden ut
+  // mot `surface-base`, så kanten ikke synes. Den ligger over den første
+  // overskriften, så overskrifter og kort står alltid på opak flate.
   return (
-    <div className="-mx-margin-mobile mt-6 bg-surface-base px-margin-mobile pt-4 pb-2 md:-mx-margin-desktop md:px-margin-desktop">
+    <div className="relative -mx-margin-mobile mt-6 bg-surface-base px-margin-mobile pt-4 pb-2 before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-6 before:bg-linear-to-b before:from-transparent before:to-surface-base md:-mx-margin-desktop md:px-margin-desktop">
       {lister
         .filter((l) => l.antall > 0 || l.liste === "I dag")
         .map((l) =>

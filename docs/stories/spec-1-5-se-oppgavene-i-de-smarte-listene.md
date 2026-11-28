@@ -80,7 +80,7 @@ API for senere stories: `Listeelement` er en union `{ type: "oppgave", oppgave }
 - `kjerne/tid.ts` har fått `dagnummer(dato)` (via `tilMinutter(dato, "00:00") / 1440`) og `ukedag(dato)` (mandag = 0), bare tillegg.
 - `sammenlignOppgaver` legger oppgaver uten frist sist, sammenligner `createdAt` med `Date.parse` (tåler ulik presisjon i ISO-strengene) og bruker `id` som siste skille.
 - `components/ikoner.tsx` har fått `LåsIkon` og `PilNedIkon`.
-- Lista ligger i en beholder med `bg-surface-base` som går kant til kant (negativ marg) under hilsenen. Den gir en synlig kant der gløden kuttes; vurder i gjennomgangen om den skal mykes opp.
+- Lista ligger i en beholder med `bg-surface-base` som går kant til kant (negativ marg) under hilsenen. Kanten der gløden kuttes er myket opp i Lenas gjennomgang (2026-11-28): en overgang på 24 px (`before:`) i mellomrommet over flaten, fra gjennomsiktig til `surface-base`, så overskrifter og kort fortsatt står på opak flate.
 - `tests/e2e/forside.spec.ts` sjekket plassholderteksten og sjekker nå «Skriv inn det første du må huske.».
 - AD-1-søket er automatisert i `tests/kjerne/smarte-lister.test.ts` (kildesøk etter `Date.now`, `new Date()`, `window`, `Intl` og imports).
 
