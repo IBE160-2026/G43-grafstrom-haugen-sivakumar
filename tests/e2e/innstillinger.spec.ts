@@ -44,13 +44,13 @@ async function ingenAxeBrudd(page: Page) {
   expect(axe.violations).toEqual([]);
 }
 
-test("seksjonene står i rekkefølgen Profil, Utseende, Om appen", async ({ page }) => {
+test("seksjonene står i rekkefølgen Profil, Utseende, Prosjekter, Om appen", async ({ page }) => {
   await åpneInnstillinger(page);
-  await expect(page.locator("main h2")).toHaveText(["Profil", "Utseende", "Om appen"]);
-  await expect(page.locator("main section")).toHaveCount(3);
+  await expect(page.locator("main section > h2")).toHaveText(["Profil", "Utseende", "Prosjekter", "Om appen"]);
+  await expect(page.locator("main section")).toHaveCount(4);
   await expect(page.getByText(`Versjon ${pakke.version} · Gruppe 43, IBE160`)).toBeVisible();
   await expect(page.getByText("Bare for hilsenen. Lagres på denne enheten.")).toBeVisible();
-  for (const navn of ["Prosjekter", "Tema", "Personvern og data"]) {
+  for (const navn of ["Tema", "Personvern og data"]) {
     await expect(page.getByRole("heading", { name: navn, exact: true })).toHaveCount(0);
   }
 });
@@ -363,4 +363,92 @@ test("Rosa gjelder straks, har ring og hake, er lagret og gjelder fra første te
   await tema(page, "Grønn").click();
   await tilOppgaver(page);
   await expect(html(page)).toHaveAttribute("data-tema", "grønn");
+});
+
+function oppgaveMed(id: string, prosjekt: string | null, fullført: string | null = null) {
+  return {
+    id,
+    tekst: `Oppgave ${id}`,
+    frist: null,
+    prosjekt,
+    etikett: null,
+    prioritet: "Middels" as const,
+    sammendrag: null,
+    notater: null,
+    skjultForKi: false,
+    createdAt: "2026-11-01T10:00:00.000Z",
+    fullført,
+    forslag: null,
+    ventendeKall: null,
+  };
+}
+
+const prosjekter = (page: Page) =>
+  page.locator("section", { has: page.getByRole("heading", { level: 2, name: "Prosjekter" }) });
+
+test("uten prosjekter står tomteksten", async ({ page }) => {
+  await åpneInnstillinger(page);
+  await expect(prosjekter(page).getByText("Prosjekter dukker opp her når du skriver dem på en oppgave.")).toBeVisible();
+  await expect(prosjekter(page).getByRole("listitem")).toHaveCount(0);
+});
+
+test("prosjektlista viser brukte navn sortert, uten faste etiketter, og sletting spør først", async ({ page }) => {
+  await leggInnÉnGang(page, {
+    ...nyttDokument(),
+    oppgaver: [
+      oppgaveMed("a", "IBE160"),
+      oppgaveMed("b", "IBE160", "2026-11-02T10:00:00.000Z"),
+      oppgaveMed("c", "Øving"),
+      oppgaveMed("d", "Skole"),
+      oppgaveMed("e", null),
+    ],
+  });
+  await åpneInnstillinger(page);
+  await expect(prosjekter(page).getByRole("listitem")).toHaveText(["IBE160", "Øving"]);
+  await ingenAxeBrudd(page);
+
+  const søppel = prosjekter(page).getByRole("button", { name: "Slett IBE160" });
+  const boks = (await søppel.boundingBox())!;
+  expect(boks.width).toBeGreaterThanOrEqual(44);
+  expect(boks.height).toBeGreaterThanOrEqual(44);
+
+  // Avbryt endrer ingenting, og fokus står på Avbryt når dialogen åpnes.
+  await søppel.click();
+  const dialog = page.getByRole("dialog", { name: "Er du sikker?" });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByText("Prosjektet «IBE160» fjernes fra 2 oppgaver. Oppgavene beholdes.")).toBeVisible();
+  await expect(dialog.getByRole("button", { name: "Avbryt" })).toBeFocused();
+  await ingenAxeBrudd(page);
+  await dialog.getByRole("button", { name: "Avbryt" }).click();
+  await expect(dialog).toBeHidden();
+  expect((await lagret(page))?.oppgaver.map((o) => o.prosjekt)).toEqual(["IBE160", "IBE160", "Øving", "Skole", null]);
+
+  // Esc lukker også uten å slette.
+  await søppel.click();
+  await expect(dialog).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(dialog).toBeHidden();
+  await expect(prosjekter(page).getByRole("listitem")).toHaveCount(2);
+
+  // Entall for ett prosjekt på én oppgave, og Slett fjerner navnet.
+  await prosjekter(page).getByRole("button", { name: "Slett Øving" }).click();
+  await expect(dialog.getByText("Prosjektet «Øving» fjernes fra 1 oppgave. Oppgavene beholdes.")).toBeVisible();
+  await dialog.getByRole("button", { name: "Slett" }).click();
+  await expect(dialog).toBeHidden();
+  await expect(prosjekter(page).getByRole("listitem")).toHaveText(["IBE160"]);
+  // Raden med fokus forsvant, så fokus står på naboens søppelbøtte.
+  await expect(prosjekter(page).getByRole("button", { name: "Slett IBE160" })).toBeFocused();
+  const etter = await lagret(page);
+  expect(etter?.oppgaver.map((o) => o.prosjekt)).toEqual(["IBE160", "IBE160", null, "Skole", null]);
+  expect(etter?.oppgaver).toHaveLength(5);
+});
+
+test("sletter hun det siste prosjektet, får lista fokus og tomteksten vises", async ({ page }) => {
+  await leggInnÉnGang(page, { ...nyttDokument(), oppgaver: [oppgaveMed("a", "IBE160")] });
+  await åpneInnstillinger(page);
+  await prosjekter(page).getByRole("button", { name: "Slett IBE160" }).click();
+  await page.getByRole("dialog", { name: "Er du sikker?" }).getByRole("button", { name: "Slett" }).click();
+  const tom = prosjekter(page).getByText("Prosjekter dukker opp her når du skriver dem på en oppgave.");
+  await expect(tom).toBeVisible();
+  await expect(tom.locator("..")).toBeFocused();
 });

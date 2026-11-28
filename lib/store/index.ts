@@ -1,6 +1,7 @@
 import { useStore } from "zustand";
 import { createStore, type StoreApi } from "zustand/vanilla";
 import { dokumentSkjema, nyttDokument, type Dokument, type Innstillinger } from "@/kjerne/skjema";
+import { erFastEtikett } from "@/kjerne/prosjekter";
 import { lagring as standardLagring, type Lagring, type LesResultat } from "@/lib/storage";
 
 export type Status = "laster" | "klar" | "for-ny" | "ugyldig";
@@ -29,6 +30,8 @@ export type Tilstand = {
   settModus(modus: Innstillinger["modus"]): void;
   /** Bytter fargetema (2.8). */
   settTema(tema: Innstillinger["tema"]): void;
+  /** Fjerner prosjektnavnet fra alle oppgaver som har akkurat det navnet (2.7). */
+  slettProsjekt(navn: string): void;
 };
 
 export type Butikk = StoreApi<Tilstand>;
@@ -138,6 +141,19 @@ export function lagButikk({ lagring }: { lagring: Lagring }): Butikk {
         const dokument = redigerbart();
         if (!dokument || dokument.innstillinger.tema === tema) return;
         set({ dokument: { ...dokument, innstillinger: { ...dokument.innstillinger, tema } } });
+      },
+
+      slettProsjekt(navn) {
+        const dokument = redigerbart();
+        // Skole, Jobb og Privat er faste etiketter og kan ikke slettes (FR-61).
+        if (!dokument || erFastEtikett(navn)) return;
+        if (!dokument.oppgaver.some((o) => o.prosjekt === navn)) return;
+        set({
+          dokument: {
+            ...dokument,
+            oppgaver: dokument.oppgaver.map((o) => (o.prosjekt === navn ? { ...o, prosjekt: null } : o)),
+          },
+        });
       },
     };
   });

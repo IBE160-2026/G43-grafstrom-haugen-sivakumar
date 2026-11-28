@@ -1,7 +1,8 @@
 "use client";
 
-import { useId, useState, type FormEvent, type ReactNode } from "react";
-import { HakeIkon } from "@/components/ikoner";
+import { useEffect, useId, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { HakeIkon, SøppelbøtteIkon } from "@/components/ikoner";
+import { antallMedProsjekt, prosjektnavn } from "@/kjerne/prosjekter";
 import { innstillingerSkjema, type Innstillinger as InnstillingerData } from "@/kjerne/skjema";
 import { butikk, useButikk } from "@/lib/store";
 
@@ -179,7 +180,123 @@ function Temavelger() {
   );
 }
 
-/** Innstillinger: Profil, Utseende og Om appen. */
+const KNAPP = "min-h-11 rounded-full px-5 text-body font-medium";
+/** button-secondary og button-danger, som i dialogen på feilsiden. */
+const SEKUNDÆR = `${KNAPP} border border-border-input bg-surface-raised text-text-primary`;
+const FARE = `${KNAPP} bg-warn text-surface-raised`;
+
+/**
+ * Prosjektnavnene som er brukt på oppgaver (FR-61), regnet ut av kjernen og
+ * aldri lagret. Søppelbøtta spør «Er du sikker?» før navnet fjernes fra alle
+ * oppgavene. Skole, Jobb og Privat er faste etiketter og vises ikke.
+ */
+function Prosjekter() {
+  const oppgaver = useButikk((s) => s.dokument?.oppgaver ?? null);
+  const navn = useMemo(() => (oppgaver ? prosjektnavn(oppgaver) : []), [oppgaver]);
+  const [valgt, settValgt] = useState<string | null>(null);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const avbryt = useRef<HTMLButtonElement>(null);
+  const tittel = useId();
+
+  useEffect(() => {
+    if (valgt === null || dialog.current?.open) return;
+    dialog.current?.showModal();
+    avbryt.current?.focus();
+  }, [valgt]);
+
+  // Raden som hadde fokus forsvinner ved sletting. Fokus flyttes da til
+  // søppelbøtta på naborada, eller til lista når den blir tom.
+  const liste = useRef<HTMLDivElement>(null);
+  const fokusEtter = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (fokusEtter.current === null) return;
+    const mål = fokusEtter.current;
+    fokusEtter.current = null;
+    const knapp = [...(liste.current?.querySelectorAll("button") ?? [])].find(
+      (k) => k.getAttribute("aria-label") === `Slett ${mål}`,
+    );
+    (knapp ?? liste.current)?.focus();
+  }, [navn]);
+
+  function slett() {
+    if (valgt !== null) {
+      const i = navn.indexOf(valgt);
+      const før = butikk.getState().dokument;
+      butikk.getState().slettProsjekt(valgt);
+      // Med sperret skriving endres ingenting, og fokus går tilbake til søppelbøtta.
+      if (butikk.getState().dokument !== før) {
+        fokusEtter.current = navn[i + 1] ?? navn[i - 1] ?? "";
+      }
+    }
+    dialog.current?.close();
+  }
+
+  const antall = valgt !== null && oppgaver ? antallMedProsjekt(oppgaver, valgt) : 0;
+
+  return (
+    <>
+      <div ref={liste} tabIndex={-1}>
+        {navn.length === 0 ? (
+          <p className="text-body text-text-muted">
+            Prosjekter dukker opp her når du skriver dem på en oppgave.
+          </p>
+        ) : (
+          <ul className="-my-1">
+            {navn.map((prosjekt) => (
+              <li
+                key={prosjekt}
+                className="flex min-h-11 items-center gap-3 border-b border-border-hairline last:border-b-0"
+              >
+                <span className="min-w-0 flex-1 text-body break-words text-text-primary">
+                  {prosjekt}
+                </span>
+                <button
+                  type="button"
+                  aria-label={`Slett ${prosjekt}`}
+                  onClick={() => settValgt(prosjekt)}
+                  className="-mr-2.5 flex size-11 shrink-0 items-center justify-center rounded-full text-text-muted hover:text-text-primary"
+                >
+                  <SøppelbøtteIkon className="size-5" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <dialog
+        ref={dialog}
+        aria-labelledby={tittel}
+        onClose={() => settValgt(null)}
+        className="m-auto w-[calc(100%-2*var(--margin-mobile))] max-w-md rounded-xl bg-surface-raised p-6 text-text-primary shadow-dialog backdrop:bg-black/50"
+      >
+        <h2 id={tittel} className="text-title">
+          Er du sikker?
+        </h2>
+        <p className="mt-2">
+          Prosjektet «{valgt}» fjernes fra {antall} {antall === 1 ? "oppgave" : "oppgaver"}.
+          Oppgavene beholdes.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-end gap-3">
+          <button
+            ref={avbryt}
+            type="button"
+            className={SEKUNDÆR}
+            onClick={() => dialog.current?.close()}
+          >
+            Avbryt
+          </button>
+          <button type="button" className={FARE} onClick={slett}>
+            Slett
+          </button>
+        </div>
+      </dialog>
+    </>
+  );
+}
+
+/** Innstillinger: Profil, Utseende, Prosjekter og Om appen. */
 export function Innstillinger({ versjon }: { versjon: string }) {
   return (
     <>
@@ -191,6 +308,9 @@ export function Innstillinger({ versjon }: { versjon: string }) {
         <Seksjon tittel="Utseende">
           <Modusvelger />
           <Temavelger />
+        </Seksjon>
+        <Seksjon tittel="Prosjekter">
+          <Prosjekter />
         </Seksjon>
         <Seksjon tittel="Om appen">
           <p className="text-body text-text-primary">Versjon {versjon} · Gruppe 43, IBE160</p>

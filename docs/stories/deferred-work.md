@@ -50,3 +50,6 @@
 - source_spec: `docs/stories/spec-3-2-personvernerklaering-ett-klikk-unna.md`
   summary: Sjekk kontrasten på personvernlenken på mobil med en egen test (farge mot --surface-base, lys og mørk).
   evidence: Lenken ligger i .glod-kolonnen med gradient som bakgrunn, så axe legger den under incomplete, ikke violations.
+- source_spec: `docs/stories/spec-2-7-prosjekter-i-innstillinger.md`
+  summary: Lag en felles bekreftelsesdialog («Er du sikker?») og felles knappestiler når story 2.4 trenger den tredje.
+  evidence: `components/feilside.tsx` og `components/innstillinger.tsx` har hver sin kopi av `<dialog>`-oppsettet og `SEKUNDÆR`/`FARE`.

@@ -336,3 +336,63 @@ describe("settTema", () => {
     expect(s.skrivinger).toEqual([]);
   });
 });
+
+describe("slettProsjekt", () => {
+  function medProsjekter(): Dokument {
+    const [mal] = fulltDokument().oppgaver;
+    return {
+      ...nyttDokument(),
+      oppgaver: [
+        { ...mal, id: "a", prosjekt: "IBE160", ventendeKall: null },
+        { ...mal, id: "b", prosjekt: "IBE160", ventendeKall: null, fullført: mal.createdAt },
+        { ...mal, id: "c", prosjekt: "Jobbsøknad", ventendeKall: null },
+      ],
+    };
+  }
+
+  it("setter prosjekt til null på alle oppgaver med navnet, med nye objekter", () => {
+    const { s, butikk } = oppsett({ [LAGRINGSNØKKEL]: JSON.stringify(medProsjekter()) });
+    butikk.getState().lastInn();
+    const før = butikk.getState().dokument!;
+    butikk.getState().slettProsjekt("IBE160");
+    const etter = butikk.getState().dokument!;
+    expect(etter.oppgaver.map((o) => o.prosjekt)).toEqual([null, null, "Jobbsøknad"]);
+    expect(etter).not.toBe(før);
+    expect(etter.oppgaver[0]).not.toBe(før.oppgaver[0]);
+    expect(etter.oppgaver[2]).toBe(før.oppgaver[2]);
+    expect(før.oppgaver[0].prosjekt).toBe("IBE160");
+    expect(JSON.parse(s.data.get(LAGRINGSNØKKEL)!).oppgaver[0].prosjekt).toBeNull();
+  });
+
+  it("ukjent navn skriver ingenting", () => {
+    const { s, butikk } = oppsett({ [LAGRINGSNØKKEL]: JSON.stringify(medProsjekter()) });
+    butikk.getState().lastInn();
+    butikk.getState().slettProsjekt("Finnes ikke");
+    expect(s.skrivinger).toEqual([]);
+  });
+});
+
+describe("slettProsjekt med faste etiketter og sperret skriving", () => {
+  it("Skole, Jobb og Privat kan ikke slettes", () => {
+    const [mal] = fulltDokument().oppgaver;
+    const dokument = {
+      ...nyttDokument(),
+      oppgaver: [{ ...mal, id: "a", prosjekt: "Skole", ventendeKall: null }],
+    };
+    const { s, butikk } = oppsett({ [LAGRINGSNØKKEL]: JSON.stringify(dokument) });
+    butikk.getState().lastInn();
+    for (const navn of ["Skole", "Jobb", "Privat"]) butikk.getState().slettProsjekt(navn);
+    expect(butikk.getState().dokument!.oppgaver[0].prosjekt).toBe("Skole");
+    expect(s.skrivinger).toEqual([]);
+  });
+
+  it("gjør ingenting før innlasting eller med sperret skriving", () => {
+    const { s, butikk } = oppsett();
+    butikk.getState().slettProsjekt("IBE160");
+    expect(butikk.getState().dokument).toBeNull();
+    s.kastVedLes = true;
+    butikk.getState().lastInn();
+    butikk.getState().slettProsjekt("IBE160");
+    expect(s.skrivinger).toEqual([]);
+  });
+});
