@@ -65,3 +65,4 @@
 - [ ] 2026-11-28 [gjennomgang-story-1-4](980-2026-11-28-01-41-15-gjennomgang-story-1-4.md) — e2e får tidsavbrudd ved parallell kjøring på denne maskinen; vurder `workers` eller `navigationTimeout` i `playwright.config.ts`
 - [ ] 2026-11-28 [gjennomgang-story-1-4](980-2026-11-28-01-41-15-gjennomgang-story-1-4.md) — gå gjennom Lenas story 1.8
 - [ ] 2026-11-28 [story-1-5-smarte-lister](979-2026-11-28-02-02-46-story-1-5-smarte-lister.md) — lista på `bg-surface-base` kutter gløden med en synlig kant; vurder å myke den opp i gjennomgangen
+- [ ] 2026-11-28 [story-1-5-smarte-lister](979-2026-11-28-02-02-46-story-1-5-smarte-lister.md) — Lena går gjennom story 1.5 før den settes til `done`
