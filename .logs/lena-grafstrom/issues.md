@@ -1,6 +1,6 @@
 # Åpne punkter
 
-- [ ] 2026-11-27 [gjennomgang-story-1-1](998-2026-11-27-13-57-48-gjennomgang-story-1-1.md) — Vitest blokkeres av Windows Application Control (rolldown-binding); må løses før egne Vitest-tester kan kjøres lokalt
+- [x] 2026-11-27 [gjennomgang-story-1-1](998-2026-11-27-13-57-48-gjennomgang-story-1-1.md) — Vitest blokkeres av Windows Application Control (rolldown-binding); må løses før egne Vitest-tester kan kjøres lokalt (løst 2026-11-28: Vitest kjører nå lokalt)
 - [x] 2026-11-27 [gjennomgang-story-1-1](998-2026-11-27-13-57-48-gjennomgang-story-1-1.md) — `npm run lint` feiler lokalt på grunn av `studieliste/`; flytt, slett eller ignorer mappa (løst 2026-11-27: flyttet til `IBE160\studieliste`)
 - [x] 2026-11-27 [gjennomgang-story-1-1](998-2026-11-27-13-57-48-gjennomgang-story-1-1.md) — gå gjennom story 1.2 og 1.3 (løst 2026-11-27 for 1.2; 1.3 videreført under)
 - [x] 2026-11-27 [gjennomgang-story-1-2](997-2026-11-27-14-07-06-gjennomgang-story-1-2.md) — gå gjennom story 1.3 (løst 2026-11-27)
@@ -14,3 +14,6 @@
 - [ ] 2026-11-27 [story-1-8-fornavn-og-modus](994-2026-11-27-15-06-33-story-1-8-fornavn-og-modus.md) — manuell sjekk: lagre fornavn, bytt modus og last på nytt i nettleseren
 - [ ] 2026-11-28 [gjennomgang-story-1-5](993-2026-11-28-11-23-54-gjennomgang-story-1-5.md) — manuell sjekk av overgangen over oppgavelista i mørk modus og de andre fargetemaene
 - [ ] 2026-11-28 [gjennomgang-story-1-5](993-2026-11-28-11-23-54-gjennomgang-story-1-5.md) — si fra til Abhira at 1.5 er godkjent og kanten myket opp, så hun kan lukke punktene sine
+- [ ] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — les gjennom ordlyden i personvernerklæringen, særlig tekst utover FR-41 (specens Implementation Notes)
+- [ ] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — Abhira går gjennom story 3.2 før den settes til `done`
+- [ ] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — i story 3.3: omdirigeringen til `/oppstart` må unnta `/personvernerklaering`
