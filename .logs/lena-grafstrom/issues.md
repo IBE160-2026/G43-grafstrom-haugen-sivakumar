@@ -8,13 +8,13 @@
 - [x] 2026-11-27 [gjennomgang-story-1-3](996-2026-11-27-14-12-12-gjennomgang-story-1-3.md) — 1.4: rammen inni `AppTilstand` under banneret; stil, fokusring og varselfarge på feilside/dialog/banner; axe på banner- og dialogtilstanden (løst 2026-11-27, story 1.4)
 - [x] 2026-11-27 [gjennomgang-story-1-3](996-2026-11-27-14-12-12-gjennomgang-story-1-3.md) — 1.4: temaskriptet i `<head>` leser tema/modus selv via `lib/storage/`, uten å vente på butikken (løst 2026-11-27, story 1.4)
 - [x] 2026-11-27 [gjennomgang-story-1-3](996-2026-11-27-14-12-12-gjennomgang-story-1-3.md) — 1.8/2.8: kommandoer må lage nye objekter, ikke endre `dokument` direkte (1.8 gjort 2026-11-27; gjelder fortsatt 2.8) (løst 2026-11-28: settTema lager nye objekter, story 2.8)
-- [ ] 2026-11-27 [story-1-4-ramme-og-utseende](995-2026-11-27-14-43-47-story-1-4-ramme-og-utseende.md) — Abhira går gjennom story 1.4 før den settes til `done`
-- [ ] 2026-11-27 [story-1-4-ramme-og-utseende](995-2026-11-27-14-43-47-story-1-4-ramme-og-utseende.md) — manuelle sjekker: ingen blink med rosa + mørk lagret, Tab-fokus på mobil og PC
+- [x] 2026-11-27 [story-1-4-ramme-og-utseende](995-2026-11-27-14-43-47-story-1-4-ramme-og-utseende.md) — Abhira går gjennom story 1.4 før den settes til `done` (løst 2026-11-28: godkjent av Abhira, står som done)
+- [x] 2026-11-27 [story-1-4-ramme-og-utseende](995-2026-11-27-14-43-47-story-1-4-ramme-og-utseende.md) — manuelle sjekker: ingen blink med rosa + mørk lagret, Tab-fokus på mobil og PC (løst 2026-11-28: sjekket av Lena i nettleseren)
 - [ ] 2026-11-27 [story-1-8-fornavn-og-modus](994-2026-11-27-15-06-33-story-1-8-fornavn-og-modus.md) — Abhira går gjennom story 1.8 før den settes til `done`; endringer i 1.4 kan kreve justering av 1.8
-- [ ] 2026-11-27 [story-1-8-fornavn-og-modus](994-2026-11-27-15-06-33-story-1-8-fornavn-og-modus.md) — manuell sjekk: lagre fornavn, bytt modus og last på nytt i nettleseren
-- [ ] 2026-11-28 [gjennomgang-story-1-5](993-2026-11-28-11-23-54-gjennomgang-story-1-5.md) — manuell sjekk av overgangen over oppgavelista i mørk modus og de andre fargetemaene
+- [x] 2026-11-27 [story-1-8-fornavn-og-modus](994-2026-11-27-15-06-33-story-1-8-fornavn-og-modus.md) — manuell sjekk: lagre fornavn, bytt modus og last på nytt i nettleseren (løst 2026-11-28: sjekket av Lena i nettleseren)
+- [x] 2026-11-28 [gjennomgang-story-1-5](993-2026-11-28-11-23-54-gjennomgang-story-1-5.md) — manuell sjekk av overgangen over oppgavelista i mørk modus og de andre fargetemaene (løst 2026-11-28: sjekket av Lena i nettleseren)
 - [ ] 2026-11-28 [gjennomgang-story-1-5](993-2026-11-28-11-23-54-gjennomgang-story-1-5.md) — si fra til Abhira at 1.5 er godkjent og kanten myket opp, så hun kan lukke punktene sine
-- [ ] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — les gjennom ordlyden i personvernerklæringen, særlig tekst utover FR-41 (specens Implementation Notes)
+- [x] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — les gjennom ordlyden i personvernerklæringen, særlig tekst utover FR-41 (specens Implementation Notes) (løst 2026-11-28: sjekket av Lena i nettleseren)
 - [ ] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — Abhira går gjennom story 3.2 før den settes til `done`
 - [ ] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — i story 3.3: omdirigeringen til `/oppstart` må unnta `/personvernerklaering`
 - [ ] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — si fra til Sabrina at 3.3 venter på `kiErPå` i `kjerne/samtykke.ts` (3.1 del 2)
