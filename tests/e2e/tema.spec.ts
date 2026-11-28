@@ -110,10 +110,10 @@ for (const [navn, rå] of [
     expect(await førsteTegning(page)).toEqual({ tema: "blå", modus: "system" });
     await expect(page.getByRole("heading", { name: "Appen kan ikke lese dataene dine" })).toBeVisible();
     await expect(html(page)).toHaveAttribute("data-tema", "blå");
-    const fare = await page.getByRole("button", { name: "Slett alle data" }).evaluate(
+    const sekundær = await page.getByRole("button", { name: "Slett alle data" }).evaluate(
       (el) => getComputedStyle(el).borderRadius,
     );
-    expect(fare).toBe("9999px");
+    expect(sekundær).toBe("9999px");
   });
 }
 

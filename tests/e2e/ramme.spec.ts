@@ -113,13 +113,14 @@ test("ingen Kalender-fane, lupe eller ny oppgave-knapp", async ({ page }) => {
   await expect(page.getByRole("button", { name: /ny oppgave/i })).toHaveCount(0);
 });
 
-for (const [rute, tittel] of [
-  ["/", /^Hei/],
-  ["/arkiv", "Arkiv"],
-  ["/innstillinger", "Innstillinger"],
+for (const [rute, tittel, sidetittel] of [
+  ["/", /^Hei/, "Oppgaver – dueNext"],
+  ["/arkiv", "Arkiv", "Arkiv – dueNext"],
+  ["/innstillinger", "Innstillinger", "Innstillinger – dueNext"],
 ] as const) {
   test(`${rute} har tittel, glød og ingen axe-brudd`, async ({ page }) => {
     await page.goto(rute);
+    await expect(page).toHaveTitle(sidetittel);
     await expect(page.getByRole("heading", { level: 1, name: tittel })).toBeVisible();
     const glød = await page
       .locator("main")

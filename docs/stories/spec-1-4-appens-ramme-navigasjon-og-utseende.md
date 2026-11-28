@@ -80,6 +80,30 @@ context:
 - Given en hovedside, when den vises, then ligger gløden øverst og sekundærtekst i glødsonen bruker `text-on-glow`
 - Given appen, when man søker etter eksterne skript eller analyseverktøy, then finnes ingen
 
+### Review Findings
+
+Kodegjennomgang av Abhira 2026-11-28 (commit `a8fe3eb`, fire lag: blind, grensetilfeller, verifiseringshull, akseptanse).
+
+- [x] [Review][Patch] Sidetitlene «Arkiv – dueNext» og «Innstillinger – dueNext» testes ikke; testen heter «har tittel» men sjekker bare `h1` [tests/e2e/ramme.spec.ts:121]
+- [x] [Review][Patch] Variabelen `fare` leser knappen «Slett alle data» (sekundær), ikke fareknappen *Slett alt* [tests/e2e/tema.spec.ts:113]
+- [x] [Review][Defer] Tema-skriptet ser ikke på `schemaVersion` [lib/storage/tema-skript.ts] — deferred: blir aktuelt først når en migrering endrer `innstillinger`
+- [x] [Review][Defer] axe kjøres ikke på feilside, dialog og banner i mørk modus [tests/e2e/lagring.spec.ts] — deferred: dagens tokens gir ca. 7,5:1 i mørk modus; legg til mørk variant neste gang feilsiden endres
+
+Avvist:
+- low — Banneret over `min-h-dvh`-rammen gir ekstra rulling: vises bare når lagring feiler; retting krever omstrukturering
+- low — `TemaSynk` faller tilbake til temaet fra sideinnlasting når en annen fane skriver `for-ny`: svært sjeldent
+- low — `pb-24` kan være for lite ved safe-area over ca. 40 px: sjelden enhet
+- low — Skjelettet vises uten ramme før `klar`: varer ett øyeblikk; retting er omstrukturering
+- low — Mørke tokens står i to blokker i `globals.css`: refaktorering uten konkret feil i dag
+- low — ⚙ utenfor `Hovedmeny` på mobil og ingen hopp-lenke: `main`-landemerket dekker WCAG 2.4.1; logget i triage #5
+- low — `NØKKEL` hardkodet i e2e-testene: bevisst låsing av nøkkelen i testene
+- low — `backdrop:bg-black/50`, skygger uten mørk variant, `section-label` og `body` dupliserer typografi: kosmetisk
+- low — `--radius-*` overstyrer Tailwinds standardverdier: tilsiktet etter DESIGN.md
+- false — Poppins med `latin-ext` laster unødvendig: `next/font` bruker `unicode-range`, så nettleseren henter bare delsett med tegn som brukes
+- low — Tallet 484 px i Implementation Notes skal være 436 px (24 px marg på hver side): retting er endring i specen; tas med i 1.7
+- false — Kalender-fanen og lupen mangler: utsatt til 5.6 og 2.6 i specen og epics
+- low — Dialogen bruker `rounded-xl` på alle bredder, knapper har `font-medium` og `px-5`, banneret har `border-2`: kosmetiske avvik fra DESIGN.md
+
 ## Implementation Notes
 
 **Komponentbibliotek (besluttet av Lena 2026-11-27).** Ingen shadcn/ui eller andre nye pakker. Komponentene er egne, med Tailwind-klasser som peker på tokenene i `app/globals.css` (`bg-surface-raised`, `text-text-on-glow`, `border-border-input`, `bg-accent`, `text-accent-ink`, `bg-warn`, `rounded-md/lg/xl/full`, `shadow-dialog`, `w-sidebar`, `w-panel`). Typografirollene er klasser: `text-greeting`, `text-title`, `text-body`, `text-task-title`, `text-meta`, `text-tag` og `section-label` (med store bokstaver). Gløden er klassen `glod`. Dialoger bygger på `<dialog>` med `showModal()` (se `components/feilside.tsx`). Ikonene ligger i `components/ikoner.tsx` som SVG med `currentColor` og `aria-hidden`.

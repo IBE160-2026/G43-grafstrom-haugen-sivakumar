@@ -30,3 +30,8 @@
 - source_spec: `docs/stories/spec-6-4-oktgrenser-i-kjernen.md`
   summary: Godtak (6.6) og merket «⚠ Kolliderer med <tittel>» (6.8) trenger en egen kollisjonsfunksjon som finner overlapp med hendelser og godtatte økter uavhengig av de andre FR-49-reglene, og som gir tilbake hendelsen/økta det kolliderer med.
   evidence: `sjekkØktforslag` stopper ved første brudd og gir bare en årsakskode, så en kollisjon skjules bak f.eks. `fortid` eller `utenfor-dagtid` (manuelle økter har ingen FR-49-grenser), og tittelen til merket kan ikke fylles inn. Design Notes i spesifikasjonen for 6.4 antar feilaktig at 6.6 kan bruke `sjekkØktforslag` direkte.
+
+## Deferred from: code review of spec-1-4-appens-ramme-navigasjon-og-utseende (2026-11-28)
+
+- Tema-skriptet (`lib/storage/tema-skript.ts`) ser ikke på `schemaVersion`; når en migrering endrer `innstillinger`, kan eldre dokumenter gi blink i standardtema til `TemaSynk` retter det.
+- axe kjøres ikke på feilsiden, «Slette alle data?»-dialogen og lagringsbanneret i mørk modus; dagens tokens består (ca. 7,5:1), men en senere endring av `--warn` i mørk modus fanges ikke.
