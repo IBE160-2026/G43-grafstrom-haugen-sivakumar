@@ -17,3 +17,5 @@
 - [ ] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — les gjennom ordlyden i personvernerklæringen, særlig tekst utover FR-41 (specens Implementation Notes)
 - [ ] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — Abhira går gjennom story 3.2 før den settes til `done`
 - [ ] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — i story 3.3: omdirigeringen til `/oppstart` må unnta `/personvernerklaering`
+- [ ] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — si fra til Sabrina at 3.3 venter på `kiErPå` i `kjerne/samtykke.ts` (3.1 del 2)
+- [ ] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — når `kiErPå` finnes: kjør `bmad-build` på spec-utkastet for 3.3
