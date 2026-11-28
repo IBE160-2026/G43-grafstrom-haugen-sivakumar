@@ -15,7 +15,15 @@ const EXPERIENCE_STI = fileURLToPath(
     import.meta.url,
   ),
 );
-const EXPERIENCE = readFileSync(EXPERIENCE_STI, "utf8");
+/**
+ * Gjør CRLF (og enslig CR) om til LF. Git på Windows sjekker ofte ut med CRLF
+ * (`core.autocrlf`), og reglene under regner med `\n`.
+ */
+function lf(tekst: string): string {
+  return tekst.replace(/\r\n?/g, "\n");
+}
+
+const EXPERIENCE = lf(readFileSync(EXPERIENCE_STI, "utf8"));
 
 const SEKSJON = "## Personvern og data – fastsatte tekster";
 
@@ -269,7 +277,7 @@ function blokkFor(sti: string): string | undefined {
 
 /** Returnerer hver fastsatt streng som avviker fra EXPERIENCE.md. */
 function finnAvvik(markdown: string, konstanter: Record<string, unknown> = tekster): Avvik[] {
-  const deltekster = delSeksjon(hentSeksjon(markdown));
+  const deltekster = delSeksjon(hentSeksjon(lf(markdown)));
   const avvik: Avvik[] = [];
   const blokkfelt = new Map<string, Avvik[]>();
   const sett = new Set<string>();
@@ -374,6 +382,17 @@ describe("fastsatte tekster", () => {
   it("feiler med tydelig melding når en deltekst står to ganger", () => {
     const md = medEndring(EXPERIENCE, "**Lagring**\n", "**Lagring**\n\n**Lagring**\n");
     expect(() => finnAvvik(md)).toThrow(/«Lagring» står to ganger/);
+  });
+
+  it("tåler CRLF-linjeskift fra Windows", () => {
+    expect(EXPERIENCE).not.toContain("\r");
+    const crlf = EXPERIENCE.replace(/\n/g, "\r\n");
+    expect(lf(crlf)).toBe(EXPERIENCE);
+    expect(finnAvvik(crlf)).toEqual([]);
+    const dobbel = medEndring(crlf, "**Lagring**\r\n", "**Lagring**\r\n\r\n**Lagring**\r\n");
+    expect(() => finnAvvik(dobbel)).toThrow(/«Lagring» står to ganger/);
+    const endret = medEndring(crlf, "Anthropic, selskapet bak", "Anthropic, firmaet bak");
+    expect(stier(finnAvvik(endret))).toEqual(["SAMTYKKETEKST.hvemFårDet.tekst"]);
   });
 
   describe("oppdager avvik i EXPERIENCE.md", () => {
