@@ -7,7 +7,7 @@
 - [ ] 2026-11-27 [gjennomgang-story-1-2](997-2026-11-27-14-07-06-gjennomgang-story-1-2.md) — nye felt i dokumentet i egne stories krever ny `schemaVersion` og et migreringstrinn
 - [x] 2026-11-27 [gjennomgang-story-1-3](996-2026-11-27-14-12-12-gjennomgang-story-1-3.md) — 1.4: rammen inni `AppTilstand` under banneret; stil, fokusring og varselfarge på feilside/dialog/banner; axe på banner- og dialogtilstanden (løst 2026-11-27, story 1.4)
 - [x] 2026-11-27 [gjennomgang-story-1-3](996-2026-11-27-14-12-12-gjennomgang-story-1-3.md) — 1.4: temaskriptet i `<head>` leser tema/modus selv via `lib/storage/`, uten å vente på butikken (løst 2026-11-27, story 1.4)
-- [ ] 2026-11-27 [gjennomgang-story-1-3](996-2026-11-27-14-12-12-gjennomgang-story-1-3.md) — 1.8/2.8: kommandoer må lage nye objekter, ikke endre `dokument` direkte (1.8 gjort 2026-11-27; gjelder fortsatt 2.8)
+- [x] 2026-11-27 [gjennomgang-story-1-3](996-2026-11-27-14-12-12-gjennomgang-story-1-3.md) — 1.8/2.8: kommandoer må lage nye objekter, ikke endre `dokument` direkte (1.8 gjort 2026-11-27; gjelder fortsatt 2.8) (løst 2026-11-28: settTema lager nye objekter, story 2.8)
 - [ ] 2026-11-27 [story-1-4-ramme-og-utseende](995-2026-11-27-14-43-47-story-1-4-ramme-og-utseende.md) — Abhira går gjennom story 1.4 før den settes til `done`
 - [ ] 2026-11-27 [story-1-4-ramme-og-utseende](995-2026-11-27-14-43-47-story-1-4-ramme-og-utseende.md) — manuelle sjekker: ingen blink med rosa + mørk lagret, Tab-fokus på mobil og PC
 - [ ] 2026-11-27 [story-1-8-fornavn-og-modus](994-2026-11-27-15-06-33-story-1-8-fornavn-og-modus.md) — Abhira går gjennom story 1.8 før den settes til `done`; endringer i 1.4 kan kreve justering av 1.8
@@ -19,3 +19,4 @@
 - [ ] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — i story 3.3: omdirigeringen til `/oppstart` må unnta `/personvernerklaering`
 - [ ] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — si fra til Sabrina at 3.3 venter på `kiErPå` i `kjerne/samtykke.ts` (3.1 del 2)
 - [ ] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — når `kiErPå` finnes: kjør `bmad-build` på spec-utkastet for 3.3
+- [ ] 2026-11-28 [story-2-8-fargetemaer](990-2026-11-28-12-18-22-story-2-8-fargetemaer.md) — Abhira går gjennom story 2.8 før den settes til `done`
