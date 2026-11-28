@@ -20,3 +20,4 @@
 - [ ] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — si fra til Sabrina at 3.3 venter på `kiErPå` i `kjerne/samtykke.ts` (3.1 del 2)
 - [ ] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — når `kiErPå` finnes: kjør `bmad-build` på spec-utkastet for 3.3
 - [ ] 2026-11-28 [story-2-8-fargetemaer](990-2026-11-28-12-18-22-story-2-8-fargetemaer.md) — Abhira går gjennom story 2.8 før den settes til `done`
+- [ ] 2026-11-28 [story-2-7-prosjekter](989-2026-11-28-12-39-19-story-2-7-prosjekter.md) — Abhira går gjennom story 2.7 før den settes til `done` (dialogteksten var ikke fastsatt)
