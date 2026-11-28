@@ -69,3 +69,12 @@ export function PilNedIkon(props: SVGProps<SVGSVGElement>) {
     </Ikon>
   );
 }
+
+/** ✓ Hake, for valgt fargeprøve */
+export function HakeIkon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <Ikon {...props}>
+      <path d="M20 6 9 17l-5-5" />
+    </Ikon>
+  );
+}

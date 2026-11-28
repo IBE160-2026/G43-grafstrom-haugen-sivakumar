@@ -297,3 +297,70 @@ test("et langt fornavn uten mellomrom gir ingen vannrett rulling ved 320 px", as
   }));
   expect(scrollBredde).toBeLessThanOrEqual(klientBredde);
 });
+
+const tema = (page: Page, navn: string) =>
+  page.getByRole("group", { name: "Tema" }).getByRole("button", { name: navn, exact: true });
+
+test("temavelgeren har seks prøver i egen pastell, og blå er valgt som standard", async ({ page }) => {
+  await åpneInnstillinger(page);
+  const PASTELL: Record<string, string> = {
+    Blå: "rgb(169, 203, 242)",
+    Oransje: "rgb(249, 201, 162)",
+    Lilla: "rgb(205, 187, 238)",
+    Gul: "rgb(245, 227, 158)",
+    Grønn: "rgb(182, 226, 196)",
+    Rosa: "rgb(245, 191, 212)",
+  };
+  await expect(page.getByRole("group", { name: "Tema" }).getByRole("button")).toHaveCount(6);
+  for (const [navn, farge] of Object.entries(PASTELL)) {
+    const knapp = tema(page, navn);
+    const boks = (await knapp.boundingBox())!;
+    expect(boks.width).toBeGreaterThanOrEqual(44);
+    expect(boks.height).toBeGreaterThanOrEqual(44);
+    const prøve = knapp.locator("span");
+    await expect(prøve).toHaveCSS("background-color", farge);
+    await expect(prøve).toHaveCSS("width", "36px");
+    await expect(prøve).toHaveCSS("height", "36px");
+    await expect(knapp).toHaveAttribute("aria-pressed", navn === "Blå" ? "true" : "false");
+  }
+});
+
+test("Rosa gjelder straks, har ring og hake, er lagret og gjelder fra første tegning", async ({ page }) => {
+  await åpneInnstillinger(page);
+  await tema(page, "Rosa").click();
+  await expect(html(page)).toHaveAttribute("data-tema", "rosa");
+  await expect(tema(page, "Rosa")).toHaveAttribute("aria-pressed", "true");
+  await expect(tema(page, "Blå")).toHaveAttribute("aria-pressed", "false");
+  expect((await lagret(page))?.innstillinger.tema).toBe("rosa");
+
+  // Bare den valgte prøven har hake og ring i accent-ink.
+  await expect(tema(page, "Rosa").locator("svg")).toBeVisible();
+  await expect(page.getByRole("group", { name: "Tema" }).locator("svg")).toHaveCount(1);
+  const ring = await tema(page, "Rosa").locator("span").evaluate((el) => {
+    const prøve = document.createElement("span");
+    prøve.style.color = "var(--accent-ink)";
+    document.body.append(prøve);
+    const forventet = getComputedStyle(prøve).color;
+    prøve.remove();
+    return { skygge: getComputedStyle(el).boxShadow, forventet };
+  });
+  expect(ring.skygge).toContain(ring.forventet);
+
+  await page.addInitScript(() => {
+    const observatør = new MutationObserver(() => {
+      if (!document.body) return;
+      (window as unknown as { __tema: string | null }).__tema =
+        document.documentElement.getAttribute("data-tema");
+      observatør.disconnect();
+    });
+    observatør.observe(document, { childList: true, subtree: true });
+  });
+  await page.reload();
+  expect(await page.evaluate(() => (window as unknown as { __tema: string | null }).__tema)).toBe("rosa");
+  await expect(tema(page, "Rosa")).toHaveAttribute("aria-pressed", "true");
+
+  // Aksentfargen følger med til Oppgaver uten omlasting.
+  await tema(page, "Grønn").click();
+  await tilOppgaver(page);
+  await expect(html(page)).toHaveAttribute("data-tema", "grønn");
+});

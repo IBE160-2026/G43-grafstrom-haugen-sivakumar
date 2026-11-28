@@ -27,6 +27,8 @@ export type Tilstand = {
   settFornavn(fornavn: string): void;
   /** Bytter mellom lys, mørk og «følg systemet». */
   settModus(modus: Innstillinger["modus"]): void;
+  /** Bytter fargetema (2.8). */
+  settTema(tema: Innstillinger["tema"]): void;
 };
 
 export type Butikk = StoreApi<Tilstand>;
@@ -130,6 +132,12 @@ export function lagButikk({ lagring }: { lagring: Lagring }): Butikk {
         const dokument = redigerbart();
         if (!dokument || dokument.innstillinger.modus === modus) return;
         set({ dokument: { ...dokument, innstillinger: { ...dokument.innstillinger, modus } } });
+      },
+
+      settTema(tema) {
+        const dokument = redigerbart();
+        if (!dokument || dokument.innstillinger.tema === tema) return;
+        set({ dokument: { ...dokument, innstillinger: { ...dokument.innstillinger, tema } } });
       },
     };
   });

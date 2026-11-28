@@ -303,3 +303,36 @@ describe("slettAlleData", () => {
     expect(s.skrivinger).toEqual([]);
   });
 });
+
+describe("settTema", () => {
+  it("bytter tema med nye objekter og lagrer", () => {
+    const { s, butikk } = oppsett({ [LAGRINGSNØKKEL]: JSON.stringify(nyttDokument()) });
+    butikk.getState().lastInn();
+    const før = butikk.getState().dokument!;
+    butikk.getState().settTema("rosa");
+    const etter = butikk.getState().dokument!;
+    expect(etter.innstillinger.tema).toBe("rosa");
+    expect(etter).not.toBe(før);
+    expect(etter.innstillinger).not.toBe(før.innstillinger);
+    expect(før.innstillinger.tema).toBe("blå");
+    expect(JSON.parse(s.data.get(LAGRINGSNØKKEL)!).innstillinger.tema).toBe("rosa");
+  });
+
+  it("samme tema skriver ingenting", () => {
+    const { s, butikk } = oppsett({ [LAGRINGSNØKKEL]: JSON.stringify(nyttDokument()) });
+    butikk.getState().lastInn();
+    butikk.getState().settTema("blå");
+    expect(s.skrivinger).toEqual([]);
+  });
+
+  it("gjør ingenting før innlasting eller med sperret skriving", () => {
+    const { s, butikk } = oppsett();
+    butikk.getState().settTema("gul");
+    expect(butikk.getState().dokument).toBeNull();
+    s.kastVedLes = true;
+    butikk.getState().lastInn();
+    butikk.getState().settTema("gul");
+    expect(butikk.getState().dokument!.innstillinger.tema).toBe("blå");
+    expect(s.skrivinger).toEqual([]);
+  });
+});

@@ -1,7 +1,8 @@
 "use client";
 
 import { useId, useState, type FormEvent, type ReactNode } from "react";
-import type { Innstillinger as InnstillingerData } from "@/kjerne/skjema";
+import { HakeIkon } from "@/components/ikoner";
+import { innstillingerSkjema, type Innstillinger as InnstillingerData } from "@/kjerne/skjema";
 import { butikk, useButikk } from "@/lib/store";
 
 const MODUSER: readonly { verdi: InnstillingerData["modus"]; navn: string }[] = [
@@ -126,6 +127,58 @@ function Modusvelger() {
   );
 }
 
+/** Navnene på temaene. Rekkefølgen kommer fra skjemaet. */
+const TEMANAVN: Record<InnstillingerData["tema"], string> = {
+  blå: "Blå",
+  oransje: "Oransje",
+  lilla: "Lilla",
+  gul: "Gul",
+  grønn: "Grønn",
+  rosa: "Rosa",
+};
+
+/**
+ * Seks runde fargeprøver (`theme-swatch`, 36 px, trykkflate 44 px). Hver prøve
+ * har `data-tema`, så fargen kommer fra temaets CSS-token. Den valgte har ring
+ * i `accent-ink` og hake. Endres med én gang, uten Lagre.
+ */
+function Temavelger() {
+  const valgt = useButikk((s) => s.dokument?.innstillinger.tema ?? "blå");
+  const etikett = useId();
+
+  return (
+    <>
+      <p id={etikett} className="mt-4 text-meta text-text-primary">
+        Tema
+      </p>
+      <div role="group" aria-labelledby={etikett} className="mt-1 flex flex-wrap gap-1">
+        {innstillingerSkjema.shape.tema.options.map((tema) => {
+          const erValgt = tema === valgt;
+          return (
+            <button
+              key={tema}
+              type="button"
+              aria-pressed={erValgt}
+              aria-label={TEMANAVN[tema]}
+              onClick={() => butikk.getState().settTema(tema)}
+              className="flex size-11 items-center justify-center rounded-full"
+            >
+              <span
+                data-tema={tema}
+                className={`flex size-9 items-center justify-center rounded-full border border-border-input bg-(--tema-pastell) text-text-on-pastel ${
+                  erValgt ? "ring-2 ring-accent-ink ring-offset-2 ring-offset-surface-raised" : ""
+                }`}
+              >
+                {erValgt && <HakeIkon className="size-5" />}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </>
+  );
+}
+
 /** Innstillinger: Profil, Utseende og Om appen. */
 export function Innstillinger({ versjon }: { versjon: string }) {
   return (
@@ -137,6 +190,7 @@ export function Innstillinger({ versjon }: { versjon: string }) {
         </Seksjon>
         <Seksjon tittel="Utseende">
           <Modusvelger />
+          <Temavelger />
         </Seksjon>
         <Seksjon tittel="Om appen">
           <p className="text-body text-text-primary">Versjon {versjon} · Gruppe 43, IBE160</p>

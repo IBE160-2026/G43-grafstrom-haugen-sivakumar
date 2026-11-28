@@ -11,10 +11,6 @@
  */
 
 :root {
-  /* Tema: pastell = fyll, ink = tekst/ikon i lys modus. Standard: blå. */
-  --tema-pastell: #a9cbf2;
-  --tema-ink: #2c5b8e;
-
   /* Nøytrale, lys modus */
   --surface-base: #f7f7f5;
   --surface-raised: #ffffff;
@@ -64,24 +60,34 @@
   color-scheme: light;
 }
 
-/* Temaer. Blå er standard over. */
-:root[data-tema="oransje"] {
+/*
+ * Temaer: pastell = fyll, ink = tekst/ikon i lys modus. Blå er standard (`:root`).
+ * Selektorene gjelder alle elementer, ikke bare
+ * <html>, så fargeprøvene i temavelgeren (2.8) kan vise sin egen pastell med
+ * `data-tema` på prøven.
+ */
+:root,
+[data-tema="blå"] {
+  --tema-pastell: #a9cbf2;
+  --tema-ink: #2c5b8e;
+}
+[data-tema="oransje"] {
   --tema-pastell: #f9c9a2;
   --tema-ink: #8a4419;
 }
-:root[data-tema="lilla"] {
+[data-tema="lilla"] {
   --tema-pastell: #cdbbee;
   --tema-ink: #5a3f8e;
 }
-:root[data-tema="gul"] {
+[data-tema="gul"] {
   --tema-pastell: #f5e39e;
   --tema-ink: #7a6008;
 }
-:root[data-tema="grønn"] {
+[data-tema="grønn"] {
   --tema-pastell: #b6e2c4;
   --tema-ink: #2c6b44;
 }
-:root[data-tema="rosa"] {
+[data-tema="rosa"] {
   --tema-pastell: #f5bfd4;
   --tema-ink: #983862;
 }
