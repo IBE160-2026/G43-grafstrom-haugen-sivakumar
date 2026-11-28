@@ -12,3 +12,5 @@
 - [ ] 2026-11-27 [story-1-4-ramme-og-utseende](995-2026-11-27-14-43-47-story-1-4-ramme-og-utseende.md) — manuelle sjekker: ingen blink med rosa + mørk lagret, Tab-fokus på mobil og PC
 - [ ] 2026-11-27 [story-1-8-fornavn-og-modus](994-2026-11-27-15-06-33-story-1-8-fornavn-og-modus.md) — Abhira går gjennom story 1.8 før den settes til `done`; endringer i 1.4 kan kreve justering av 1.8
 - [ ] 2026-11-27 [story-1-8-fornavn-og-modus](994-2026-11-27-15-06-33-story-1-8-fornavn-og-modus.md) — manuell sjekk: lagre fornavn, bytt modus og last på nytt i nettleseren
+- [ ] 2026-11-28 [gjennomgang-story-1-5](993-2026-11-28-11-23-54-gjennomgang-story-1-5.md) — manuell sjekk av overgangen over oppgavelista i mørk modus og de andre fargetemaene
+- [ ] 2026-11-28 [gjennomgang-story-1-5](993-2026-11-28-11-23-54-gjennomgang-story-1-5.md) — si fra til Abhira at 1.5 er godkjent og kanten myket opp, så hun kan lukke punktene sine
