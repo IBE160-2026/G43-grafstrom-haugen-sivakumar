@@ -29,7 +29,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 # - Retrospective appends its action items to action_items; the status view surfaces open ones
 generated: 11-26-2026 18:18
-last_updated: 11-28-2026 12:39
+last_updated: 11-28-2026 13:03
 project: G43-grafstrom-haugen-sivakumar
 project_key: NOKEY
 tracking_system: file-system
@@ -58,7 +58,7 @@ development_status:
   epic-2-retrospective: optional
 
   epic-3: in-progress
-  3-1-samtykke-og-fastsatte-tekster-i-kjernen: in-progress  # del 1 (kjerne/tekster.ts) godkjent av Stine 2026-11-27. Del 2 (kjerne/samtykke.ts) gjenstår; story 1.2 er ferdig, så den kan startes
+  3-1-samtykke-og-fastsatte-tekster-i-kjernen: review  # del 1 (kjerne/tekster.ts) godkjent av Stine 2026-11-27. Del 2 (kjerne/samtykke.ts, kiErPå/kanSendes) ferdig 2026-11-28, venter på gjennomgang; 3.3 kan bruke kiErPå
   3-2-personvernerklæring-ett-klikk-unna: review
   3-3-førstegangsoppsett-med-fornavn-og-ki-valg: backlog  # spec-utkast klart (spec-3-3-…); venter på kiErPå fra 3.1 del 2 (Sabrina)
   3-4-personvern-og-data: backlog

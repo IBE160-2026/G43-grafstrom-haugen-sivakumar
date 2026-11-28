@@ -13,7 +13,7 @@
   summary: Sjekk i `tests/kjerne/tekster.test.ts` at hver «…»-, *…*- og **…**-enhet i KI-påminnelser, Innhold i Personvern og data og dialoglinjene har en konstant i `kjerne/tekster.ts`.
   evidence: I dag går sjekken bare fra kode til EXPERIENCE.md for disse deltekstene; en ny påminnelse lagt til i EXPERIENCE.md gir fortsatt grønn test. Trenger en liste over sitater som ikke er UI-tekst («Nei», «opptatt», «Godkjent 9.11.2026 (tekst v2)»).
 - source_spec: `docs/stories/spec-3-1-fastsatte-tekster-i-kjernen.md`
-  summary: Bygg resten av story 3.1: `kjerne/samtykke.ts` med `kiErPå(dokument)` og `kanSendes(oppgave, dokument)`, som importerer `GJELDENDE_SAMTYKKEVERSJON` fra `kjerne/tekster.ts`, med Vitest for ja, nei, `null` og gammel tekstversjon.
+  summary: (Løst i story 3.1 del 2: `kjerne/samtykke.ts` med `kiErPå` og `kanSendes`, testet i `tests/kjerne/samtykke.test.ts`.) Bygg resten av story 3.1: `kjerne/samtykke.ts` med `kiErPå(dokument)` og `kanSendes(oppgave, dokument)`, som importerer `GJELDENDE_SAMTYKKEVERSJON` fra `kjerne/tekster.ts`, med Vitest for ja, nei, `null` og gammel tekstversjon.
   evidence: Specen dekket bare tekstdelen fordi dokumentskjemaet fra story 1.2 ikke fantes ennå. Story 3.1 står derfor fortsatt som `in-progress` i sprint-status.
 - source_spec: `docs/stories/spec-1-2-lagringsformat-som-taler-nye-versjoner.md`
   summary: (Løst i story 1.3: abonnementet validerer med `dokumentSkjema` før `skriv`.) La butikken i 1.3 (eller `skriv()`) validere dokumentet før lagring, så en feil i en kommando ikke gjør neste `les()` `ugyldig`.
@@ -53,3 +53,6 @@
 - source_spec: `docs/stories/spec-2-7-prosjekter-i-innstillinger.md`
   summary: Lag en felles bekreftelsesdialog («Er du sikker?») og felles knappestiler når story 2.4 trenger den tredje.
   evidence: `components/feilside.tsx` og `components/innstillinger.tsx` har hver sin kopi av `<dialog>`-oppsettet og `SEKUNDÆR`/`FARE`.
+- source_spec: `docs/stories/spec-3-1-samtykke-i-kjernen.md`
+  summary: Sjekk automatisk (Vitest eller ESLint) at `samtykke.svar` og `samtykke.tekstversjon` bare sammenlignes i `kjerne/samtykke.ts`, så AD-12 håndheves når 3.3, 3.4 og 4.5 tar `kiErPå`/`kanSendes` i bruk.
+  evidence: I dag sjekkes det bare med manuell `grep` i Verification. En ny `samtykke?.svar === "ja"` i en komponent gir grønne tester. Samme slags hull som punktet om ESLint-regler for AD-1/AD-3.
