@@ -1,6 +1,13 @@
 import { useStore } from "zustand";
 import { createStore, type StoreApi } from "zustand/vanilla";
-import { dokumentSkjema, nyttDokument, type Dokument, type Innstillinger } from "@/kjerne/skjema";
+import { GJELDENDE_SAMTYKKEVERSJON } from "@/kjerne/samtykke";
+import {
+  dokumentSkjema,
+  nyttDokument,
+  type Dokument,
+  type Innstillinger,
+  type Samtykke,
+} from "@/kjerne/skjema";
 import { erFastEtikett } from "@/kjerne/prosjekter";
 import { lagring as standardLagring, type Lagring, type LesResultat } from "@/lib/storage";
 
@@ -32,6 +39,8 @@ export type Tilstand = {
   settTema(tema: Innstillinger["tema"]): void;
   /** Fjerner prosjektnavnet fra alle oppgaver som har akkurat det navnet (2.7). */
   slettProsjekt(navn: string): void;
+  /** Lagrer KI-valget med tidspunkt fra `nå` og gjeldende tekstversjon (3.3). */
+  settSamtykke(svar: NonNullable<Samtykke>["svar"]): void;
 };
 
 export type Butikk = StoreApi<Tilstand>;
@@ -152,6 +161,20 @@ export function lagButikk({ lagring }: { lagring: Lagring }): Butikk {
           dokument: {
             ...dokument,
             oppgaver: dokument.oppgaver.map((o) => (o.prosjekt === navn ? { ...o, prosjekt: null } : o)),
+          },
+        });
+      },
+
+      settSamtykke(svar) {
+        // Unntak fra `redigerbart()`: med sperret skriving gjelder svaret i økta
+        // (abonnementet skriver det ikke), ellers ville studenten blitt stående
+        // fast i førstegangsoppsettet.
+        const { status, dokument, nå } = get();
+        if (status !== "klar" || dokument === null || !nå) return;
+        set({
+          dokument: {
+            ...dokument,
+            samtykke: { svar, tidspunkt: nå.toISOString(), tekstversjon: GJELDENDE_SAMTYKKEVERSJON },
           },
         });
       },

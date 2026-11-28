@@ -1,5 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test, type Page } from "@playwright/test";
+import { besvart, expect, test, type Page } from "./fikstur";
 import { nyttDokument, type Oppgave } from "../../kjerne/skjema";
 
 test.use({ timezoneId: "Europe/Oslo" });
@@ -25,7 +25,7 @@ function oppgave(felt: Partial<Oppgave> & { id: string; tekst: string }): Oppgav
 
 /** Legger dokumentet i lageret og låser klokka før appen starter. */
 async function start(page: Page, oppgaver: Oppgave[], tid: string) {
-  const dokument = { ...nyttDokument(), oppgaver };
+  const dokument = besvart({ ...nyttDokument(), oppgaver });
   await page.clock.install({ time: new Date(tid) });
   await page.addInitScript(
     ([nøkkel, verdi]) => localStorage.setItem(nøkkel, verdi),

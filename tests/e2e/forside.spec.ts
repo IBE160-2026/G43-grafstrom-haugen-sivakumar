@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fikstur";
 
 test("forsiden er på norsk og viser hilsenen", async ({ page }) => {
   await page.goto("/");

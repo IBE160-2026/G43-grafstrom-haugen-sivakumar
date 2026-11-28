@@ -3,6 +3,7 @@
 import { useId, useMemo, useState } from "react";
 import { PilNedIkon } from "@/components/ikoner";
 import { Oppgavekort } from "@/components/oppgavekort";
+import { kiErPå } from "@/kjerne/samtykke";
 import { fristMerkelapp, smarteLister, type SmartListe } from "@/kjerne/smarte-lister";
 import { useButikk } from "@/lib/store";
 
@@ -16,6 +17,7 @@ export function Oppgaveliste() {
   // Hver verdi for seg: en selektor som lager nye objekter gir evig rendering.
   const oppgaver = useButikk((s) => s.dokument?.oppgaver ?? null);
   const nå = useButikk((s) => s.nå);
+  const kiPå = useButikk((s) => s.dokument !== null && kiErPå(s.dokument));
   const lister = useMemo(
     () => (oppgaver && nå ? smarteLister({ oppgaver }, nå) : null),
     [oppgaver, nå],
@@ -24,7 +26,11 @@ export function Oppgaveliste() {
   if (!lister || !nå) return null;
 
   if (lister.every((l) => l.antall === 0)) {
-    return <p className="mt-1 text-text-on-glow">Skriv inn det første du må huske.</p>;
+    return (
+      <p className="mt-1 text-text-on-glow">
+        {kiPå ? "Skriv inn det første du må huske – KI hjelper deg å sortere." : "Skriv inn det første du må huske."}
+      </p>
+    );
   }
 
   // Overgangen (`before:`) fyller mellomrommet over flaten og toner gløden ut

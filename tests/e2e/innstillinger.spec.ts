@@ -1,5 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test, type Page } from "@playwright/test";
+import { besvart, expect, test, type Page } from "./fikstur";
 import pakke from "../../package.json";
 import { nyttDokument, type Dokument } from "@/kjerne/skjema";
 
@@ -13,7 +13,7 @@ async function leggInnÉnGang(page: Page, dokument: Dokument) {
       localStorage.setItem(nøkkel, verdi);
       sessionStorage.setItem("lagt-inn", "1");
     },
-    [NØKKEL, JSON.stringify(dokument)] as const,
+    [NØKKEL, JSON.stringify(besvart(dokument))] as const,
   );
 }
 
@@ -154,8 +154,17 @@ test("med sperret skriving endrer kommandoene ingenting, og banneret står", asy
       throw new DOMException("Blokkert", "SecurityError");
     };
   });
-  await åpneInnstillinger(page);
+  // Lageret kan ikke leses, så KI-valget mangler og appen starter i oppsettet.
+  // Svaret gjelder i økta, og appen går videre til Oppgaver (3.3).
+  await page.goto("/innstillinger");
+  await expect(page).toHaveURL(/\/oppstart$/);
   const banner = page.getByRole("alert").filter({ hasText: "Nettleseren lar ikke appen lagre." });
+  await expect(banner).toBeVisible();
+  await page.getByRole("button", { name: "Hopp over" }).click();
+  await page.getByRole("button", { name: "Nei, uten KI" }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "Hei 👋", exact: true })).toBeVisible();
+  await page.getByRole("link", { name: "Innstillinger" }).first().click();
+  await expect(page.getByRole("heading", { level: 1, name: "Innstillinger" })).toBeVisible();
   await expect(banner).toBeVisible();
 
   await modus(page, "Mørk").click();

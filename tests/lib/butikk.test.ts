@@ -1,5 +1,6 @@
 // @vitest-environment node
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { GJELDENDE_SAMTYKKEVERSJON } from "@/kjerne/samtykke";
 import { nyttDokument, type Dokument } from "@/kjerne/skjema";
 import { LAGRINGSNØKKEL, lagLagring } from "@/lib/storage";
 import { lagButikk } from "@/lib/store";
@@ -393,6 +394,56 @@ describe("slettProsjekt med faste etiketter og sperret skriving", () => {
     s.kastVedLes = true;
     butikk.getState().lastInn();
     butikk.getState().slettProsjekt("IBE160");
+    expect(s.skrivinger).toEqual([]);
+  });
+});
+
+describe("settSamtykke", () => {
+  const NÅ = new Date("2026-11-28T12:34:56.000Z");
+
+  it("lagrer svar, tidspunkt fra nå og gjeldende tekstversjon, med nye objekter", () => {
+    const { s, butikk } = oppsett({ [LAGRINGSNØKKEL]: JSON.stringify(nyttDokument()) });
+    butikk.getState().lastInn();
+    butikk.getState().settNå(NÅ);
+    const før = butikk.getState().dokument!;
+    butikk.getState().settSamtykke("ja");
+    const etter = butikk.getState().dokument!;
+    expect(etter.samtykke).toEqual({
+      svar: "ja",
+      tidspunkt: "2026-11-28T12:34:56.000Z",
+      tekstversjon: GJELDENDE_SAMTYKKEVERSJON,
+    });
+    expect(etter).not.toBe(før);
+    expect(før.samtykke).toBeNull();
+    expect(JSON.parse(s.data.get(LAGRINGSNØKKEL)!).samtykke.svar).toBe("ja");
+  });
+
+  it("«nei» lagres på samme måte", () => {
+    const { butikk } = oppsett({ [LAGRINGSNØKKEL]: JSON.stringify(nyttDokument()) });
+    butikk.getState().lastInn();
+    butikk.getState().settNå(NÅ);
+    butikk.getState().settSamtykke("nei");
+    expect(butikk.getState().dokument!.samtykke?.svar).toBe("nei");
+  });
+
+  it("gjør ingenting før innlasting eller uten nå", () => {
+    const { s, butikk } = oppsett({ [LAGRINGSNØKKEL]: JSON.stringify(nyttDokument()) });
+    butikk.getState().settSamtykke("ja");
+    expect(butikk.getState().dokument).toBeNull();
+    butikk.getState().lastInn();
+    butikk.getState().settSamtykke("ja");
+    expect(butikk.getState().dokument!.samtykke).toBeNull();
+    expect(s.skrivinger).toEqual([]);
+  });
+
+  it("med sperret skriving gjelder svaret i økta, men skrives ikke", () => {
+    const { s, butikk } = oppsett();
+    s.kastVedLes = true;
+    butikk.getState().lastInn();
+    butikk.getState().settNå(NÅ);
+    butikk.getState().settSamtykke("nei");
+    expect(butikk.getState().dokument!.samtykke?.svar).toBe("nei");
+    expect(butikk.getState().skrivingSperret).toBe(true);
     expect(s.skrivinger).toEqual([]);
   });
 });

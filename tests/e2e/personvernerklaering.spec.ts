@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Page } from "./fikstur";
 import { HVA_SENDES_TIL_KI } from "../../kjerne/tekster";
 
 const RUTER = ["/", "/arkiv", "/innstillinger", "/personvernerklaering"] as const;

@@ -56,3 +56,6 @@
 - source_spec: `docs/stories/spec-3-1-samtykke-i-kjernen.md`
   summary: Sjekk automatisk (Vitest eller ESLint) at `samtykke.svar` og `samtykke.tekstversjon` bare sammenlignes i `kjerne/samtykke.ts`, så AD-12 håndheves når 3.3, 3.4 og 4.5 tar `kiErPå`/`kanSendes` i bruk.
   evidence: I dag sjekkes det bare med manuell `grep` i Verification. En ny `samtykke?.svar === "ja"` i en komponent gir grønne tester. Samme slags hull som punktet om ESLint-regler for AD-1/AD-3.
+- source_spec: `docs/stories/spec-3-3-forstegangsoppsett-med-fornavn-og-ki-valg.md`
+  summary: Uten svart KI-valg viser personvernerklæringen rammen med menyene; går hun videre via menyen i stedet for Tilbake, havner hun på steg 1 i stedet for steg 2.
+  evidence: Omdirigeringen i `AppTilstand` går alltid til `/oppstart` uten `?steg=2`; fornavnet står likevel i feltet.

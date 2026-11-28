@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Page } from "./fikstur";
 import { fulltDokument } from "../kjerne/fikstur";
 
 const NØKKEL = "duenext";
@@ -101,31 +101,38 @@ test("Slett alle data fra feilsiden: Avbryt endrer ingenting, Slett alt starter 
 
   await page.getByRole("button", { name: "Slett alle data" }).click();
   await dialog.getByRole("button", { name: "Slett alt" }).click();
-  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
+  // Alt er slettet, også KI-valget, så appen starter på førstegangsoppsettet (3.3).
+  await expect(page).toHaveURL(/\/oppstart$/);
+  await expect(page.getByRole("heading", { level: 1, name: "Hei! Hva heter du?" })).toBeVisible();
   const nytt = JSON.parse((await lagret(page)) ?? "null");
   expect(nytt).toMatchObject({ schemaVersion: 1, oppgaver: [] });
 });
 
-test("setItem som kaster gir lagringsbanneret øverst", async ({ page }) => {
-  await page.addInitScript(() => {
-    Storage.prototype.setItem = () => {
-      throw new DOMException("Kvoten er full", "QuotaExceededError");
-    };
-  });
-  await page.goto("/");
-  const banner = page.getByRole("alert").filter({ hasText: "Nettleseren lar ikke appen lagre." });
-  await expect(banner).toHaveText(
-    "Nettleseren lar ikke appen lagre. Det du skriver nå, forsvinner når du lukker fanen.",
-  );
-  const overskrift = page.getByRole("heading", { level: 1, name: /^Hei/ });
-  await expect(overskrift).toBeVisible();
-  const bannerBoks = await banner.boundingBox();
-  const overskriftBoks = await overskrift.boundingBox();
-  expect(bannerBoks!.y).toBeLessThan(overskriftBoks!.y);
-  expect(bannerBoks!.y).toBe(0);
+test.describe("første start med full kvote", () => {
+  // Tomt lager, så appen må skrive og feiler. Uten KI-valg er det oppsettet som vises.
+  test.use({ medSamtykke: false });
 
-  const axe = await new AxeBuilder({ page }).analyze();
-  expect(axe.violations).toEqual([]);
+  test("setItem som kaster gir lagringsbanneret øverst", async ({ page }) => {
+    await page.addInitScript(() => {
+      Storage.prototype.setItem = () => {
+        throw new DOMException("Kvoten er full", "QuotaExceededError");
+      };
+    });
+    await page.goto("/");
+    const banner = page.getByRole("alert").filter({ hasText: "Nettleseren lar ikke appen lagre." });
+    await expect(banner).toHaveText(
+      "Nettleseren lar ikke appen lagre. Det du skriver nå, forsvinner når du lukker fanen.",
+    );
+    const overskrift = page.getByRole("heading", { level: 1, name: /^Hei/ });
+    await expect(overskrift).toBeVisible();
+    const bannerBoks = await banner.boundingBox();
+    const overskriftBoks = await overskrift.boundingBox();
+    expect(bannerBoks!.y).toBeLessThan(overskriftBoks!.y);
+    expect(bannerBoks!.y).toBe(0);
+
+    const axe = await new AxeBuilder({ page }).analyze();
+    expect(axe.violations).toEqual([]);
+  });
 });
 
 test("to faner: den andre laster på nytt uten å skrive tilbake", async ({ context }) => {

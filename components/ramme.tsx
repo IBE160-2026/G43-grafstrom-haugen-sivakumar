@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import type { ComponentType, ReactNode, SVGProps } from "react";
 import { ArkivIkon, InnstillingerIkon, OppgaverIkon } from "@/components/ikoner";
 import { PERSONVERN_VALG } from "@/kjerne/tekster";
+import { PERSONVERNERKLÆRING } from "@/lib/ruter";
 
 type Fane = {
   href: "/" | "/arkiv" | "/innstillinger";
@@ -25,7 +26,7 @@ function erAktiv(stinavn: string, href: Fane["href"]) {
 }
 
 /** «due**Next**», med «Next» i `accent-ink`. */
-function Logo({ className = "" }: { className?: string }) {
+export function Logo({ className = "" }: { className?: string }) {
   return (
     <p className={`text-title ${className}`}>
       due<span className="text-accent-ink">Next</span>
@@ -48,8 +49,6 @@ function SidemenyLenke({ fane, aktiv }: { fane: Fane; aktiv: boolean }) {
     </Link>
   );
 }
-
-const PERSONVERNERKLÆRING = "/personvernerklaering";
 
 /**
  * `privacy-link` (FR-41): liten, dempet og understreket. Står nederst i

@@ -1,5 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test, type Page } from "@playwright/test";
+import { besvart, expect, test, type Page } from "./fikstur";
 import type { Innstillinger } from "@/kjerne/skjema";
 import { innstillingerSkjema, nyttDokument } from "@/kjerne/skjema";
 
@@ -38,7 +38,9 @@ async function leggInn(page: Page, rå: string) {
 
 function dokumentMed(innstillinger: Partial<Innstillinger>) {
   const dokument = nyttDokument();
-  return JSON.stringify({ ...dokument, innstillinger: { ...dokument.innstillinger, ...innstillinger } });
+  return JSON.stringify(
+    besvart({ ...dokument, innstillinger: { ...dokument.innstillinger, ...innstillinger } }),
+  );
 }
 
 /** Samler hydreringsfeil fra konsollen. */
@@ -56,17 +58,22 @@ function samleHydreringsfeil(page: Page) {
 const html = (page: Page) => page.locator("html");
 const bakgrunn = (page: Page) => page.evaluate(() => getComputedStyle(document.body).backgroundColor);
 
-test("første start: blå og system før første tegning", async ({ page }) => {
-  const feil = samleHydreringsfeil(page);
-  await noterFørsteTegning(page);
-  await page.emulateMedia({ colorScheme: "light" });
-  await page.goto("/");
-  expect(await førsteTegning(page)).toEqual({ tema: "blå", modus: "system" });
-  await expect(page.getByRole("heading", { level: 1, name: /^Hei/ })).toBeVisible();
-  await expect(html(page)).toHaveAttribute("data-tema", "blå");
-  await expect(html(page)).toHaveAttribute("data-modus", "system");
-  expect(await bakgrunn(page)).toBe(LYS_BAKGRUNN);
-  expect(feil).toEqual([]);
+test.describe("første start", () => {
+  test.use({ medSamtykke: false });
+
+  test("første start: blå og system før første tegning", async ({ page }) => {
+    const feil = samleHydreringsfeil(page);
+    await noterFørsteTegning(page);
+    await page.emulateMedia({ colorScheme: "light" });
+    await page.goto("/");
+    expect(await førsteTegning(page)).toEqual({ tema: "blå", modus: "system" });
+    // Uten KI-valg starter appen på førstegangsoppsettet.
+    await expect(page.getByRole("heading", { level: 1, name: "Hei! Hva heter du?" })).toBeVisible();
+    await expect(html(page)).toHaveAttribute("data-tema", "blå");
+    await expect(html(page)).toHaveAttribute("data-modus", "system");
+    expect(await bakgrunn(page)).toBe(LYS_BAKGRUNN);
+    expect(feil).toEqual([]);
+  });
 });
 
 test("lagret rosa og mørk gjelder fra første tegning og etter hydrering", async ({ page }) => {
