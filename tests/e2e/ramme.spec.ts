@@ -117,6 +117,7 @@ for (const [rute, tittel, sidetittel] of [
   ["/", /^Hei/, "Oppgaver – dueNext"],
   ["/arkiv", "Arkiv", "Arkiv – dueNext"],
   ["/innstillinger", "Innstillinger", "Innstillinger – dueNext"],
+  ["/personvernerklaering", "Personvernerklæring", "Personvernerklæring – dueNext"],
 ] as const) {
   test(`${rute} har tittel, glød og ingen axe-brudd`, async ({ page }) => {
     await page.goto(rute);

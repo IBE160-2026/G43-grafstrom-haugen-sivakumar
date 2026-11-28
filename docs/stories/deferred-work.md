@@ -38,3 +38,15 @@
 - source_spec: `docs/stories/spec-1-5-se-oppgavene-i-de-smarte-listene.md`
   summary: Kjør axe på oppgavelista i mørk modus og med «Ingen frist» lukket.
   evidence: axe kjøres i dag bare i lys modus med blått tema; `warn` og `text-muted` på `surface-base` har annen kontrast i mørk modus.
+- source_spec: `docs/stories/spec-3-2-personvernerklaering-ett-klikk-unna.md`
+  summary: Når Personvern og data finnes (3.4), bør erklæringen si hvor KI slås av og hvor data slettes, og «Personvern og data» legges over lenken i sidemenyen.
+  evidence: Erklæringen sier bare «når som helst», og PC-lenken står i dag rett under Innstillinger fordi /personvern ikke finnes.
+- source_spec: `docs/stories/spec-3-2-personvernerklaering-ett-klikk-unna.md`
+  summary: Omdirigeringen til /oppstart i 3.3 må unnta /personvernerklaering, slik at erklæringen kan leses fra oppsettet.
+  evidence: Unntaket står bare i Design Notes i 3.2; ruta er en privat konstant i components/ramme.tsx.
+- source_spec: `docs/stories/spec-3-2-personvernerklaering-ett-klikk-unna.md`
+  summary: Erklæringen kan ikke nås når feilsiden vises (data kan ikke leses).
+  evidence: AppTilstand viser Feilside i stedet for rammen og sidene; godtatt i intent-matrisen for 3.2.
+- source_spec: `docs/stories/spec-3-2-personvernerklaering-ett-klikk-unna.md`
+  summary: Sjekk kontrasten på personvernlenken på mobil med en egen test (farge mot --surface-base, lys og mørk).
+  evidence: Lenken ligger i .glod-kolonnen med gradient som bakgrunn, så axe legger den under incomplete, ikke violations.

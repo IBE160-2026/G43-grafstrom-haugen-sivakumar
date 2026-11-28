@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ComponentType, ReactNode, SVGProps } from "react";
 import { ArkivIkon, InnstillingerIkon, OppgaverIkon } from "@/components/ikoner";
+import { PERSONVERN_VALG } from "@/kjerne/tekster";
 
 type Fane = {
   href: "/" | "/arkiv" | "/innstillinger";
@@ -48,6 +49,24 @@ function SidemenyLenke({ fane, aktiv }: { fane: Fane; aktiv: boolean }) {
   );
 }
 
+const PERSONVERNERKLÆRING = "/personvernerklaering";
+
+/**
+ * `privacy-link` (FR-41): liten, dempet og understreket. Står nederst i
+ * sidemenyen på PC og nederst på hver side på mobil.
+ */
+function PersonvernLenke({ aktiv, className = "" }: { aktiv: boolean; className?: string }) {
+  return (
+    <Link
+      href={PERSONVERNERKLÆRING}
+      aria-current={aktiv ? "page" : undefined}
+      className={`flex min-h-11 items-center rounded-sm text-meta text-text-muted underline hover:text-text-primary ${className}`}
+    >
+      {PERSONVERN_VALG.personvernerklæring}
+    </Link>
+  );
+}
+
 /**
  * Appens ramme rundt sidene. Under `md` (768 px): toppfelt med logo og ⚙ og
  * bunnmeny med fanene. Fra `md`: sidemeny på 200 px med fanene øverst og
@@ -57,6 +76,7 @@ function SidemenyLenke({ fane, aktiv }: { fane: Fane; aktiv: boolean }) {
 export function Ramme({ children }: { children: ReactNode }) {
   const stinavn = usePathname();
   const innstillingerAktiv = erAktiv(stinavn, INNSTILLINGER.href);
+  const personvernAktiv = stinavn === PERSONVERNERKLÆRING;
 
   return (
     <>
@@ -75,10 +95,11 @@ export function Ramme({ children }: { children: ReactNode }) {
           </ul>
           <div className="mt-auto">
             <SidemenyLenke fane={INNSTILLINGER} aktiv={innstillingerAktiv} />
+            <PersonvernLenke aktiv={personvernAktiv} className="px-3" />
           </div>
         </nav>
 
-        <div className="glod flex min-w-0 flex-1 flex-col">
+        <div className="glod flex min-h-dvh min-w-0 flex-1 flex-col">
           <header className="flex items-center px-margin-mobile pt-2 md:hidden">
             <Logo />
             <Link
@@ -92,8 +113,10 @@ export function Ramme({ children }: { children: ReactNode }) {
               <InnstillingerIkon className="size-6" />
             </Link>
           </header>
-          <main className="flex-1 px-margin-mobile pt-3 pb-24 md:px-margin-desktop md:pt-6 md:pb-8">
-            {children}
+          <main className="flex flex-1 flex-col px-margin-mobile pt-3 pb-24 md:px-margin-desktop md:pt-6 md:pb-8">
+            <div className="mb-8 md:mb-0">{children}</div>
+            {/* Nederst på siden (mt-auto), så den aldri står på gløden, også på korte sider. */}
+            <PersonvernLenke aktiv={personvernAktiv} className="mt-auto self-center md:hidden" />
           </main>
         </div>
       </div>
