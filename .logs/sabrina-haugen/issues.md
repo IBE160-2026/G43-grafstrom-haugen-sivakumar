@@ -19,3 +19,5 @@
 - [ ] 2026-11-28 [crlf-i-tekstsjekken](997-2026-11-28-13-58-57-crlf-i-tekstsjekken.md) — avtal med gruppa om `.gitattributes` med `*.md text eol=lf`
 - [ ] 2026-11-28 [crlf-i-tekstsjekken](997-2026-11-28-13-58-57-crlf-i-tekstsjekken.md) — si fra til Abhira at 4.5 trenger story 1.7 (helst ferdig ca. 4.–5.12)
 - [ ] 2026-11-28 [crlf-i-tekstsjekken](997-2026-11-28-13-58-57-crlf-i-tekstsjekken.md) — lag `.env.local` med `ANTHROPIC_API_KEY` før 4.3 og 4.8
+- [ ] 2026-11-28 [story-4-1-spec](996-2026-11-28-14-19-01-story-4-1-spec.md) — start implementeringen av 4.1 (`bmad-build` med specen) når Stine har godkjent story 3.1
+- [ ] 2026-11-28 [story-4-1-spec](996-2026-11-28-14-19-01-story-4-1-spec.md) — lag `epic-4-context.md` på nytt hvis planleggingsdokumentene endres (ca. 9 KB, over målet)
