@@ -16,8 +16,10 @@
 - [ ] 2026-11-28 [gjennomgang-story-1-5](993-2026-11-28-11-23-54-gjennomgang-story-1-5.md) — si fra til Abhira at 1.5 er godkjent og kanten myket opp, så hun kan lukke punktene sine
 - [x] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — les gjennom ordlyden i personvernerklæringen, særlig tekst utover FR-41 (specens Implementation Notes) (løst 2026-11-28: sjekket av Lena i nettleseren)
 - [ ] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — Abhira går gjennom story 3.2 før den settes til `done`
-- [ ] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — i story 3.3: omdirigeringen til `/oppstart` må unnta `/personvernerklaering`
-- [ ] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — si fra til Sabrina at 3.3 venter på `kiErPå` i `kjerne/samtykke.ts` (3.1 del 2)
-- [ ] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — når `kiErPå` finnes: kjør `bmad-build` på spec-utkastet for 3.3
+- [x] 2026-11-28 [story-3-2-personvernerklaering](992-2026-11-28-11-59-46-story-3-2-personvernerklaering.md) — i story 3.3: omdirigeringen til `/oppstart` må unnta `/personvernerklaering` (løst 2026-11-28: story 3.3 bygget, commit 54bf29d)
+- [x] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — si fra til Sabrina at 3.3 venter på `kiErPå` i `kjerne/samtykke.ts` (3.1 del 2) (løst 2026-11-28: story 3.3 bygget, commit 54bf29d)
+- [x] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — når `kiErPå` finnes: kjør `bmad-build` på spec-utkastet for 3.3 (løst 2026-11-28: story 3.3 bygget, commit 54bf29d)
 - [ ] 2026-11-28 [story-2-8-fargetemaer](990-2026-11-28-12-18-22-story-2-8-fargetemaer.md) — Abhira går gjennom story 2.8 før den settes til `done`
 - [ ] 2026-11-28 [story-2-7-prosjekter](989-2026-11-28-12-39-19-story-2-7-prosjekter.md) — Abhira går gjennom story 2.7 før den settes til `done` (dialogteksten var ikke fastsatt)
+- [ ] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — si fra til gruppa: nye e2e-tester må importere `test`/`expect` fra `tests/e2e/fikstur.ts`, og egne dokumenter trenger `besvart(…)`
+- [ ] 2026-11-28 [story-3-3-forstegangsoppsett](991-2026-11-28-12-05-21-story-3-3-forstegangsoppsett.md) — Abhira går gjennom story 3.3 før den settes til `done`
