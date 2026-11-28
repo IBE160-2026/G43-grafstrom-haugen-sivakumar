@@ -48,16 +48,19 @@
 - [ ] 2026-11-26 [sprint-planning](984-2026-11-26-18-18-45-sprint-planning.md) — spor C (Sabrina) og D (Stine) avtaler hvem som definerer `årsak`/kalltype først (story 2.1 trenger dem før 4.1)
 - [ ] 2026-11-26 [sprint-planning](984-2026-11-26-18-18-45-sprint-planning.md) — story 1.3 lager enkel «Slett alle data» på feilsiden, som 3.6 gjenbruker
 - [ ] 2026-11-26 [sprint-planning](984-2026-11-26-18-18-45-sprint-planning.md) — vurder om storynøkler/-filnavn med æøå i `docs/stories/` skaper trøbbel i git
-- [ ] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — Lena går gjennom story 1.1 før den settes til `done`
+- [x] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — Lena går gjennom story 1.1 før den settes til `done` (løst 2026-11-28: godkjent av Lena 27.11)
 - [x] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — gruppa avgjør om Next 16.3.5 skal oppgraderes (kritisk `npm audit`-funn) og ser på `sharp` (løst 2026-11-26: oppgradert til 16.4.6, npm audit 0 funn)
 - [x] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — fjern `passWithNoTests`/`--pass-with-no-tests` når første test finnes i hver mappe (løst 2026-11-26, story 1.2)
 - [ ] 2026-11-26 [story-1-1-prosjektoppsett](983-2026-11-26-18-55-00-story-1-1-prosjektoppsett.md) — i story 4.2/4.3: mock-KI sjekkes før nøkkelen brukes
-- [ ] 2026-11-26 [story-1-2-lagringsformat](982-2026-11-26-19-40-00-story-1-2-lagringsformat.md) — Lena går gjennom story 1.2 før den settes til `done`
+- [x] 2026-11-26 [story-1-2-lagringsformat](982-2026-11-26-19-40-00-story-1-2-lagringsformat.md) — Lena går gjennom story 1.2 før den settes til `done` (løst 2026-11-28: godkjent av Lena 27.11)
 - [x] 2026-11-26 [story-1-2-lagringsformat](982-2026-11-26-19-40-00-story-1-2-lagringsformat.md) — i story 1.3: valider dokumentet før `skriv()`, så en kommandofeil ikke låser appen på feilsiden (løst 2026-11-26, story 1.3)
 - [ ] 2026-11-26 [story-1-2-lagringsformat](982-2026-11-26-19-40-00-story-1-2-lagringsformat.md) — ved første migrering: hindre at en gammel fane skriver over et dokument fra nyere versjon
 - [ ] 2026-11-26 [story-1-2-lagringsformat](982-2026-11-26-19-40-00-story-1-2-lagringsformat.md) — si fra til Sabrina: `tests/kjerne/tekster.test.ts` («deltekst står to ganger») feiler på Windows fordi `EXPERIENCE.md` sjekkes ut med CRLF; normaliser linjeskiftene (`.replace(/\r\n/g, "\n")`) eller legg `*.md text eol=lf` i `.gitattributes`
-- [ ] 2026-11-26 [story-1-3-butikk-og-klokke](981-2026-11-26-21-30-00-story-1-3-butikk-og-klokke.md) — Lena går gjennom story 1.3 før den settes til `done`
-- [ ] 2026-11-26 [story-1-3-butikk-og-klokke](981-2026-11-26-21-30-00-story-1-3-butikk-og-klokke.md) — si fra til Lena: rammen i 1.4 skal ligge inni `AppTilstand` under banneret, og feilside/dialog/banner trenger farger, fokusring og varselfarge på *Slett alt*
+- [x] 2026-11-26 [story-1-3-butikk-og-klokke](981-2026-11-26-21-30-00-story-1-3-butikk-og-klokke.md) — Lena går gjennom story 1.3 før den settes til `done` (løst 2026-11-28: godkjent av Lena 27.11)
+- [x] 2026-11-26 [story-1-3-butikk-og-klokke](981-2026-11-26-21-30-00-story-1-3-butikk-og-klokke.md) — si fra til Lena: rammen i 1.4 skal ligge inni `AppTilstand` under banneret, og feilside/dialog/banner trenger farger, fokusring og varselfarge på *Slett alt* (løst 2026-11-28: bekreftet i gjennomgangen av 1.4)
 - [ ] 2026-11-26 [story-1-3-butikk-og-klokke](981-2026-11-26-21-30-00-story-1-3-butikk-og-klokke.md) — si fra til Sabrina: `LAGRINGSBANNER` og `FEILSIDE` er lagt til i `kjerne/tekster.ts` med regler i testen hennes
 - [ ] 2026-11-28 [bytte-api-nokkel](980-2026-11-28-01-11-20-bytte-api-nokkel.md) — ny `ANTHROPIC_API_KEY` utløper i slutten av desember 2026; bekreft datoen i konsollen og bytt nøkkel før den går ut
 - [ ] 2026-11-28 [bytte-api-nokkel](980-2026-11-28-01-11-20-bytte-api-nokkel.md) — bekreft at kontoen har kreditt med en ekte KI-forespørsel i appen
+- [ ] 2026-11-28 [gjennomgang-story-1-4](980-2026-11-28-01-41-15-gjennomgang-story-1-4.md) — i story 1.7: lista får 436 px ved 1024 px (ikke 484 px som specen for 1.4 sier)
+- [ ] 2026-11-28 [gjennomgang-story-1-4](980-2026-11-28-01-41-15-gjennomgang-story-1-4.md) — e2e får tidsavbrudd ved parallell kjøring på denne maskinen; vurder `workers` eller `navigationTimeout` i `playwright.config.ts`
+- [ ] 2026-11-28 [gjennomgang-story-1-4](980-2026-11-28-01-41-15-gjennomgang-story-1-4.md) — gå gjennom Lenas story 1.8
